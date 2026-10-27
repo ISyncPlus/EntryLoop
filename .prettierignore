@@ -1,0 +1,8 @@
+node_modules
+dist
+.npm-cache
+.cache
+playwright-report
+test-results
+.taste-skill
+package-lock.json
