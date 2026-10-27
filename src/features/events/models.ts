@@ -41,7 +41,12 @@ const legacyPackageSchema = z
     signature: signatureSchema,
   })
   .strict();
-export const packageSchema = z.discriminatedUnion('version', [legacyPackageSchema, legacyPackageSchema.extend({ version: z.literal(2), policy: policySchema }).strict()]);
+export const packageSchema = z.discriminatedUnion('version', [
+  legacyPackageSchema,
+  legacyPackageSchema
+    .extend({ version: z.literal(2), policy: policySchema })
+    .strict(),
+]);
 export const attendeeInputSchema = z
   .object({
     name: z.string().trim().min(1, 'Attendee name is required.').max(120),

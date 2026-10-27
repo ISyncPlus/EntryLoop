@@ -71,7 +71,7 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
           <strong data-testid="issued-count">{tickets.length}</strong>
         </div>
         <div>
-          <span>Checked in locally</span>
+          <span>Trusted check-ins locally</span>
           <strong>{attendance.attendance}</strong>
         </div>
         <div>
@@ -125,7 +125,10 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
           />
         )}
         {view === 'Scanner devices' && (
-          <><DeviceExport db={db} event={event} issuedCount={tickets.length} /><ScannerAuthority db={db} event={event} /></>
+          <>
+            <DeviceExport db={db} event={event} issuedCount={tickets.length} />
+            <ScannerAuthority db={db} event={event} />
+          </>
         )}
         {view === 'Event details' && (
           <section className="event-details">

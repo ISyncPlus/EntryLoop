@@ -1,5 +1,7 @@
 # Phase 2A end-to-end testing
 
+Historical Phase 2A record. For current authorization, signed synchronization and testing, use [PHASE_2B_REPORT.md](PHASE_2B_REPORT.md) and [TESTING_PHASE_2B.md](TESTING_PHASE_2B.md). The unsigned real-event workflow below is superseded.
+
 ## Automated gate
 
 From this project with Node 22.12+:

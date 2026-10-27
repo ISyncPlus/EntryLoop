@@ -1,5 +1,52 @@
 # Development log
 
+## October 27, 2026 · Africa/Lagos · Phase 2B
+
+Inspected AGENTS.md, architecture, Phase 2A report, threat model, persistence, ticket crypto, event repository, scanner/provisioning callers, reconciliation and existing tests before changing code. Applied the Ponytail coding workflow: native crypto, additive tables and existing presentation patterns, with no new dependency or design phase. All work remained in EntryLoop; no deployment, push, backend or unrelated repository changes were performed.
+
+Implemented event-scoped root-signed scanner credentials and explicit fingerprint-reviewed enrollment; independent non-exportable scanner identities; signed canonical operation proofs; trust-only projections with retained legacy/revoked evidence; monotonic signed scanner/ticket revocation; package v2; and receiver-authenticated bounded snapshot exchanges with signed offers/frames/missing requests/acknowledgments. Added durable staging and import-counter transactions, exact content/context agreement, compatibility safeguards, permanent engineering rules, protocol/recovery/hardware instructions and the ten-part delivery report.
+
+The pure engine remains byte-for-byte unchanged: SHA-256 `db7489cba82d6c25b0d6a1f46986645d2cfa884ce821d7a2a6b1c3d5209bb86a`. Main raw unsigned real-event imports now fail explicitly; the synthetic workbench retains its original v1 behavior. Existing organizer/scanner UI styles remain; only required functional controls and status text were added.
+
+### Bugs and validation failures addressed
+
+- New test declarations initially failed unused-variable/no-useless-assignment checks. Removed them before the successful gate. An early browser invocation against old assets was stopped; it is not counted as fresh-build evidence.
+- Existing real-event regressions initially failed because admission now requires explicit enrollment. Updated setup/callers to enroll cryptographically and replaced unsigned real-event merges with verified signed merges; no insecure test fallback was added. Kept wrong-event/signature/duplicate/roster/export/storage assertions.
+- A scoped Playwright `has` locator repeated its ancestor region and could not find the enrollment fallback. Corrected relative matching. Resume tests now wait for offer acceptance before retaining the incoming session UUID, avoiding capture of the prior request UUID.
+- Repeated payload edits made a wrapped textarea's label unstable for exact matching. Separated its label using useId/htmlFor; browser tests repeatedly edit and submit actual signed payloads.
+- Review found an interruption window between verified operation commit and acknowledgment signing. Persist import counters in the same transaction as records/proofs, retain them on retry, then sign/persist the acknowledgment separately. A regression forces acknowledgment signing to fail after merge, then resumes without losing/doubling the receipt.
+- Initial policy signing could fail after storing a new event/key. Policy signing now precedes one atomic event/key/policy transaction. A failure regression confirms no partial event is left.
+- A secure merge result unnecessarily exposed an attendance projection that included historical raw records. Return actual transfer counters only; aggregate product metrics use verified trustedSnapshot. A regression merges valid signed evidence alongside old unsigned records and confirms trusted attendance excludes the latter.
+- Repeated interrupted-transfer tests exposed a Chromium persistent-context stall while reading a selected package, before crypto enrollment/sync. Diagnostics were temporary and removed. File inputs now retain the selected file until asynchronous validation/image/CSV processing completes, then clear for repeat selection. Added a deferred-read React regression. The uninstrumented three-per-engine repeat run passed six executions and the full suite passed afterward. This is defensive lifetime handling backed by regressions, not a claim that a browser-internal defect was independently proven.
+
+### Final executed evidence
+
+Node 24.20.0 / npm 11.19.0, final source:
+
+| Check                                                 | Actual result                                                                       |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `npm run check`                                       | Passed complete gate                                                                |
+| TypeScript                                            | Passed strict configuration                                                         |
+| ESLint                                                | Passed, zero warnings permitted                                                     |
+| Prettier                                              | Passed                                                                              |
+| Vitest                                                | **93 tests passed in 11 files**                                                     |
+| Production build                                      | Passed; JS about 1,029.89 kB / 293.69 kB gzip; existing chunk-size warning retained |
+| PWA generation                                        | 12 precache entries, about 1,170.73 KiB                                             |
+| Playwright                                            | **24 passed**: 12 scenarios × Chromium/WebKit                                       |
+| `test:e2e -- --grep 'partial secure' --repeat-each 3` | **6 passed** after file-lifetime fix, using native uninstrumented browser behavior  |
+| Engine hash                                           | Unchanged, as above                                                                 |
+| `git diff --check`                                    | Passed                                                                              |
+
+Unit/integration coverage retains all 64 previous tests and adds 29 security/file-workflow regressions. Browser coverage retains all 20 earlier scenarios/engine executions with explicit authorization and adds four executions for interrupted restart/recovery and revoked/stale/forged-policy behavior. Real QR pixels, native crypto and actual IndexedDB are used. No mocked scanner callback is reported as physical success. Temporary file-read diagnostic instrumentation was removed before the final repeat/full runs.
+
+### Security/hardware limits and attribution
+
+No new physical camera-to-camera, phone installation, TLS trust setup, adverse-lighting, maximum-roster/throughput, OS eviction or independent cryptographic audit was performed. The owner-confirmed Phase 1 physical result remains historical. Two equally stale offline devices cannot know new revocations; policies must be distributed. Authorized/compromised scanners can sign false physical-attendance claims. Same-origin code can invoke non-exportable keys. No secure organizer-key recovery/rotation or encrypted access-control layer was added, and private-key export was not weakened.
+
+Native WebCrypto and Dexie transaction constraints were checked against the [WebCrypto specification](https://www.w3.org/TR/webcrypto/) and [Dexie transaction documentation](https://dexie.org/docs/Dexie/Dexie.transaction%28%29). Package provenance remains unchanged; no dependency was added. OpenAI Codex assisted with architecture/source/test/debug/documentation work; user scope and hardware evidence remain separately attributed. Stage 4 UI/UX, cloud sync, payments and deployment remain outside this delivery.
+
+---
+
 ## October 27, 2026 · Africa/Lagos · Phase 2A
 
 ### Scope and evidence

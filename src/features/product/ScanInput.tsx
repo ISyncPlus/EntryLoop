@@ -40,9 +40,12 @@ export function ScanInput({
             accept="image/*"
             disabled={busy || reading}
             onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) void image(file);
-              e.target.value = '';
+              const input = e.currentTarget;
+              const file = input.files?.[0];
+              if (file)
+                void image(file).finally(() => {
+                  input.value = '';
+                });
             }}
           />
         </label>

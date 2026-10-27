@@ -11,7 +11,12 @@ import type {
   CatalogTicket,
   SigningKey,
 } from '../../events/models';
-import type { ScannerKey, Policy, Credential, OperationProof } from '../../security/models';
+import type {
+  ScannerKey,
+  Policy,
+  Credential,
+  OperationProof,
+} from '../../security/models';
 import type { SyncSession } from '../../security/exchange';
 export function scannerProfile(search: string): string {
   const profile = new URLSearchParams(search).get('scanner') ?? 'main';
@@ -50,8 +55,10 @@ export class EntryLoopDB extends Dexie {
       signingKeys: 'eventId',
     });
     this.version(3).stores({
-      scannerKeys: 'id', policies: '[eventId+epoch],eventId',
-      credentials: '[e+d],e', operationProofs: '[eventId+operationId],eventId',
+      scannerKeys: 'id',
+      policies: '[eventId+epoch],eventId',
+      credentials: '[e+d],e',
+      operationProofs: '[eventId+operationId],eventId',
       syncSessions: 'id,eventId,direction',
     });
   }
@@ -89,7 +96,9 @@ export class EntryLoopDB extends Dexie {
   }
   async importTransfer(eventId: string, payload: string) {
     if (eventId !== 'launchpad-lab' && eventId !== 'community-lab')
-      throw new Error('Unsigned transfers are restricted to the synthetic workbench. Use authenticated synchronization.');
+      throw new Error(
+        'Unsigned transfers are restricted to the synthetic workbench. Use authenticated synchronization.',
+      );
     // WebCrypto must complete before entering an IndexedDB transaction.
     const envelope = await decodeTransfer(payload, eventId);
     try {
@@ -128,6 +137,8 @@ export class EntryLoopDB extends Dexie {
   }
 
   async resetEvent(eventId: string): Promise<void> {
+    if (eventId !== 'launchpad-lab' && eventId !== 'community-lab')
+      throw new Error('Only synthetic test data can be reset here.');
     await this.operations.where('eventId').equals(eventId).delete();
   }
 }

@@ -1,12 +1,12 @@
-# EntryLoop · Phase 2A
+# EntryLoop · Phase 2B
 
-EntryLoop manages local events, imports guest lists, issues signed QR tickets, provisions scanners and reconciles offline admissions through QR batches. It runs without an application backend. **This is a working local-first prototype with documented security limits, not a claim of production readiness.**
+EntryLoop manages local events, issues signed QR tickets and reconciles check-ins between disconnected entrances through QR codes. Phase 2B adds event-scoped scanner authorization, signed admissions, revocation policies and resumable authenticated optical exchange. No backend, Wi-Fi, Bluetooth or internet is needed for the prepared core workflow.
 
-The owner confirmed Phase 1 QR reconciliation on two physical devices: matching operations and the expected duplicate admission conflict. Phase 2A signed-ticket scanning has automated Chromium/WebKit coverage; no new mobile hardware validation was performed in this session.
+This is a working MVP prototype with explicit limits, not an independent security certification. The owner observed Phase 1 reconciliation on two physical devices. New Phase 2B behavior has automated browser/QR-image evidence; **physical phone camera acceptance remains unverified**. UI/UX redesign is deferred to Stage 4; the existing interface is retained.
 
-## Run locally
+## Local setup
 
-Node 22.12+ and npm required; validated with Node 24.20.0.
+Node 22.12+ and npm (validated with Node 24.20.0):
 
 ```sh
 cd /Users/InhouseHQ/Desktop/EntryLoop
@@ -14,87 +14,83 @@ npm ci
 npm run dev -- --host 127.0.0.1
 ```
 
-Open `http://127.0.0.1:5173/`. For actual service-worker/offline tests:
+Development URL: `http://127.0.0.1:5173/`. Actual offline/PWA testing requires production resources:
 
 ```sh
 npm run build
 npm run preview -- --port 4173 --strictPort
 ```
 
-Open `http://127.0.0.1:4173/`, wait for the app resources to cache, then reload normally. The development server does not prove offline support. Existing Phase 1 installations may need all app tabs/windows closed before a waiting service-worker update activates. Do not clear site data to update: doing so also deletes local events and signing keys.
-
-## Product routes and local profiles
-
-| Route                  | Purpose                                                             |
-| ---------------------- | ------------------------------------------------------------------- |
-| `/`                    | Organizer workspace and locally created events                      |
-| `/events/new`          | Create an event and its organizer signing key                       |
-| `/events/<event UUID>` | Guest list, tickets, scanner provisioning and guarded event editing |
-| `/scan`                | Prepared event selection and event-package import                   |
-| `/scan/<event UUID>`   | Signed-ticket check-in, local totals and QR synchronization         |
-| `/dev/workbench`       | Clearly labeled synthetic Phase 1 engineering workbench             |
-
-Append `?scanner=organizer`, `?scanner=gate-a` or `?scanner=gate-b` for separate local test databases. The same profile across tabs intentionally shares a database. Profiles are a testing convenience, **not authentication or a security boundary**. The original database name is retained so existing Phase 1 records survive. An additive schema-v2 migration adds event/attendee/ticket/key tables.
-
-The current practical interface uses native accessible controls, light/dark themes, locally cached IBM Plex Sans and responsive layouts. Theme choice is carried by `?theme=light` or `?theme=dark` across product links. The latest user instruction defers the UI/UX redesign to **Stage 4**. The brief agency-style experiment, its libraries and supplied video were removed; they are not shipped.
-
-## Organizer workflow
-
-1. **Create event** with name, calendar date, location and description. It receives a stable UUID and its own non-exportable ECDSA P-256 private key stored in IndexedDB.
-2. Add attendees manually or choose **Import from CSV**. Required headers are exactly `name,email`; quoted fields and UTF-8 BOM/CRLF are supported. Email matching is trimmed/case-insensitive and unique per event. Preview shows accepted rows, duplicates and errors. Any invalid row blocks the import; duplicates are explicitly skipped. CSV limit: 1 MiB and 5,000 rows; event capacity: 5,000 attendees.
-3. Search by name, email or ticket ID. Every attendee gets a stable random opaque ticket ID. Issue tickets individually or choose **Issue all unissued tickets**. Repeated issuance preserves the existing signed token.
-4. In **Tickets**, preview an attendee and **Download digital ticket** (SVG), or **Download ticket sheet** (self-contained printable HTML). Individual tickets and sheets contain names outside the QR. Share them deliberately; anyone with a copy of a valid QR can present it. Sheets support up to 500 issued tickets; larger events can still download individual SVGs. No email-sending service or PDF-generation dependency is used.
-5. In **Scanner devices**, download an event package and compare the organizer fingerprint on each scanner through a trusted channel. Packages contain public event details, a public verification key, a signature and opaque issued-ticket IDs. They contain no attendee names/emails or private signing key. Issue additional tickets before exporting an updated package.
-6. **Event details** allows editing before issuance/provisioning. Name/date/location lock after either operation; description remains editable. Loaded revision checks reject stale concurrent edits. The UI offers an explicit reload that discards the stale draft. Event ID and signing key never change through editing.
-
-**Keep the organizer browser data safe.** The private key cannot be exported, and no backup/recovery feature exists. Browser clearing, eviction or device loss can permanently remove the ability to issue more tickets for that event. Scanner devices do not hold the organizer key.
-
-## Offline scanner workflow
-
-1. Load the production app on a trusted HTTPS origin (localhost is acceptable for the local computer), let it cache and reload normally.
-2. Open **Event check-in**, import the organizer's event JSON and enter the organizer's full SHA-256 public-key fingerprint obtained independently. The package's self-signature alone cannot identify the organizer. The first accepted key is pinned. Imports cannot replace organizer data, rotate a pinned key, roll back revisions or remove already-known ticket IDs.
-3. Select the event and choose **Scan with camera**. The app checks token schema, signature against the pinned key, event identity, issued-ticket membership and the local admission log before storing an admission. An invalid signature, wrong event, unprepared ticket or local duplicate is rejected without an admission write.
-4. Image upload and manual signed-payload entry are clearly available fallbacks through the same verifier. They do not constitute a physical camera test. The camera stops after each decoded QR so staff can read the result before starting the next scan.
-5. **Sync & conflicts** reuses Phase 1 batch exchange and the unchanged pure reconciliation engine. Select 1–5 operations and generate/scan real QR batches. Exchange every relevant batch both ways. Same valid operations yield the same unique-ticket totals and preserved conflicts. A disconnected scanner cannot prevent another disconnected scanner admitting a copy of the same ticket.
-
-See [exact end-to-end and physical-device test steps](docs/TESTING_PHASE_2A.md), including local trusted HTTPS setup.
-
-## Ticket and provisioning protocols
-
-Ticket v1, bounded to 512 UTF-8 bytes:
-
-```text
-{"k":"ELT","v":1,"e":"<event UUID>","t":"<opaque ticket ID>","s":"<86-char base64url signature>"}
-```
-
-The ECDSA P-256 / SHA-256 message is `ENTRYLOOP:TICKET:1` + newline + compact `JSON.stringify({e,t})`. Signatures are the WebCrypto 64-byte raw `r || s` form, base64url encoded. Tokens contain no attendee names/emails. The signature authenticates event/ticket IDs to a pinned key, not the identity of the person presenting the QR. Event dates are descriptive; expiry/time-window/revocation rules are not implemented.
-
-Scanner package v1: strict `{kind:"entryloop-event",version:1,event,publicKey,ticketIds,signature}`. Public keys contain only `kty`, `crv`, `x`, `y`; unknown/private-key fields are rejected. The signature uses a separate `ENTRYLOOP:EVENT:1` message domain and canonical event/key fields with sorted ticket IDs. Limit: 1 MiB and 5,000 unique ticket IDs. Validation and cryptography finish before the import transaction. No roster or signing key is transferred.
-
-Check-in synchronization remains the Phase 1 JSON `{v,e,r,h}` format: **1–5 operations / 900 UTF-8 bytes**, H QR error correction, four-module quiet zone. Tuples carry only operation ID, ticket ID, scanner ID and time. SHA-256 detects corruption, **not authenticity of check-in operations**. Ticket signatures do not magically sign synchronization records. A hostile person who knows an issued ticket ID can forge an unsigned admission batch. Do not use unauthenticated sync with untrusted operators; staff-device authorization and signed operation evidence remain Phase 2B priorities.
-
-## Validation
+Open `http://127.0.0.1:4173/`, wait for **App resources cached**, then normally reload. Camera, WebCrypto and service workers require HTTPS or localhost. A phone visiting an HTTP LAN IP is not localhost. [TESTING_PHASE_2B.md](docs/TESTING_PHASE_2B.md) includes the supported manual local-TLS procedure. No deployment was performed.
 
 ```sh
 PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright npx playwright install chromium webkit
 npm run check
 ```
 
-The gate runs strict TypeScript, ESLint, Prettier, unit/integration tests, production build and Playwright. Browser tests use actual native WebCrypto, IndexedDB, exported SVG/HTML files, QR pixels and ZXing. They provision isolated devices and disable networking after production caching; no scanner success is mocked. The tests also restart real browser processes and reuse the persisted organizer signing key offline. See [development evidence](docs/DEVELOPMENT_LOG.md) for exact executed results and failures fixed.
+The gate runs strict TypeScript, lint, formatting, unit/integration tests, fresh production build and Chromium/WebKit browser tests. `test:e2e` alone uses existing `dist`, so build first after source changes. [DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) records executed results and fixed failures.
 
-## Files and boundaries
+## Routes and storage
 
-- `src/features/check-in/domain/reconcile.ts`: unchanged pure merge/admission engine.
-- `src/features/check-in/persistence/database.ts`: additive Dexie v2 schema, legacy scanner/log methods, real-ticket membership on sync imports.
-- `src/features/events/models.ts`, `repository.ts`: event/attendee/ticket/package models and transactional workflows.
-- `src/features/attendees/csv.ts`: bounded CSV parsing/validation and duplicate preview.
-- `src/features/tickets/signatures.ts`, `export.ts`: native signing/verification, fingerprint/package trust and safe offline ticket documents.
-- `src/features/product/`: modular organizer, provisioning, ticket and scanner screens.
-- `src/features/sync/`: existing codec/camera/transfer behavior with shared optical helpers.
-- `tests/events.spec.ts`, `tests/offline.spec.ts`: new real-event workflows and retained Phase 1 regressions.
+| Route                  | Purpose                                                                                |
+| ---------------------- | -------------------------------------------------------------------------------------- |
+| `/`                    | Organizer events                                                                       |
+| `/events/new`          | Create event and local organizer key                                                   |
+| `/events/<event UUID>` | Guests, signed tickets, scanner provisioning/enrollment/revocation and guarded editing |
+| `/scan`                | Event-package import and prepared events                                               |
+| `/scan/<event UUID>`   | Authorized ticket admission, local trusted totals, evidence and authenticated sync     |
+| `/dev/workbench`       | Clearly labeled synthetic Phase 1 experiment, retaining unsigned v1 exchange           |
 
-Read [architecture](docs/ARCHITECTURE.md), [decisions](docs/DECISIONS.md), [threat model](docs/THREAT_MODEL.md), [Phase 2A report](docs/PHASE_2A_REPORT.md), [roadmap](docs/ROADMAP.md) and [third-party/AI attribution](THIRD_PARTY_NOTICES.md).
+Use `?scanner=organizer`, `?scanner=gate-a`, `?scanner=gate-b` for isolated desktop test databases. Same-profile tabs intentionally share data. **Profiles are namespaces, not authorization or separate physical devices.** Theme links retain `?theme=light|dark`. The additive Dexie v3 migration preserves the original database names, organizer keys, tickets and all historical logs.
 
-## Known limits
+Do not clear site data to update the PWA. Close old app tabs/windows so a waiting worker can activate; then reload normally. Clearing/eviction can destroy logs and non-exportable signing keys.
 
-No backend, account authentication, cloud sync, payment system, key recovery/rotation, ticket revocation/reissue, roster encryption or real-time global admission lock. Device profiles are not access control. Mobile camera/install behavior for signed tickets, large-event performance and storage eviction remain unverified. Signature correctness does not prove who controls an initial trusted key; fingerprint comparison matters. No deployment or GitHub push was performed. Phase 2B is not implemented; full UI/UX design waits for Stage 4.
+## Organizer and enrollment workflow
+
+1. Create an event with stable UUID, name/date/location/description. Name/date/location lock after ticket issuance or provisioning; descriptions remain editable with stale-revision protection.
+2. Add attendees manually or via bounded `name,email` CSV (1 MiB, 5,000 rows). Preview validates every row, skips normalized per-event email duplicates and blocks invalid batches. Names/emails stay organizer-local.
+3. Issue unique signed tickets, retaining original tokens across repeated issuance. Download individual digital SVGs or self-contained printable HTML sheets (up to 500 tickets per sheet). Display names appear outside ticket QRs; handle exported files deliberately.
+4. In **Scanner devices**, download the v2 event package. It contains event metadata, public organizer key, issued opaque IDs and a signed revocation policy. It contains no attendee roster or private key. Independently compare the full organizer fingerprint on every scanner.
+5. Each prepared scanner opens **Scanner authorization and policy → Create enrollment request**. Use entrance aliases, not personal names. The scanner generates its own non-exportable key and shows its fingerprint/request QR.
+6. Organizer scans the request, compares the full fingerprint directly on that scanner, enters it and explicitly authorizes. Return the organizer-signed credential QR to the requesting scanner. Other devices cannot use that credential without its private key. The organizer must choose **Authorize this device** if it also needs to check tickets.
+7. Distribute updated packages after new ticket issuance. Distribute updated signed policy/package after revocation, and confirm the epoch on every device before its shift.
+
+A prepared event is not scanner authorization. Initial fingerprint comparison establishes human trust; an included self-signature alone cannot identify the intended organizer.
+
+## Offline admission and exchange
+
+An enrolled scanner verifies ticket schema, pinned organizer signature, event, issued membership, current locally known revocation policy and local duplicate status. It signs each immutable admission with its authorized device key and saves the record/proof transactionally. Disconnected scanners can still admit copies of the same ticket concurrently; reconciliation retains both operations and reports the conflict.
+
+In **Sync & conflicts**:
+
+1. Receiver chooses **Start receiving** and shows its signed request to the sender.
+2. Sender scans it and automatically prepares its complete trusted snapshot: signed offer, any required author credentials and numbered data batches (two operations per data QR).
+3. Receiver scans the offer, then data codes in any order. Every QR is capped at **900 UTF-8 bytes**. Maximum snapshot: **10,000 operations**, 1,000 author credentials, 6,000 data frames. Nothing is silently truncated. Codes advance manually for stable camera reads.
+4. Progress tracks exact received/missing frame indices. Partial frames are durable staging, absent from attendance. Resume after restart with **Resume saved exchange**; **Request missing batches** covers up to 32 missing indices at a time.
+5. After complete manifest/content/signature verification, the receiver atomically merges and displays actual transferred/imported/skipped/rejected counters. Return its signed **Completion acknowledgment** QR to the sender.
+6. If the receiver had additional operations, reverse the exchange. Matching canonical operation identity/content roots and policy/catalog context establish snapshot agreement. Counts alone never prove convergence. Later admissions or policy changes require a new exchange.
+
+Camera stops after each code for review. QR image/JSON/manual-payload alternatives use the same verification but are not physical camera evidence. Optical exchange uses no network requests. There is no animated-frame or radio-based transport.
+
+## Compatibility and security limits
+
+- Pure reconciliation remains byte-for-byte unchanged. Check-ins remain immutable UUID operations; timestamps never determine identity, authority or a conflict winner.
+- Signed ticket v1 stays compatible. Event-package v1 remains inspectable/importable as legacy preparation, but needs a v2 package and explicit enrollment before trusted admission. It cannot downgrade a secured event.
+- Old unsigned real-event records remain preserved and clearly excluded from trusted attendance/sync. They are never auto-signed/promoted. Known local historical tickets still block accidental repeat admission; investigate them. New unsigned real-event transfer imports fail. Synthetic workbench v1 exchange remains operational.
+- Organizer and scanner private keys remain non-exportable on their respective devices. There is no secure key backup/recovery or rotation feature. Lost organizer storage can permanently end issuance/revocation authority.
+- Revocation is signed, monotonic and permanent. Updated devices exclude all admissions by a revoked scanner or for a revoked ticket, retaining the evidence. Disconnected devices cannot learn immediate revocation; equally stale peers may still agree with each other.
+- An authorized scanner can fabricate a claim of physical attendance. Signatures establish key authorization/content integrity, not honest staff conduct, presenter identity or trusted time.
+- Same-origin malicious code/extensions or an unlocked compromised device can invoke signing. No account/PIN access control, roster encryption, hardware attestation or independent cryptographic audit is claimed. Sync is authenticated but not encrypted.
+- Browser storage eviction, real phone optics/install partitions, maximum-scale throughput and cumulative session/storage growth remain risks. The scanner-containing bundle still triggers the existing large-chunk warning.
+
+## Technical references
+
+- [Phase 2B delivery report](docs/PHASE_2B_REPORT.md)
+- [Architecture and major files](docs/ARCHITECTURE.md)
+- [Exact signed messages and QR state machine](docs/PROTOCOL_PHASE_2B.md)
+- [End-to-end and two-phone acceptance instructions](docs/TESTING_PHASE_2B.md)
+- [Recovery and revocation policies](docs/RECOVERY_PHASE_2B.md)
+- [Threat model](docs/THREAT_MODEL.md), [decisions](docs/DECISIONS.md), [roadmap](docs/ROADMAP.md)
+- [Third-party and AI attribution](THIRD_PARTY_NOTICES.md)
+
+No dependency was added for Phase 2B. Crypto uses native WebCrypto; Dexie/Zod/ZXing/QRCode and all previous package attribution remain. No cloud sync, payments, deployment, push or Stage 4 redesign was performed.

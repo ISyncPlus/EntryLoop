@@ -1,4 +1,6 @@
-# Architecture · Phase 2A
+# Architecture · Phase 2B
+
+The sections below describing Phase 2A are historical context; the Phase 2B section supersedes their unsigned real-event sync behavior.
 
 The pure Phase 1 reconciliation engine and QR sync format are preserved. Real events sit around that engine, with native ticket verification at the admission boundary and public-key provisioning before offline use.
 
@@ -77,3 +79,50 @@ The v1 `{v,e,r,h}` wire format, 5-record/900-byte limits, SHA-256 integrity and 
 Digital tickets download as escaped SVG with a correctly scaled embedded QR. A self-contained HTML sheet uses scoped outer-SVG sizing so inner QR viewBoxes are preserved. Print layout/QR sizing are tested through real exported files and browser ZXing scanning. SVG image import can crop the actual QR pixels using the generated nested-SVG geometry, with finite size bounds and no token text extracted from markup; the decoded result still passes signature/event/catalog checks. Other images retain the general/pure decoder paths. No private key appears in either file.
 
 The service worker precaches app assets and locally hosted fonts. Development-server behavior is not offline evidence. Normal reload and browser-process restart tests use production builds with network disabled. Service-worker updates use the existing waiting lifecycle; operators should close old app tabs to activate a new build, without clearing storage. New signed-ticket hardware scanning has not been validated on physical phones in this session.
+
+## Phase 2B · Security boundary around the existing engine
+
+The engine hash above is unchanged. No new dependency, backend, router or visual redesign was introduced. Native WebCrypto remains ECDSA P-256/SHA-256, raw 64-byte r||s signatures with base64url encoding. The same non-exportable-key generator serves independently generated organizer and scanner key pairs.
+
+### Modules
+
+| Module                         | Responsibility                                                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `security/models.ts`           | Strict policy/credential/proof schemas, canonical JSON, domain separation and SHA-256                                    |
+| `security/authority.ts`        | Local scanner identity, proof-of-possession enrollment, explicit organizer authorization and signed monotonic revocation |
+| `security/operations.ts`       | Admission signing, pre-import verification, trusted projection, collision-safe atomic persistence and content roots      |
+| `security/exchange.ts`         | Receiver-bound request/offer/data/missing/ack protocol, bounded batch preparation and durable recovery                   |
+| `tickets/key-models.ts`        | Shared strict public-only JWK and signature shapes, avoiding schema dependency cycles                                    |
+| `product/ScannerAuthority.tsx` | Enrollment, fingerprint review, credential/policy import and organizer revocation controls                               |
+| `product/SecureSyncPanel.tsx`  | Transfer preparation, progress, resume, missing batches and acknowledgment feedback                                      |
+| `product/SecurityTransfer.tsx` | Shared camera/image/file/payload input and actual QR output, using existing optical helpers                              |
+
+### Additive Dexie v3
+
+Database names and every previous table survive. Added `scannerKeys` (singleton local key/UUID/fingerprint), `credentials` (`[e+d]`), `policies` (`[eventId+epoch]`, append-only history), `operationProofs` (`[eventId+operationId]`) and `syncSessions` (`id`, event/direction indexes). No upgrade callback signs, deletes or relabels old operations. The old profile UUID remains available for the synthetic workbench; real admissions use the new key-bound UUID.
+
+Canonical records remain in `operations`. Signatures are sidecars in `operationProofs`; this keeps pure domain models and reconciliation unchanged. The trusted projection verifies policy, credentials and signatures and excludes unsigned/revoked evidence. Main scanner/organizer attendance uses this projection. Raw records remain available in the scanner evidence ledger and IndexedDB. Known local legacy admissions still block a repeat ticket; investigate rather than promoting old records.
+
+Crypto always finishes outside write transactions. Admission commit checks the exact policy again plus ticket membership and local duplicates. Import commit rechecks policy/catalog, operation identity, proof identity and credential identity, then writes records/proofs/credentials atomically. Receiving-session result counters are persisted in that same transaction, so a crash between log commit and acknowledgment creation does not lose the import receipt. Staged frames remain outside trusted logs until the full manifest and every author signature pass.
+
+### Authorization and revocation
+
+An event package pins an organizer verification key and installs a signed policy; it grants no scanner authority. Each scanner generates a non-exportable key and signs an event-specific enrollment request. The organizer compares the complete scanner fingerprint through direct observation/trusted communication, then explicitly signs its event/UUID/key/alias/grant-epoch credential. The scanner verifies the response with the pinned organizer key and requires its own local key/UUID. An organizer may explicitly authorize its own separately generated scanner identity.
+
+Policy is a root-signed monotonically increasing epoch plus permanent revoked scanner/ticket IDs. A credential grants event authority until locally known revocation. Older grant epochs remain valid if the identity is not revoked. New policy snapshots must retain all previous revocations; same-epoch divergent content and rollback are rejected. New event-package v2 includes the policy under the package's separate signature. Policies can also travel as a bounded QR or JSON file. Grants need no roster-wide policy mutation; author credentials travel with sync snapshots when needed.
+
+Revocation excludes all operations from that scanner or ticket, including earlier stored admissions, while preserving evidence. Client times cannot establish a trustworthy pre-revocation cutoff. Different policies/catalogs prevent secure exchange until devices are updated. Two equally stale devices can still agree with each other; no offline protocol proves they hold the latest organizer policy.
+
+### Optical protocol v2
+
+See [PROTOCOL_PHASE_2B.md](PROTOCOL_PHASE_2B.md) for exact signed messages, limits and acknowledgment semantics. A receiver request authenticates its key and creates a persistent random nonce. The sender prepares a complete immutable trusted snapshot, signs an offer bound to that nonce, and automatically creates credential/data frames. Frames arrive in any order after the offer. Missing indices are exact; each missing request covers at most 32. Staging, outgoing frames, requests and receipts survive browser restart subject to storage retention.
+
+Each signed operation includes every existing record field, proof version, policy epoch and a hash of its organizer credential content. Signatures are not record identity. Different valid ECDSA signatures over identical signed content deduplicate; changed record or authorization content under an existing operation UUID rejects atomically. Snapshot roots include sorted canonical signed content, not randomized signature bytes. Trust context includes the pinned organizer fingerprint, current policy content and sorted ticket catalog.
+
+A complete incoming snapshot verifies manifest identity/content root, author credentials and every operation before atomic merge. The intended receiver signs an acknowledgment containing offered root and its resulting full root. The sender verifies the expected receiver, request/session, context and roots. Extra receiver operations require reverse exchange. Completion is historical: subsequent admissions or authorization/catalog updates invalidate a current-match claim.
+
+### Compatibility and limits
+
+Signed ticket v1 remains unchanged. Package v1 remains parseable and can prepare a legacy event, but cannot authorize check-in and cannot downgrade an event with a policy. Export a v2 package, import it, then explicitly enroll. Legacy v1 operation exchange works only for the two synthetic workbench events. Unsigned real-event imports now fail visibly. Historical real-event unsigned records remain stored and excluded, never silently promoted.
+
+The current protocol provides authenticated evidence, not proof that a person actually attended or that staff acted honestly. Same-origin compromise can invoke keys; exports do not encrypt opaque IDs. Physical phone optics, maximum-capacity throughput, storage eviction, secure recovery and key rotation remain unverified/unimplemented. Full UI/UX refinement remains Stage 4.

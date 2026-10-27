@@ -12,7 +12,7 @@ const algorithm = { name: 'ECDSA', hash: 'SHA-256' } as const;
 function cryptoAPI(): SubtleCrypto {
   if (!globalThis.crypto?.subtle)
     throw new Error(
-      'Ticket signing requires HTTPS or localhost and WebCrypto support.',
+      'Cryptographic operations require HTTPS or localhost and WebCrypto support.',
     );
   return crypto.subtle;
 }
@@ -123,9 +123,14 @@ export async function verifyTicket(
     throw new Error('Invalid ticket signature. Admission rejected.');
   return ticket;
 }
-type PackageBody = EventPackage extends infer P ? P extends EventPackage ? Omit<P, 'signature'> : never : never;
+type PackageBody = EventPackage extends infer P
+  ? P extends EventPackage
+    ? Omit<P, 'signature'>
+    : never
+  : never;
 export function packageMessage(pkg: PackageBody): string {
-  if (pkg.version === 2) return 'ENTRYLOOP:EVENT:2\n' + canonical(unsigned(pkg));
+  if (pkg.version === 2)
+    return 'ENTRYLOOP:EVENT:2\n' + canonical(unsigned(pkg));
   const { id, name, date, location, description, revision } = pkg.event;
   const { kty, crv, x, y } = pkg.publicKey;
   return (

@@ -1,5 +1,7 @@
 # Phase 2A delivery report
 
+Historical Phase 2A record. For current authorization, signed synchronization and testing, use [PHASE_2B_REPORT.md](PHASE_2B_REPORT.md) and [TESTING_PHASE_2B.md](TESTING_PHASE_2B.md). The unsigned real-event workflow below is superseded.
+
 All work is inside `/Users/InhouseHQ/Desktop/EntryLoop/`. No deployment, push, backend, cloud synchronization, payments or Phase 2B implementation was performed. The user's final steering retains the existing UI and defers full UI/UX redesign to Stage 4.
 
 ## 1. Implemented features

@@ -155,9 +155,12 @@ export function TransferPanel({ db, eventId, selected, onImported }: Props) {
               accept="image/*"
               disabled={busy}
               onChange={(event) => {
-                const file = event.target.files?.[0];
-                if (file) void readImage(file);
-                event.target.value = '';
+                const input = event.currentTarget;
+                const file = input.files?.[0];
+                if (file)
+                  void readImage(file).finally(() => {
+                    input.value = '';
+                  });
               }}
             />
           </label>

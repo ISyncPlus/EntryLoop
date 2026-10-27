@@ -1,6 +1,12 @@
 import { z } from 'zod';
 import type { EntryLoopDB } from '../check-in/persistence/database';
-import { changePolicy, currentPolicy, verifyPolicy, checkPolicyUpdate } from '../security/authority';
+import {
+  changePolicy,
+  currentPolicy,
+  verifyPolicy,
+  checkPolicyUpdate,
+} from '../security/authority';
+import { policySchema, securityMessage } from '../security/models';
 import { admitTrusted } from '../security/operations';
 import {
   eventInputSchema,
@@ -16,6 +22,7 @@ import type {
 } from './models';
 import {
   generateSigningKey,
+  sign,
   signTicket,
   verifyTicket,
   signPackage,
@@ -38,14 +45,32 @@ export async function createEvent(
     role: 'organizer',
     locked: false,
   };
-  await db.transaction('rw', db.events, db.signingKeys, async () => {
-    await db.events.add(event);
-    await db.signingKeys.add({
-      eventId: event.id,
-      privateKey: keys.privateKey,
-    });
+  const policyBody = {
+    v: 1 as const,
+    eventId: event.id,
+    epoch: 1,
+    revokedScanners: [],
+    revokedTickets: [],
+  };
+  const policy = policySchema.parse({
+    ...policyBody,
+    signature: await sign(
+      securityMessage('POLICY', policyBody),
+      keys.privateKey,
+    ),
   });
-  await changePolicy(db, event.id);
+  await db.transaction(
+    'rw',
+    [db.events, db.signingKeys, db.policies],
+    async () => {
+      await db.events.add(event);
+      await db.signingKeys.add({
+        eventId: event.id,
+        privateKey: keys.privateKey,
+      });
+      await db.policies.add(policy);
+    },
+  );
   return event;
 }
 async function organizer(
@@ -211,7 +236,8 @@ export async function exportEventPackage(
       return { event: locked, key: key.privateKey, ticketIds };
     },
   );
-  const policy = await currentPolicy(db, eventId) ?? await changePolicy(db, eventId);
+  const policy =
+    (await currentPolicy(db, eventId)) ?? (await changePolicy(db, eventId));
   return signPackage(
     {
       kind: 'entryloop-event',
@@ -236,58 +262,81 @@ export async function importEventPackage(
       'Compare and confirm the full public-key fingerprint with the organizer first.',
     );
   const pinned = await db.events.get(pkg.event.id);
-  if (pinned && pinned.fingerprint !== inspected.fingerprint) throw new Error('Pinned organizer key mismatch. Existing event was not changed.');
-  if (pkg.version === 2) await verifyPolicy(pkg.policy, pkg.event.id, pkg.publicKey);
-  return db.transaction('rw', db.events, db.ticketCatalog, db.policies, async () => {
-    const previousPolicy = await currentPolicy(db, pkg.event.id);
-    if (previousPolicy && pkg.version === 1) throw new Error('Unsigned-policy legacy package cannot downgrade a secured event.');
-    if (pkg.version === 2) checkPolicyUpdate(previousPolicy, pkg.policy);
-    const existing = await db.events.get(pkg.event.id);
-    if (existing) {
-      if (existing.fingerprint !== inspected.fingerprint)
-        throw new Error(
-          'Pinned organizer key mismatch. Existing event was not changed.',
-        );
-      if (existing.role === 'organizer')
-        throw new Error('A scanner package cannot replace organizer data.');
-      if (pkg.event.revision < existing.revision)
-        throw new Error('Stale event package. Existing event was not changed.');
-      const catalog = await db.ticketCatalog
-        .where('eventId')
-        .equals(existing.id)
-        .toArray();
-      if (catalog.some((ticket) => !pkg.ticketIds.includes(ticket.ticketId)))
-        throw new Error(
-          'Event package removes known tickets. Revocation is not supported.',
-        );
-      if (pkg.event.revision === existing.revision) {
-        if (
-          packageMessage({
-            ...pkg,
-            event: eventMetadata(existing),
-            ticketIds: catalog.map((ticket) => ticket.ticketId),
-          }) !== packageMessage(pkg)
-        )
-          throw new Error(
-            'Conflicting package revision. Existing event was not changed.',
-          );
-        if (pkg.version === 2 && !(await db.policies.get([pkg.event.id, pkg.policy.epoch]))) await db.policies.add(pkg.policy);
-        return existing.id;
-      }
-    }
-    if (pkg.version === 2 && !(await db.policies.get([pkg.event.id, pkg.policy.epoch]))) await db.policies.add(pkg.policy);
-    await db.events.put({
-      ...pkg.event,
-      publicKey: pkg.publicKey,
-      fingerprint: inspected.fingerprint,
-      role: 'scanner',
-      locked: true,
-    });
-    await db.ticketCatalog.bulkPut(
-      pkg.ticketIds.map((ticketId) => ({ eventId: pkg.event.id, ticketId })),
+  if (pinned && pinned.fingerprint !== inspected.fingerprint)
+    throw new Error(
+      'Pinned organizer key mismatch. Existing event was not changed.',
     );
-    return pkg.event.id;
-  });
+  if (pkg.version === 2)
+    await verifyPolicy(pkg.policy, pkg.event.id, pkg.publicKey);
+  return db.transaction(
+    'rw',
+    db.events,
+    db.ticketCatalog,
+    db.policies,
+    async () => {
+      const previousPolicy = await currentPolicy(db, pkg.event.id);
+      if (previousPolicy && pkg.version === 1)
+        throw new Error(
+          'Unsigned-policy legacy package cannot downgrade a secured event.',
+        );
+      if (pkg.version === 2) checkPolicyUpdate(previousPolicy, pkg.policy);
+      const existing = await db.events.get(pkg.event.id);
+      if (existing) {
+        if (existing.fingerprint !== inspected.fingerprint)
+          throw new Error(
+            'Pinned organizer key mismatch. Existing event was not changed.',
+          );
+        if (existing.role === 'organizer')
+          throw new Error('A scanner package cannot replace organizer data.');
+        if (pkg.event.revision < existing.revision)
+          throw new Error(
+            'Stale event package. Existing event was not changed.',
+          );
+        const catalog = await db.ticketCatalog
+          .where('eventId')
+          .equals(existing.id)
+          .toArray();
+        if (catalog.some((ticket) => !pkg.ticketIds.includes(ticket.ticketId)))
+          throw new Error(
+            'Event package removes known ticket IDs. Use the signed revocation policy instead.',
+          );
+        if (pkg.event.revision === existing.revision) {
+          if (
+            packageMessage({
+              ...pkg,
+              event: eventMetadata(existing),
+              ticketIds: catalog.map((ticket) => ticket.ticketId),
+            }) !== packageMessage(pkg)
+          )
+            throw new Error(
+              'Conflicting package revision. Existing event was not changed.',
+            );
+          if (
+            pkg.version === 2 &&
+            !(await db.policies.get([pkg.event.id, pkg.policy.epoch]))
+          )
+            await db.policies.add(pkg.policy);
+          return existing.id;
+        }
+      }
+      if (
+        pkg.version === 2 &&
+        !(await db.policies.get([pkg.event.id, pkg.policy.epoch]))
+      )
+        await db.policies.add(pkg.policy);
+      await db.events.put({
+        ...pkg.event,
+        publicKey: pkg.publicKey,
+        fingerprint: inspected.fingerprint,
+        role: 'scanner',
+        locked: true,
+      });
+      await db.ticketCatalog.bulkPut(
+        pkg.ticketIds.map((ticketId) => ({ eventId: pkg.event.id, ticketId })),
+      );
+      return pkg.event.id;
+    },
+  );
 }
 export async function admitSignedTicket(
   db: EntryLoopDB,

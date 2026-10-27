@@ -57,3 +57,23 @@ Use safe self-contained SVG for individual tickets and printable HTML for a shee
 ## 014 · Respect the final design scope
 
 Retain the practical interface already built during Phase 2A. The user deferred UI/UX redesign to Stage 4, superseding the brief agency-reference steering. Remove the experimental components, media and dependencies instead of shipping unused design scaffolding. No unrelated marketing site or agency branding is added.
+
+## 015 · Phase 2B authority without an engine rewrite
+
+Supersedes the real-event unsigned-sync limits in decisions 002/003/012; synthetic workbench v1 remains unchanged. Give every scanner an independent native non-exportable key/UUID. Explicit organizer-issued event/key/identity credentials distinguish database profiles from admission authority. Retain record shapes/engine and add proof sidecars rather than mixing browser cryptography into pure reconciliation.
+
+## 016 · Canonical evidence and deterministic roots
+
+Sign every record field, version, authorization epoch and credential-content hash under a separate admission domain. Verify before accepting trusted records. Compare canonical signed content under reused operation IDs; ECDSA's randomized signature bytes are not identity. Different valid signatures over identical content deduplicate, but changed proof metadata does not. Attendance/conflicts derive from the same unchanged engine over verified active operations.
+
+## 017 · Portable grants and monotonic revocation
+
+Portable organizer-signed credentials avoid a roster-wide package update for every grant. Keep a separate signed append-only revocation policy with increasing epochs. Updated devices exclude every operation from a revoked key/ticket and preserve evidence, since client time cannot establish a reliable theft cutoff. Never claim immediate disconnected revocation or freshness from equally stale agreement. Existing non-exportable organizer keys remain non-exportable; secure recovery is explicitly absent.
+
+## 018 · Explicit bounded optical sessions
+
+Replace manual real-event selections with complete snapshot preparation, a receiver-authenticated request, signed offer/indexed frames, exact missing indices and a receiver-signed acknowledgment. Keep 900-byte/H-correction frames and manual advancement for stable captures; two signed admissions fit per data code. Durable staging admits no partial records before manifest/author verification. Content/context roots establish snapshot agreement; counts alone do not. Return acknowledgments explicitly; reverse exchange handles receiver extras.
+
+## 019 · Migration cannot manufacture trust
+
+Preserve all old tables/keys/logs through additive v3. Package v1 remains legacy preparation but cannot authorize or downgrade a secured event. Unsigned real-event imports fail, and old unsigned records stay visible/excluded; never sign/promote them retrospectively. Legacy-known local tickets still block repeats until investigated. Old builds require operational retirement; protocol validation cannot force an update on an unreachable device.

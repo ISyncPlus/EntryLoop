@@ -156,9 +156,12 @@ export function AttendeeManager({
               accept=".csv,text/csv"
               disabled={busy}
               onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) void csv(file);
-                e.target.value = '';
+                const input = e.currentTarget;
+                const file = input.files?.[0];
+                if (file)
+                  void csv(file).finally(() => {
+                    input.value = '';
+                  });
               }}
             />
           </label>

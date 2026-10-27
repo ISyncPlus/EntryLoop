@@ -68,3 +68,7 @@ Papa Parse parses bounded local CSV files; its type package is development-only.
 Codex assisted with Phase 2A architecture, source, tests, debugging and documentation. The user supplied scope, confirmed the physical Phase 1 result and deferred full UI/UX redesign to Stage 4. The canceled agency-reference components, user-supplied video/poster and Framer Motion/Lucide/Radix packages were removed and are not shipped. No public deployment or redistribution was performed.
 
 Primary references: [WebCrypto ECDSA specification](https://www.w3.org/TR/webcrypto/#ecdsa), [MDN native verify](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/verify), and [Papa Parse documentation](https://www.papaparse.com/docs). Automated compatibility evidence is recorded separately in DEVELOPMENT_LOG.md.
+
+## Phase 2B assistance and dependencies
+
+OpenAI Codex assisted with offline enrollment/security architecture, implementation, tests, debugging and documentation. No new runtime/development package was added for Phase 2B. ECDSA/SHA-256 use native WebCrypto; existing dependency/license attribution remains applicable. User-reported Phase 1 hardware evidence is separate from automated Phase 2B evidence; no physical verification or competition compliance approval was invented.

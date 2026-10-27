@@ -79,7 +79,7 @@ export function EventList({
                     <time dateTime={event.date}>{eventDate(event.date)}</time>
                     <div className="event-card-counts">
                       <span>{issued} issued tickets</span>
-                      <span>{attendance} checked in</span>
+                      <span>{attendance} trusted check-ins</span>
                     </div>
                     <span className="event-card-action">
                       {scanner ? 'Open check-in' : 'Manage event'}{' '}

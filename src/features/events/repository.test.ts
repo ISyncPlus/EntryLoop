@@ -16,7 +16,12 @@ import {
   signPackage,
   signTicket,
 } from '../tickets/signatures';
-import { authorize, enrollmentRequest, identity, importOwnCredential } from '../security/authority';
+import {
+  authorize,
+  enrollmentRequest,
+  identity,
+  importOwnCredential,
+} from '../security/authority';
 import { trustedSnapshot, mergeTrusted } from '../security/operations';
 import { encodeTransfer } from '../sync/codec';
 import { reconcile } from '../check-in/domain/reconcile';
@@ -54,10 +59,20 @@ async function issuedEvent(instance: EntryLoopDB) {
     .toArray();
   return { event, attendees, tickets };
 }
-async function enroll(organizer: EntryLoopDB, scanner: EntryLoopDB, eventId: string) {
+async function enroll(
+  organizer: EntryLoopDB,
+  scanner: EntryLoopDB,
+  eventId: string,
+) {
   const own = await identity(scanner);
-  const credential = await authorize(organizer, eventId, await enrollmentRequest(scanner, eventId, 'Gate'), own.fingerprint);
-  if (organizer !== scanner) await importOwnCredential(scanner, eventId, credential);
+  const credential = await authorize(
+    organizer,
+    eventId,
+    await enrollmentRequest(scanner, eventId, 'Gate'),
+    own.fingerprint,
+  );
+  if (organizer !== scanner)
+    await importOwnCredential(scanner, eventId, credential);
 }
 afterEach(async () => {
   for (const instance of databases) await instance.delete();
@@ -268,9 +283,19 @@ describe('real event workflow and storage boundaries', () => {
     const payload = JSON.stringify(snapshotA.operations);
     expect(payload).not.toContain('Ada');
     expect(payload).not.toContain('@');
-    await mergeTrusted(b, event.id, snapshotA.operations, snapshotA.credentials);
+    await mergeTrusted(
+      b,
+      event.id,
+      snapshotA.operations,
+      snapshotA.credentials,
+    );
     const snapshotB = await trustedSnapshot(b, event.id);
-    await mergeTrusted(a, event.id, snapshotB.operations, snapshotB.credentials);
+    await mergeTrusted(
+      a,
+      event.id,
+      snapshotB.operations,
+      snapshotB.credentials,
+    );
     expect(await a.records(event.id)).toEqual(await b.records(event.id));
     expect(reconcile(event.id, await a.records(event.id))).toMatchObject({
       attendance: 1,

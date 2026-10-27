@@ -18,10 +18,12 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
     async () => ({
       event: await db.events.get(id),
       snapshot: await trustedSnapshot(db, id),
-      credential: await db.credentials.get([id, (await db.scannerKeys.get('local'))?.scannerId ?? '']),
+      credential: await db.credentials.get([
+        id,
+        (await db.scannerKeys.get('local'))?.scannerId ?? '',
+      ]),
       cryptoIdentity: await db.scannerKeys.get('local'),
       catalog: await db.ticketCatalog.where('eventId').equals(id).count(),
-      scanner: await db.devices.toCollection().first(),
     }),
     [db, id],
   );
@@ -54,7 +56,12 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
   const { event, snapshot, catalog, cryptoIdentity, credential } = data;
   const { state } = snapshot;
   const records = state.operations;
-  const authorized = credential && !snapshot.policy?.revokedScanners.includes(credential.d);
+  const authorized = Boolean(
+    credential &&
+    snapshot.policy &&
+    credential.at <= snapshot.policy.epoch &&
+    !snapshot.policy.revokedScanners.includes(credential.d),
+  );
   const scanner = { id: cryptoIdentity?.scannerId ?? '' };
   return (
     <>
@@ -68,10 +75,22 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
             {eventDate(event.date)} · {event.location}
           </p>
         </div>
-        <span className="state-tag good">{authorized ? 'Authorized scanner' : 'Authorization required'}</span>
+        <span className={authorized ? 'state-tag good' : 'state-tag'}>
+          {authorized ? 'Authorized scanner' : 'Authorization required'}
+        </span>
       </div>
-      <details><summary>Scanner authorization and policy</summary><ScannerAuthority db={db} event={event} /></details>
-      {(snapshot.legacy > 0 || snapshot.excluded > 0) && <p className="notice-strip">{snapshot.legacy} historical unsigned operations and {snapshot.excluded} revoked operations are preserved locally, excluded from trusted totals and secure exchange. Do not re-admit legacy tickets without investigation.</p>}
+      <details>
+        <summary>Scanner authorization and policy</summary>
+        <ScannerAuthority db={db} event={event} />
+      </details>
+      {(snapshot.legacy > 0 || snapshot.excluded > 0) && (
+        <p className="notice-strip">
+          {snapshot.legacy} historical unsigned operations and{' '}
+          {snapshot.excluded} revoked operations are preserved locally, excluded
+          from trusted totals and secure exchange. Do not re-admit legacy
+          tickets without investigation.
+        </p>
+      )}
       <div
         className="view-tabs"
         role="tablist"
@@ -118,8 +137,8 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
                 <span>Admitted</span>
                 <strong>{last.ticketId}</strong>
                 <p>
-                  Ticket verified and admission signed by this authorized scanner. Stored
-                  on this device.
+                  Ticket verified and admission signed by this authorized
+                  scanner. Stored on this device.
                 </p>
                 <time dateTime={last.recordedAt}>{last.recordedAt}</time>
               </div>
@@ -156,8 +175,8 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
               </div>
             </dl>
             <div className="scanner-id">
-              <span>Scanner identity</span>
-              <code>{scanner?.id ?? 'Opening scanner…'}</code>
+              <span>Cryptographic scanner identity</span>
+              <code>{scanner.id || 'Create an enrollment request first.'}</code>
             </div>
             <p>
               Offline totals reflect only operations received here. Exchange
@@ -183,7 +202,24 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
             selected={[]}
             conflicts={state.conflicts}
           />
-          {(snapshot.legacy > 0 || snapshot.excluded > 0) && <details><summary>Preserved evidence — includes unsigned and revoked records</summary><p>These raw records are for investigation, not trusted attendance. Unsigned records have no signature proof; revoked records are excluded by the current policy.</p><OperationsLedger records={snapshot.records} scannerId={scanner.id} selected={[]} conflicts={[]} /></details>}
+          {(snapshot.legacy > 0 || snapshot.excluded > 0) && (
+            <details>
+              <summary>
+                Preserved evidence — includes unsigned and revoked records
+              </summary>
+              <p>
+                These raw records are for investigation, not trusted attendance.
+                Unsigned records have no signature proof; revoked records are
+                excluded by the current policy.
+              </p>
+              <OperationsLedger
+                records={snapshot.records}
+                scannerId={scanner.id}
+                selected={[]}
+                conflicts={[]}
+              />
+            </details>
+          )}
         </div>
       )}
     </>

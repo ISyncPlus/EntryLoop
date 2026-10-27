@@ -29,12 +29,11 @@ export function OperationsLedger({
         <span>{records.length} immutable admissions</span>
       </div>
       <p>
-        Imported operations retain their original scanner identity. {onToggle && 'Select records explicitly for the next QR batch.'}
+        Imported operations retain their original scanner identity.{' '}
+        {onToggle && 'Select records explicitly for the next QR batch.'}
       </p>
       {!records.length ? (
-        <p className="empty">
-          No admissions stored for this event.
-        </p>
+        <p className="empty">No admissions stored for this event.</p>
       ) : (
         <div className="table-scroll">
           <table>
@@ -53,14 +52,16 @@ export function OperationsLedger({
             <tbody>
               {records.map((record) => (
                 <tr key={record.operationId}>
-                  {onToggle && <td>
-                    <input
-                      type="checkbox"
-                      aria-label={`Select operation ${record.operationId}`}
-                      checked={selected.includes(record.operationId)}
-                      onChange={() => onToggle(record.operationId)}
-                    />
-                  </td>}
+                  {onToggle && (
+                    <td>
+                      <input
+                        type="checkbox"
+                        aria-label={`Select operation ${record.operationId}`}
+                        checked={selected.includes(record.operationId)}
+                        onChange={() => onToggle(record.operationId)}
+                      />
+                    </td>
+                  )}
                   <td>
                     {record.ticketId}
                     {conflicting.has(record.operationId) && (

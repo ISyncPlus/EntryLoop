@@ -11,7 +11,10 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 - Merging valid operation sets must remain idempotent, commutative and associative. Sort with locale-independent comparisons. Divergent reuse of an operation ID is invalid: reject the entire batch without overwriting data.
 - Validate every transport boundary with Zod, enforce event identity and capacity before persistence, and retain atomic IndexedDB transactions. Do not await WebCrypto or other unrelated APIs inside a transaction. Dexie live queries must be read-only.
 - Main logs live in IndexedDB via Dexie, isolated by event and explicit scanner profile. No main-log localStorage. No destructive migrations or data resets without clear scope and confirmation.
-- A checksum detects corruption, never author identity. Unsigned imports must never be called authenticated or cryptographically verified. Device authorization, signatures and revocation remain production requirements.
+- A checksum detects corruption, never author identity. Real-event admissions require organizer-authorized scanner credentials and verified versioned operation signatures before acceptance. Unsigned legacy records stay preserved and excluded from trusted totals; never promote or re-sign them implicitly. Keep synthetic v1 exchange isolated to /dev/workbench.
+- Scanner and organizer private CryptoKeys remain non-exportable on their original devices. Profiles are database namespaces, not authorization. Verify event-scoped credentials, policy freshness/context and catalog membership. Never await WebCrypto inside IndexedDB transactions.
+- Revocations are signed, monotonic and permanent per identity/ticket. Retain revoked evidence but exclude it from trusted totals. Disconnected devices cannot learn immediate revocation. Never infer legitimacy from client times.
+- Secure sync is receiver-bound, signed and resumable. Enforce 900 UTF-8 bytes per frame, bounded snapshots and atomic verified imports. Compare canonical operation identities/content roots plus authorization/catalog context; matching counts alone cannot prove convergence. Acknowledgments describe a snapshot, not perpetual global agreement.
 - Synthetic fixtures are restricted to the clearly labeled development workbench. Real attendee data stays on the organizer device; synchronization payloads and scanner packages must exclude names/emails. Never export organizer private keys.
 - Keep modules feature-oriented and React components small. Reuse platform features; justify dependencies and avoid speculative abstractions.
 - Accessible native controls, keyboard focus, real errors, honest loading/empty states and responsive layouts are required.
@@ -22,7 +25,7 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 
 ## Scope gate
 
-Phase 2A event/attendee management, signed tickets and offline scanner provisioning are authorized. The latest user instruction retains the current interface and defers full UI/UX redesign to Stage 4. Preserve the pure reconciliation engine and Phase 1 workbench at /dev/workbench. Stop after Phase 2A; Phase 2B, cloud synchronization, payments and unrelated functionality require later authorization. Before expanding, read docs/ROADMAP.md and the latest user instruction.
+Phase 2B scanner authorization, signed admissions, bounded resumable optical synchronization and recovery/revocation policy are authorized. Preserve Phase 1 and Phase 2A functionality. The latest user instruction retains the current interface and defers full UI/UX redesign to Stage 4. Preserve the pure reconciliation engine and Phase 1 workbench at /dev/workbench. Stop after Phase 2B. Stage 4 UI/UX redesign, cloud synchronization, payments, deployment and unrelated functionality require later authorization. Before expanding, read docs/ROADMAP.md and the latest user instruction.
 
 ## Validation commands
 

@@ -54,8 +54,9 @@ export function DeviceExport({
             through a trusted channel.
           </li>
           <li>
-            Complete explicit scanner enrollment with the organizer. Cache the app, switch off the radios, then test a signed ticket and
-            a normal reload.
+            Complete explicit scanner enrollment with the organizer. Cache the
+            app, switch off the radios, then test a signed ticket and a normal
+            reload.
           </li>
         </ol>
         <button
@@ -89,7 +90,8 @@ export function DeviceExport({
           </div>
         </dl>
         <p className="fine-print">
-          Package: event details, public key, ticket IDs and signed revocation policy. The package does not authorize a scanner. No attendee names,
+          Package: event details, public key, ticket IDs and signed revocation
+          policy. The package does not authorize a scanner. No attendee names,
           emails or private signing key. New tickets require an updated package.
         </p>
       </aside>
@@ -150,9 +152,12 @@ export function PackageImport({ db }: { db: EntryLoopDB }) {
           accept=".json,application/json"
           disabled={busy}
           onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) void inspect(file);
-            e.target.value = '';
+            const input = e.currentTarget;
+            const file = input.files?.[0];
+            if (file)
+              void inspect(file).finally(() => {
+                input.value = '';
+              });
           }}
         />
       </label>
