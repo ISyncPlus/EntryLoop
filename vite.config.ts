@@ -21,9 +21,10 @@ export default defineConfig({
       registerType: 'prompt',
       injectRegister: 'auto',
       manifest: {
-        name: 'EntryLoop Workbench',
+        name: 'EntryLoop',
         short_name: 'EntryLoop',
-        description: 'Synthetic offline check-in reconciliation workbench',
+        description:
+          'Offline-first events, signed tickets and QR reconciliation',
         start_url: '/',
         scope: '/',
         display: 'standalone',
@@ -40,7 +41,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,webmanifest}'],
+        globPatterns: ['**/*.{js,css,html,png,svg,webmanifest,woff2}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },

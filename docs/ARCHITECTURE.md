@@ -1,57 +1,79 @@
-# Architecture
+# Architecture · Phase 2A
 
-## Data flow
+The pure Phase 1 reconciliation engine and QR sync format are preserved. Real events sit around that engine, with native ticket verification at the admission boundary and public-key provisioning before offline use.
+
+## Boundaries
 
 ```mermaid
 flowchart LR
-  UI[React workbench] --> DB[Dexie transactions]
-  DB --> Engine[Pure domain engine]
-  DB --> IDB[(IndexedDB per profile)]
-  UI --> Encoder[Bounded QR codec + SHA-256]
-  Encoder --> QR[QR pixels]
-  QR --> ZXing[Camera or local image / ZXing]
-  ZXing --> Decoder[Size + version + Zod + checksum + event]
-  Decoder --> DB
+ O[Organizer React workspace] --> R[Event repository]
+ R --> K[Native WebCrypto: private key stays local]
+ R --> D[(Dexie / IndexedDB v2)]
+ R --> T[Signed QR tickets: IDs only]
+ R --> P[Signed scanner package: public key + ticket IDs]
+ P --> I[Schema + signature + fingerprint confirmation]
+ I --> S[(Scanner local event + public catalog)]
+ T --> V[ZXing + pinned-key ticket verification]
+ S --> V
+ V --> E[Unchanged pure admission / reconciliation engine]
+ E --> L[(Immutable local operations)]
+ L <--> Q[Existing bounded QR operation batches]
 ```
 
-No transfer endpoint exists. All runtime dependencies and assets are bundled locally and precached by the production service worker. Browser camera permission, storage and the crypto API are platform boundaries.
+No application backend, runtime CDN or external transfer API exists. Fonts, scanner code, CSS and app resources are bundled/precached locally. CSV parsing uses Papa Parse; crypto uses built-in WebCrypto, not a new signing dependency.
 
-## Domain
+## Domain and identity
 
-`Event`, `Ticket`, `ScannerDevice`, `CheckInRecord`, `SyncEnvelope`, `SyncResult` and `AdmissionConflict` are readonly TypeScript models. Record validation requires UUID operation/scanner IDs, bounded ASCII event/ticket IDs and a canonical UTC ISO timestamp including milliseconds. Records are successful admissions; locally rejected duplicate attempts are errors and are not falsely recorded as admissions. Rejection audit events would need a separate later model.
+`src/features/check-in/domain/reconcile.ts` is unchanged (SHA-256 `db7489cba82d6c25b0d6a1f46986645d2cfa884ce821d7a2a6b1c3d5209bb86a`). It accepts immutable admissions, rejects local duplicates, deduplicates operation UUIDs, preserves distinct-ticket admission conflicts and never uses clocks as identity or conflict priority. Valid-set union remains idempotent, commutative and associative.
 
-`createCheckIn` receives ID/time values from the persistence boundary. It does no I/O and reads no clock/random generator. It rejects known local duplicates. `reconcile` validates records, checks event identity and operation identity, computes set union, sorts by operation ID and groups by ticket. `mergeLogs` adds per-import counts; receipts are directional, while merged state is order-independent.
+The legacy small `Event`/`Ticket` models remain for that engine/workbench. `ManagedEvent` adds real metadata, monotonic revision, public key/fingerprint, local role and locked-details flag. Event IDs are random UUIDs. Attendee IDs are UUIDs; ticket IDs are opaque random 88-bit hex values prefixed `T-` (24 characters total, compatible with the existing codec). Per-event ticket and email uniqueness are enforced by IndexedDB indexes. Collisions fail transactionally rather than overwriting rows.
 
-For valid sets where an operation ID maps to exactly one record, union is idempotent, commutative and associative. Same operations imply the same attendance/conflicts. A different record using an existing ID is not a valid set and rejects atomically; timestamps never arbitrate. Distinct IDs for the same ticket remain present and create a conflict. Attendance is the number of distinct ticket IDs; conflicts are the sorted tickets with more than one operation.
+Attendee names/emails remain organizer-local. Successful ticket verification produces the same existing CheckInRecord type: operation UUID, event ID, opaque ticket ID, scanner UUID and canonical timestamp. No personal fields enter the event log or sync tuple.
 
-## Persistence
+## Additive persistence migration
 
-Dexie schema v1:
+Keep database name `entryloop-v1-<profile>` and the existing v1 `operations`/`devices` tables. Dexie schema v2 adds:
 
-- Database: `entryloop-v1-<validated-profile>`.
-- `operations`: primary key `[eventId+operationId]`, index `eventId`.
-- `devices`: primary key `id`; scanner initialization uses a read/write transaction and creates one random UUID per database.
+| Table         | Key/index                                                            | Role                                                     |
+| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
+| events        | `id`, role, date                                                     | Event details, verification key, revision and role       |
+| attendees     | `id`, eventId, unique `[eventId+email]`, unique `[eventId+ticketId]` | Organizer-only names/emails and stable ticket allocation |
+| issuedTickets | `[eventId+ticketId]`, eventId, attendeeId                            | Organizer's retained signed token and issue time         |
+| ticketCatalog | `[eventId+ticketId]`, eventId                                        | Opaque issued IDs on organizer/scanners                  |
+| signingKeys   | eventId                                                              | Organizer-only non-exportable private CryptoKey          |
 
-Admission reads and inserts in one read/write transaction. Import validates/decodes and hashes outside the transaction, checks synthetic membership, then reads/merges/adds in one transaction. Collisions or errors roll back the whole batch. Repeated operation IDs are skipped, not overwritten. No separate batch receipt database is needed for replay protection: immutable operation IDs provide that property across overlapping and differently packaged batches.
+Migration does not rewrite/delete legacy logs or device identities. A dedicated regression creates an actual v1 DB, upgrades it and checks both. Profiles deliberately separate test databases but are not an origin/authorization boundary.
 
-Scanner initialization happens before `liveQuery`; subscribed queries only read records. Another tab on the same database updates the live ledger. Events are filtered at every repository operation; reset targets the selected event and keeps identity. Profiles are a testing convenience, not an authorization boundary. Same-origin code can access other databases.
+Create-event generation/hash completes before the event/key transaction. Attendee import validates all input before one transaction and rechecks email uniqueness under that transaction. Bulk signing completes outside IndexedDB transactions; a final transaction rechecks already-issued tickets and atomically adds tokens/catalog entries and locks event details. Concurrent issuance produces one retained token per attendee. Scanner initialization remains outside liveQuery; subscriptions only read.
 
-IndexedDB persistence is subject to quota, eviction, user clearing, private browsing and browser partitions. No durability or backup guarantee is claimed. The storage schema does not contain personally identifying attendee data in Phase 1.
+## Editing safeguards
 
-## Transport
+Name/date/location lock after first issuance or successful package export. Description remains editable. Event ID/key are never editable. Edits carry the revision loaded with the draft; later live-query updates do not silently advance that draft's base revision. Stale saves fail and require an explicit draft-discard/reload. Package revisions increase with event changes and new issuance.
 
-`codec.ts` is React/storage independent but uses WebCrypto at the transport boundary. Wire tuples remove repeated event IDs and verbose object keys. The format is described precisely in README.md. SHA-256 checks normalized compact `{v,e,r}` JSON; the record sequence remains part of the checksum. Key ordering in incoming JSON is normalized. No external compression or base64 overhead is used.
+## Tickets and trust
 
-Before writes: UTF-8 size → parse → version → strict schema and record count → integrity → expected event → record reconciliation → synthetic membership → transactional merge. Imports reject as one batch. `BatchRejectedError` carries a record-entry count only when a bounded schema establishes it; malformed input has no invented count.
+`signatures.ts` signs only a domain-separated canonical event/ticket ID message with ECDSA P-256/SHA-256. The private key is generated non-exportable and stored as a CryptoKey in IndexedDB. Public-only JWK coordinates and the SHA-256 canonical-key fingerprint may be exported. Key ownership is local; no identity service, recovery or key rotation exists.
 
-QR generation uses `qrcode` at H error correction. ZXing handles a camera stream or local image URL; no image is uploaded. Image decoding tries the general finder with TRY_HARDER and then the pure monochrome-QR pixel extraction path, which handles pristine screen captures that the finder can miss. The camera uses the general finder, since perspective/rotation cannot assume a pure QR image. Camera tracks stop on decode, explicit stop, error, cancellation or component cleanup. Normal optical misses/format/checksum decode exceptions are scan-search feedback, not imported operations. A successfully decoded text still passes all payload validation.
+Ticket token v1 is strictly `{k,v,e,t,s}` and capped at 512 UTF-8 bytes. Verification checks schema, expected event and native signature before reading/writing admissions. The final write transaction also checks prepared/issued membership and local duplicate status through the unchanged engine. Known local duplicates include operations learned through reconciliation.
 
-## PWA
+Native WebCrypto signs/verifies raw 64-byte P-256 signatures. The ticket and package message domains differ to prevent cross-protocol signature reuse. Token/metadata fields are explicitly canonicalized, not dependent on input object key order. See README for exact formats.
 
-`vite-plugin-pwa` generates Workbox precaching for HTML, JS, CSS, manifest and icons. Navigation falls back to the cached index. Scanner code is part of the local build, so first offline use does not trigger a CDN import. Updates wait for normal service-worker lifecycle; no forced reload interrupts a check-in. Offline status text is the browser's connectivity hint and service-worker control, not a guarantee of all hardware/storage behavior.
+## Scanner provisioning
 
-Installability configuration is implemented. Browser tests exercise production caching, offline reload and process restart; real mobile home-screen installation is unverified. `npm run dev` does not prove offline support. HTTPS or localhost is required. The optional TLS preview reads user-supplied certificate paths; no keys are generated or shipped by the app.
+Packages carry event metadata, public key, ticket IDs and a signature; they never serialize attendees, issued-ticket payloads or private keys. Strict parsing rejects unknown/private fields and duplicates. The file is bounded before JSON parse; crypto completes before the transaction.
 
-## Presentation
+Initial enrollment needs an independently obtained full fingerprint. A signature under a key included in the same file establishes consistency only. The confirmed key is pinned. Imports reject different pinned keys, lower revisions, conflicting equal revisions, removal of known tickets and replacement of organizer-role data. Equal canonical packages are idempotent; newer packages add prepared tickets while preserving existing operations. New tickets require re-export/import before those scanners accept them.
 
-The workbench composes an event-scoped component, a transfer panel, camera adapter and operations ledger. State derives from Dexie and pure domain functions. Export uses explicit ledger selection, supports relay of imported records, and shows its generated snapshot count/size. Import receipts show actual decoded/committed/skipped/rejected counts. There is no remote delivery acknowledgment. Conflict evidence never disappears through a winner-selection rule.
+## Synchronization
+
+The v1 `{v,e,r,h}` wire format, 5-record/900-byte limits, SHA-256 integrity and conflict semantics remain intact. Real-event imports validate opaque IDs against ticketCatalog; synthetic events retain their existing fixture checks. Merge/add remains transactional and every operation is preserved or the entire import fails.
+
+**Sync operations are still unsigned.** A signed ticket does not authenticate a raw operation that omits the ticket proof. This is an explicit security boundary, shown in the product's Sync & conflicts view. Staff authorization and signed admission evidence require later work; this session does not relabel hashes as authentication.
+
+## Presentation and offline resources
+
+`ProductApp` routes with native browser URLs and cached index navigation fallback; no router dependency. Organizer forms, attendee manager, ticket manager, provisioning and scanner are separate modules. `/dev/workbench` directly renders the preserved synthetic workbench. Shared QR helpers retain the tested general/pure-image decoding paths and integer module sizing.
+
+Digital tickets download as escaped SVG with a correctly scaled embedded QR. A self-contained HTML sheet uses scoped outer-SVG sizing so inner QR viewBoxes are preserved. Print layout/QR sizing are tested through real exported files and browser ZXing scanning. SVG image import can crop the actual QR pixels using the generated nested-SVG geometry, with finite size bounds and no token text extracted from markup; the decoded result still passes signature/event/catalog checks. Other images retain the general/pure decoder paths. No private key appears in either file.
+
+The service worker precaches app assets and locally hosted fonts. Development-server behavior is not offline evidence. Normal reload and browser-process restart tests use production builds with network disabled. Service-worker updates use the existing waiting lifecycle; operators should close old app tabs to activate a new build, without clearing storage. New signed-ticket hardware scanning has not been validated on physical phones in this session.

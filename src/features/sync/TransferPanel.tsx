@@ -1,7 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import QRCode from 'qrcode';
-import { BrowserQRCodeReader } from '@zxing/browser';
-import { DecodeHintType } from '@zxing/library';
+import { makeQrImage, readQrImage } from './qr';
 import type { CheckInRecord, SyncResult } from '../check-in/domain/models';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import {
@@ -67,17 +65,8 @@ export function TransferPanel({ db, eventId, selected, onImported }: Props) {
     setOutgoing(null);
     try {
       const text = await encodeTransfer(eventId, selected);
-      const modules =
-        QRCode.create(text, { errorCorrectionLevel: 'H' }).modules.size + 8;
-      const available = Math.min(360, sendArea.current?.clientWidth ?? 320);
-      const displaySize =
-        modules * Math.max(1, Math.floor(available / modules));
-      const image = await QRCode.toDataURL(text, {
-        errorCorrectionLevel: 'H',
-        margin: 4,
-        scale: 8,
-      });
-      setOutgoing({ text, image, count: selected.length, displaySize });
+      const qr = await makeQrImage(text, sendArea.current?.clientWidth ?? 320);
+      setOutgoing({ text, ...qr, count: selected.length });
     } catch (failure) {
       setError(
         failure instanceof Error ? failure.message : 'QR generation failed.',
@@ -90,40 +79,17 @@ export function TransferPanel({ db, eventId, selected, onImported }: Props) {
     setBusy(true);
     setError('');
     setResult(null);
-    if (!file.type.startsWith('image/') || file.size > 10 * 1024 * 1024) {
-      setError('Choose an image no larger than 10 MiB.');
-      setBusy(false);
-      return;
-    }
-    const url = URL.createObjectURL(file);
     try {
-      let text: string;
-      try {
-        text = (
-          await new BrowserQRCodeReader(
-            new Map([[DecodeHintType.TRY_HARDER, true]]),
-          ).decodeFromImageUrl(url)
-        ).getText();
-      } catch {
-        // ZXing's detector can miss pristine screen captures; its pure-QR path decodes their actual pixels.
-        text = (
-          await new BrowserQRCodeReader(
-            new Map([[DecodeHintType.PURE_BARCODE, true]]),
-          ).decodeFromImageUrl(url)
-        ).getText();
-      }
-      await receive(text);
+      await receive(await readQrImage(file));
     } catch (failure) {
       setError(
-        failure instanceof Error
-          ? `QR image could not be read: ${failure.message || failure.name || 'No readable QR found. Use the original image or improve resolution.'}`
-          : 'QR image could not be read.',
+        `QR image could not be read: ${failure instanceof Error ? failure.message || failure.name : 'Use the original image or improve resolution.'}`,
       );
     } finally {
-      URL.revokeObjectURL(url);
       setBusy(false);
     }
   }
+
   return (
     <section className="panel transfer" aria-labelledby="transfer-title">
       <div className="section-title">

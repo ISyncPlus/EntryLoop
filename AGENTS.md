@@ -12,7 +12,7 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 - Validate every transport boundary with Zod, enforce event identity and capacity before persistence, and retain atomic IndexedDB transactions. Do not await WebCrypto or other unrelated APIs inside a transaction. Dexie live queries must be read-only.
 - Main logs live in IndexedDB via Dexie, isolated by event and explicit scanner profile. No main-log localStorage. No destructive migrations or data resets without clear scope and confirmation.
 - A checksum detects corruption, never author identity. Unsigned imports must never be called authenticated or cryptographically verified. Device authorization, signatures and revocation remain production requirements.
-- Phase 1 uses only the built-in synthetic fixtures. No attendee personal data or production ticket issuance.
+- Synthetic fixtures are restricted to the clearly labeled development workbench. Real attendee data stays on the organizer device; synchronization payloads and scanner packages must exclude names/emails. Never export organizer private keys.
 - Keep modules feature-oriented and React components small. Reuse platform features; justify dependencies and avoid speculative abstractions.
 - Accessible native controls, keyboard focus, real errors, honest loading/empty states and responsive layouts are required.
 - Keep assets local and precached. Test the production build offline; a Vite development server is insufficient evidence. Never replace a real camera test with a mock and call it proven.
@@ -22,7 +22,7 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 
 ## Scope gate
 
-Stop after Phase 1. Full event management, ticket issuance, dashboards, authentication, cloud synchronization and full product design require later authorization. Before expanding, read docs/ROADMAP.md and the latest user instruction.
+Phase 2A event/attendee management, signed tickets and offline scanner provisioning are authorized. The latest user instruction retains the current interface and defers full UI/UX redesign to Stage 4. Preserve the pure reconciliation engine and Phase 1 workbench at /dev/workbench. Stop after Phase 2A; Phase 2B, cloud synchronization, payments and unrelated functionality require later authorization. Before expanding, read docs/ROADMAP.md and the latest user instruction.
 
 ## Validation commands
 
@@ -30,4 +30,4 @@ Stop after Phase 1. Full event management, ticket issuance, dashboards, authenti
 
 ## Design
 
-The user selected `design-taste-frontend` at `/Users/InhouseHQ/.agents/skills/design-taste-frontend/SKILL.md`. Use its app-screen guidance for the workbench; full art direction remains deferred. This path is machine-specific; discover the skill again on another machine.
+The user selected `design-taste-frontend` at `/Users/InhouseHQ/.agents/skills/design-taste-frontend/SKILL.md`. Retain the current practical Phase 2A interface; full UI/UX work is deferred to Stage 4 by the latest user instruction. Keep the development workbench isolated. This path is machine-specific; discover the skill again on another machine.

@@ -4,6 +4,15 @@ import { createCheckIn, mergeLogs } from '../domain/reconcile';
 import { requireSyntheticTicket } from '../domain/fixtures';
 import { decodeTransfer } from '../../sync/codec';
 import { BatchRejectedError } from '../../sync/rejection';
+import type {
+  ManagedEvent,
+  Attendee,
+  IssuedTicket,
+  CatalogTicket,
+  SigningKey,
+} from '../../events/models';
+import type { ScannerKey, Policy, Credential, OperationProof } from '../../security/models';
+import type { SyncSession } from '../../security/exchange';
 export function scannerProfile(search: string): string {
   const profile = new URLSearchParams(search).get('scanner') ?? 'main';
   if (!/^[a-zA-Z0-9_-]{1,32}$/.test(profile))
@@ -15,6 +24,16 @@ export function scannerProfile(search: string): string {
 export class EntryLoopDB extends Dexie {
   operations!: Table<CheckInRecord, [string, string]>;
   devices!: Table<ScannerDevice, string>;
+  events!: Table<ManagedEvent, string>;
+  attendees!: Table<Attendee, string>;
+  issuedTickets!: Table<IssuedTicket, [string, string]>;
+  ticketCatalog!: Table<CatalogTicket, [string, string]>;
+  signingKeys!: Table<SigningKey, string>;
+  scannerKeys!: Table<ScannerKey, string>;
+  policies!: Table<Policy, [string, number]>;
+  credentials!: Table<Credential, [string, string]>;
+  operationProofs!: Table<OperationProof, [string, string]>;
+  syncSessions!: Table<SyncSession, string>;
   constructor(profile: string) {
     if (!/^[a-zA-Z0-9_-]{1,32}$/.test(profile))
       throw new Error('Invalid scanner profile.');
@@ -22,6 +41,18 @@ export class EntryLoopDB extends Dexie {
     this.version(1).stores({
       operations: '[eventId+operationId],eventId',
       devices: 'id',
+    });
+    this.version(2).stores({
+      events: 'id,role,date',
+      attendees: 'id,eventId,&[eventId+email],&[eventId+ticketId]',
+      issuedTickets: '[eventId+ticketId],eventId,attendeeId',
+      ticketCatalog: '[eventId+ticketId],eventId',
+      signingKeys: 'eventId',
+    });
+    this.version(3).stores({
+      scannerKeys: 'id', policies: '[eventId+epoch],eventId',
+      credentials: '[e+d],e', operationProofs: '[eventId+operationId],eventId',
+      syncSessions: 'id,eventId,direction',
     });
   }
   async scanner(): Promise<ScannerDevice> {
@@ -57,20 +88,37 @@ export class EntryLoopDB extends Dexie {
     });
   }
   async importTransfer(eventId: string, payload: string) {
+    if (eventId !== 'launchpad-lab' && eventId !== 'community-lab')
+      throw new Error('Unsigned transfers are restricted to the synthetic workbench. Use authenticated synchronization.');
     // WebCrypto must complete before entering an IndexedDB transaction.
     const envelope = await decodeTransfer(payload, eventId);
     try {
-      for (const record of envelope.records)
-        requireSyntheticTicket(eventId, record.ticketId);
-      return await this.transaction('rw', this.operations, async () => {
-        const local = await this.records(eventId);
-        const result = mergeLogs(eventId, local, envelope.records);
-        const known = new Set(local.map((record) => record.operationId));
-        await this.operations.bulkAdd(
-          result.operations.filter((record) => !known.has(record.operationId)),
-        );
-        return result;
-      });
+      return await this.transaction(
+        'rw',
+        this.operations,
+        this.ticketCatalog,
+        async () => {
+          for (const record of envelope.records) {
+            if (eventId === 'launchpad-lab' || eventId === 'community-lab')
+              requireSyntheticTicket(eventId, record.ticketId);
+            else if (
+              !(await this.ticketCatalog.get([eventId, record.ticketId]))
+            )
+              throw new Error(
+                'Unknown issued ticket. Prepare this device with an updated event package.',
+              );
+          }
+          const local = await this.records(eventId);
+          const result = mergeLogs(eventId, local, envelope.records);
+          const known = new Set(local.map((record) => record.operationId));
+          await this.operations.bulkAdd(
+            result.operations.filter(
+              (record) => !known.has(record.operationId),
+            ),
+          );
+          return result;
+        },
+      );
     } catch (failure) {
       throw new BatchRejectedError(
         failure instanceof Error ? failure.message : 'Local import failed.',

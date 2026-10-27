@@ -1,5 +1,55 @@
 # Development log
 
+## October 27, 2026 · Africa/Lagos · Phase 2A
+
+### Scope and evidence
+
+Inspected AGENTS.md, source, architecture/decisions, threat model, README, tests and roadmap before edits. The baseline complete gate passed 35 unit/integration tests and 10 browser tests. The owner reported Phase 1 physical two-device QR exchange with identical records and the expected conflict; this is recorded as owner-observed evidence, not a new Codex hardware test.
+
+Phase 2A adds real event/attendee workflows, native signed tickets, public-only provisioning and signature-checked offline admission around the existing engine. The engine SHA-256 is unchanged: `db7489cba82d6c25b0d6a1f46986645d2cfa884ce821d7a2a6b1c3d5209bb86a`. Original DB names/logs/scanner IDs survive the additive Dexie migration. The workbench moves to `/dev/workbench`; its regression scenarios remain intact.
+
+The user briefly supplied an agency-style visual reference, then explicitly deferred UI/UX work to Stage 4 and asked to retain the existing interface. The unintegrated reference components, video/poster and added animation/icon/dialog dependencies were removed. No Phase 2B, cloud sync, payments, backend, deployment or GitHub push was performed.
+
+### Failures found, fixed and covered
+
+- Mixed helper/component exports violated Fast Refresh lint rules; Feedback is now a separate component and shared hooks/functions remain in a TypeScript module. A missing href import was caught by strict TypeScript and fixed.
+- A live event revision could silently advance the revision associated with an old form draft. The form now retains its loaded revision and requires explicit reload after a conflict; a React integration regression verifies no stale overwrite.
+- SVG ticket export originally lost the embedded QR viewBox and used fixed sizing/spacing that could resample modules or crowd long location text. Nested QR viewBoxes are retained; geometry and vertical layout are derived from actual lines/module count.
+- Ticket-sheet CSS originally targeted every nested SVG. It now sizes only the outer `article > svg`, preserving inner QR dimensions.
+- The first complete browser run passed, but a subsequent 24-case repeat found one remaining full-ticket detector miss. The exact SVG is retained as `tests/fixtures/ticket-svg-regression.svg`. SVG image import now uses bounded declared geometry to crop **actual rasterized QR pixels**, then ZXing pure decoding. It never extracts a ticket token from markup. General/pure image fallbacks remain. The fixture test decodes the historical ticket and confirms wrong-event rejection with zero writes.
+- Browser test selectors were tightened to accessible textbox/cell names and filtered status results; open `<details>` was initially misread because its boolean attribute is an empty string, now checked by attribute presence. These were test harness issues, not fabricated scanner behavior.
+- Scanner-package export feedback now reads the exported catalog count rather than a potentially stale rendered prop.
+- Existing tab controls now support arrow/Home/End navigation, roving focus and correctly linked panels; the real browser workflow checks keyboard behavior.
+
+### Final executed validation
+
+| Check                         | Observed result                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| Strict TypeScript             | Passed                                                                          |
+| ESLint, zero warnings allowed | Passed                                                                          |
+| Prettier check                | Passed                                                                          |
+| Vitest                        | **64 passed in 9 files**, including all 35 Phase 1 regressions                  |
+| Production build              | Passed; PWA manifest/service worker and 12 precache entries (~1,136 KiB)        |
+| Playwright full gate          | **20 passed**, 10 scenarios across Chromium/WebKit                              |
+| Extended real-event repeat    | **30 passed**, 5 Phase 2A scenarios × 2 engines × 3 runs after the SVG crop fix |
+| Engine preservation           | SHA-256 exactly matches the pre-edit baseline                                   |
+
+`npm run check` completed successfully on the final implementation, including the keyboard-control regression. The extended run preceded only the final keyboard/doc refinements; no crypto, image or storage logic changed afterward. Browser tests verify actual native signing/verification, actual exported SVG/HTML downloads, IndexedDB, isolated public-only scanner provisioning, offline production reload, invalid signature/wrong-event/duplicate rejection, preserved real-event conflicts and retained-key signing after a real browser-process restart. QR decoding is performed on actual pixels; no successful scanner result is mocked.
+
+Environment: Node 24.20.0, npm 11.19.0, Playwright Chromium 156 and WebKit 27.2. Build warning retained: scanner-containing JS chunk approximately 994 kB minified / 284 kB gzip. No arbitrary chunk-warning suppression was added. Dependency installation/uninstallation reported zero known npm vulnerabilities; this is not a security audit.
+
+### Functional visual review and limits
+
+Viewed the current organizer layout and mobile scanner/ticket screenshots, plus the standalone SVG rendering. Local IBM fonts address the initial font recommendation. The existing green-grey/light/dark interface is intentionally retained; full design is Stage 4. No agency media is shipped. Visual/source-inspector notes are in DESIGN.md and .taste-skill artifacts; these are not claims of a completed final identity.
+
+No new physical phone camera, mobile home-screen installation, actual local TLS trust provisioning or adverse lighting/throughput test was performed. Large-event capacity/performance, storage eviction, assistive-technology behavior and security auditing remain unverified. Signed tickets do not authenticate unsigned sync operations; that boundary is explicit in UI/docs and is a Phase 2B recommendation.
+
+### Attribution
+
+Retained new dependency: Papa Parse, plus its development types. Crypto is native WebCrypto. IBM Plex is self-hosted with its complete OFL notice. Codex assisted with architecture, source, tests, debugging and documentation; user direction/physical evidence and the Stage 4 design deferral are recorded. Current package/license inventory is lockfile-derived.
+
+---
+
 ## October 27, 2026 · Africa/Lagos · Phase 1
 
 Started from an empty `/Users/InhouseHQ/Desktop/EntryLoop/`. All project source, dependencies, browser runtimes, build output and test artifacts were created inside this folder. No deployment, GitHub push or unrelated repository edits were performed.

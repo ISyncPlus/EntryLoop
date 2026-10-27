@@ -108,8 +108,8 @@ function EventWorkbench({ db, eventId }: { db: EntryLoopDB; eventId: string }) {
           </p>
         </div>
         <div className="profile-links">
-          <a href="/?scanner=a">Open isolated profile A</a>
-          <a href="/?scanner=b">Open isolated profile B</a>
+          <a href="/dev/workbench?scanner=a">Open isolated profile A</a>
+          <a href="/dev/workbench?scanner=b">Open isolated profile B</a>
           <span>
             Same-browser test profiles. Use separate physical devices for the
             real offline test.
@@ -287,9 +287,10 @@ export function Workbench({ db }: { db: EntryLoopDB }) {
           {cached
             ? 'Service worker controls this page. Test a normal offline reload before relying on cached resources.'
             : 'Offline shell not yet controlling this page. Use the production build, allow caching, then reload.'}{' '}
-          Physical camera-to-camera transfer remains unverified until tested on
-          two devices. SHA-256 detects corruption; it does not authenticate
-          scanners.
+          Phase 1 reconciliation was observed on two physical devices by the
+          project owner; this build’s signed-ticket camera flow still needs
+          hardware validation. SHA-256 detects corruption; it does not
+          authenticate scanners.
         </aside>
         <EventWorkbench key={eventId} db={db} eventId={eventId} />
       </main>

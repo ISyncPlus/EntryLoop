@@ -5,13 +5,18 @@ import {
   scannerProfile,
 } from './features/check-in/persistence/database';
 import { Workbench } from './features/workbench/Workbench';
+import { ProductApp } from './features/product/ProductApp';
 import './styles.css';
 const root = createRoot(document.getElementById('root')!);
 try {
   const db = new EntryLoopDB(scannerProfile(window.location.search));
   root.render(
     <StrictMode>
-      <Workbench db={db} />
+      {window.location.pathname === '/dev/workbench' ? (
+        <Workbench db={db} />
+      ) : (
+        <ProductApp db={db} />
+      )}
     </StrictMode>,
   );
 } catch (failure) {

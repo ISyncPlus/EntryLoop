@@ -1,5 +1,7 @@
 # Phase 1 completion report
 
+Historical report: the owner subsequently confirmed physical two-device QR reconciliation with matching logs and the expected conflict. The main route now serves Phase 2A; the synthetic workbench is at `/dev/workbench`. Current results are in PHASE_2A_REPORT.md.
+
 Implementation and automated validation are complete inside `/Users/InhouseHQ/Desktop/EntryLoop/`. The first physical-device success criterion remains **unverified**, not claimed complete. Phase 2 has not started.
 
 ## 1. Implemented

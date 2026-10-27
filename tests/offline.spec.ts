@@ -1,6 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 async function ready(page: Page, profile: string) {
-  await page.goto(`/?scanner=${profile}`);
+  await page.goto(`/dev/workbench?scanner=${profile}`);
   await expect(
     page.getByRole('button', { name: 'Admit ticket' }),
   ).toBeVisible();
@@ -125,7 +125,7 @@ test('isolated profiles, event isolation, invalid imports and mobile layout', as
   );
   await page.getByLabel('Test event').selectOption('community-lab');
   await expect(page.getByTestId('attendance')).toHaveText('0');
-  await page.goto('/?scanner=b');
+  await page.goto('/dev/workbench?scanner=b');
   await expect(page.getByTestId('attendance')).toHaveText('0');
   expect(
     await page.evaluate(
@@ -162,7 +162,7 @@ test('stored operations and cached shell survive a real browser process restart'
   });
   try {
     const page = await second.newPage();
-    await page.goto('http://127.0.0.1:4173/?scanner=restart');
+    await page.goto('http://127.0.0.1:4173/dev/workbench?scanner=restart');
     await expect(page.getByTestId('operations')).toHaveText('1');
     await expect(page.getByTestId('scanner-id')).toHaveText(scannerId);
   } finally {
