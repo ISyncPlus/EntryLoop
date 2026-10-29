@@ -1,4 +1,5 @@
 import Dexie, { type Table } from 'dexie';
+import { SCHEMAS, assertCompatibleSchema } from '../../storage/schema';
 import type { CheckInRecord, ScannerDevice, Ticket } from '../domain/models';
 import { createCheckIn, mergeLogs } from '../domain/reconcile';
 import { requireSyntheticTicket } from '../domain/fixtures';
@@ -19,7 +20,12 @@ import type {
 } from '../../security/models';
 import type { SyncSession } from '../../security/exchange';
 export function scannerProfile(search: string): string {
-  const profile = new URLSearchParams(search).get('scanner') ?? 'main';
+  const values = new URLSearchParams(search).getAll('scanner');
+  if (values.length > 1)
+    throw new Error(
+      'Multiple workspace profiles in this URL. Choose one explicit scanner parameter.',
+    );
+  const profile = values[0] ?? 'main';
   if (!/^[a-zA-Z0-9_-]{1,32}$/.test(profile))
     throw new Error(
       'Scanner profile must be 1–32 letters, numbers, underscores or hyphens.',
@@ -43,24 +49,13 @@ export class EntryLoopDB extends Dexie {
     if (!/^[a-zA-Z0-9_-]{1,32}$/.test(profile))
       throw new Error('Invalid scanner profile.');
     super(`entryloop-v1-${profile}`);
-    this.version(1).stores({
-      operations: '[eventId+operationId],eventId',
-      devices: 'id',
-    });
-    this.version(2).stores({
-      events: 'id,role,date',
-      attendees: 'id,eventId,&[eventId+email],&[eventId+ticketId]',
-      issuedTickets: '[eventId+ticketId],eventId,attendeeId',
-      ticketCatalog: '[eventId+ticketId],eventId',
-      signingKeys: 'eventId',
-    });
-    this.version(3).stores({
-      scannerKeys: 'id',
-      policies: '[eventId+epoch],eventId',
-      credentials: '[e+d],e',
-      operationProofs: '[eventId+operationId],eventId',
-      syncSessions: 'id,eventId,direction',
-    });
+    for (const [version, schema] of SCHEMAS)
+      this.version(version).stores(schema);
+  }
+  override open() {
+    return Dexie.Promise.resolve(
+      assertCompatibleSchema(this.name, Dexie.dependencies.indexedDB),
+    ).then(() => super.open());
   }
   async scanner(): Promise<ScannerDevice> {
     return this.transaction('rw', this.devices, async () => {

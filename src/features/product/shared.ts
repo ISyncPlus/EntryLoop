@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { liveQuery } from 'dexie';
+import { scannerProfile } from '../check-in/persistence/database';
 import type { KeyboardEvent } from 'react';
 export function href(path: string): string {
   const source = new URLSearchParams(window.location.search);
   const params = new URLSearchParams();
-  for (const key of ['scanner', 'theme']) {
+  params.set('scanner', scannerProfile(window.location.search));
+  for (const key of ['theme']) {
     const value = source.get(key);
     if (value) params.set(key, value);
   }
@@ -14,17 +16,32 @@ export function useLiveData<T>(query: () => Promise<T>): {
   data: T | undefined;
   error: string;
 } {
-  const [data, setData] = useState<T>();
-  const [error, setError] = useState('');
+  const [state, setState] = useState<{
+    query: () => Promise<T>;
+    data: T | undefined;
+    error: string;
+  }>();
   useEffect(() => {
+    let active = true;
     const subscription = liveQuery(query).subscribe({
-      next: setData,
-      error: (failure: unknown) => setError(message(failure)),
+      next: (data) => {
+        if (active) setState({ query, data, error: '' });
+      },
+      error: (failure: unknown) => {
+        if (active)
+          setState({ query, data: undefined, error: message(failure) });
+      },
     });
-    return () => subscription.unsubscribe();
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
   }, [query]);
-  return { data, error };
+  return state?.query === query
+    ? { data: state.data, error: state.error }
+    : { data: undefined, error: '' };
 }
+
 export function message(failure: unknown): string {
   return failure instanceof Error
     ? failure.message || failure.name

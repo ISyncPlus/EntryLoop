@@ -5,7 +5,10 @@ import { EventForm } from './EventForm';
 import { EventDetail } from './EventDetail';
 import { ScanPage } from './ScanPage';
 import { href, message } from './shared';
-import { Feedback } from './Feedback';
+import { StorageFailure } from './StorageFailure';
+import { WorkspaceStorage } from './WorkspaceStorage';
+import { BUILD_ID } from '../storage/build';
+import { AppUpdateNotice } from './AppUpdateNotice';
 import './product.css';
 export function ProductApp({ db }: { db: EntryLoopDB }) {
   const path = window.location.pathname;
@@ -22,16 +25,43 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
   );
   useEffect(() => {
     let cancelled = false;
+    let invalidated = false;
+    const unavailable = (reason: string) => {
+      if (!cancelled) {
+        invalidated = true;
+        setReady(false);
+        setError(reason);
+      }
+    };
+    const blocked = () =>
+      unavailable(
+        'Database upgrade is blocked by another tab or app window. Close other EntryLoop windows without clearing site data, then retry this same workspace.',
+      );
+    const versionChanged = () =>
+      unavailable(
+        'Another application version opened this database. This connection is closed to preserve records. Reload with a compatible current build; do not clear storage.',
+      );
+    const closed = () =>
+      unavailable(
+        'The browser closed this storage connection. Records were not intentionally reset. Retry the same workspace; if it persists, keep the data for investigation.',
+      );
+    db.on('blocked', blocked);
+    db.on('versionchange', versionChanged);
+    db.on('close', closed);
     void db
-      .scanner()
+      .open()
       .then(() => {
-        if (!cancelled) setReady(true);
+        if (!cancelled && !invalidated) {
+          setError('');
+          setReady(true);
+        }
       })
-      .catch((failure) => {
-        if (!cancelled) setError(message(failure));
-      });
+      .catch((failure: unknown) => unavailable(message(failure)));
     return () => {
       cancelled = true;
+      db.on('blocked').unsubscribe(blocked);
+      db.on('versionchange').unsubscribe(versionChanged);
+      db.on('close').unsubscribe(closed);
     };
   }, [db]);
   useEffect(() => {
@@ -135,10 +165,20 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
           </div>
         </nav>
         <main id="main-content" className="product-main">
-          <Feedback error={error} />
-          {ready
-            ? page
-            : !error && <p role="status">Opening this device’s workspace…</p>}
+          <AppUpdateNotice />
+          <p className="workspace-context" data-testid="workspace-context">
+            Workspace: <strong>{db.name.replace('entryloop-v1-', '')}</strong> ·
+            this browser only · build <code>{BUILD_ID}</code>
+          </p>
+          {error ? (
+            <StorageFailure error={error} database={db.name} />
+          ) : ready ? (
+            <WorkspaceStorage db={db}>{page}</WorkspaceStorage>
+          ) : (
+            <p role="status">
+              Opening this workspace without resetting stored records…
+            </p>
+          )}
         </main>
       </div>
       <footer className="product-footer">

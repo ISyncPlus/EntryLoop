@@ -41,3 +41,13 @@ Keys remain non-exportable. There is no safe key backup, recovery, rotation or l
 Unit/integration tests exercise authorization, forgery, tampering, collision, revocation, migration, partial transfer and content-root convergence. Chromium/WebKit tests use actual native crypto/IndexedDB/QR pixels and production cached assets, including scanner-key/session persistence through browser-process restart. No mocked scanner callback is physical evidence.
 
 The owner reports Phase 1 physical QR reconciliation with matching logs and the expected conflict. New Phase 2B phone camera, install/permission behavior, lighting/distance, throughput, storage eviction, maximum-scale load, independent cryptographic review and comprehensive accessibility/security audits remain unverified. Stage 4 visual/UX redesign is intentionally deferred.
+
+## Reliability incident and hardening · October 28, 2026
+
+**Incident gate FAILED:** a missing event/key location remains unexplained. Profile confusion and stale empty-state behavior were reproduced, not actual committed-data deletion. No incident-time evidence establishes browser eviction, external clearing or migration loss. Current audit disk exhaustion is not historical causation.
+
+Explicit workspace URLs/root selection, raw-table association/key checks, read-error states and a read-only schema preflight reduce accidental loss of access and unsafe automatic repair. Product startup and failed authorization/import no longer create replacement identities. These checks do not defend against arbitrary same-origin code, compromised extensions or browser/OS failure, and cannot inspect another storage partition.
+
+Key-free records exports contain PII and usable signed tickets: store them securely. They are not authenticated authority backups or automatic restore packages. Private keys remain non-exportable and absent from exports. Organizer-key loss can require a replacement event/key and ticket reissuance; matching surviving keys plus trusted metadata could permit a separately reviewed metadata restoration, not an automatic promotion. See [PERSISTENCE_RECOVERY.md](PERSISTENCE_RECOVERY.md).
+
+Actual deployed deep links currently return 404; local routing configuration remains undeployed. No current examined response had Clear-Site-Data, but historical headers/cache versions are not established. Keep deployment compatibility review, storage quotas, physical PWA partition testing, independent security review and the unresolved incident as release risks.

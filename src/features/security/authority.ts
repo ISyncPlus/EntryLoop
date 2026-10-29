@@ -243,7 +243,11 @@ export async function importOwnCredential(
     event.publicKey,
     policy,
   );
-  const own = await identity(db);
+  const own = await db.scannerKeys.get('local');
+  if (!own)
+    throw new Error(
+      'Local scanner key is unavailable. A credential cannot restore another scanner’s private key. No replacement identity was created.',
+    );
   if (
     own.scannerId !== credential.d ||
     canonical(own.publicKey) !== canonical(credential.k)
@@ -265,7 +269,11 @@ export async function importOwnCredential(
 export async function ownAuthorization(db: EntryLoopDB, eventId: string) {
   const event = await db.events.get(eventId);
   const policy = await currentPolicy(db, eventId);
-  const own = await identity(db);
+  const own = await db.scannerKeys.get('local');
+  if (!own)
+    throw new Error(
+      'Scanner is not authorized: the local scanner key is unavailable. Enrollment is required; no replacement identity was created.',
+    );
   const credential = await db.credentials.get([eventId, own.scannerId]);
   if (!event || !policy || !credential)
     throw new Error(

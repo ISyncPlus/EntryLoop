@@ -126,3 +126,16 @@ A complete incoming snapshot verifies manifest identity/content root, author cre
 Signed ticket v1 remains unchanged. Package v1 remains parseable and can prepare a legacy event, but cannot authorize check-in and cannot downgrade an event with a policy. Export a v2 package, import it, then explicitly enroll. Legacy v1 operation exchange works only for the two synthetic workbench events. Unsigned real-event imports now fail visibly. Historical real-event unsigned records remain stored and excluded, never silently promoted.
 
 The current protocol provides authenticated evidence, not proof that a person actually attended or that staff acted honestly. Same-origin compromise can invoke keys; exports do not encrypt opaque IDs. Physical phone optics, maximum-capacity throughput, storage eviction, secure recovery and key rotation remain unverified/unimplemented. Full UI/UX refinement remains Stage 4.
+
+## Reliability hardening · October 28, 2026
+
+The incident acceptance gate is FAILED; [PERSISTENCE_AUDIT.md](PERSISTENCE_AUDIT.md) separates confirmed defects from unresolved historical loss. The engine, protocol, database names and historical schema versions remain unchanged.
+
+- `main.tsx` resolves the existing workspace before opening Dexie. `storage/workspaces.ts` enumerates only the current browser/origin's namespaces using native read-only inspection; bare URLs never silently select main when several workspaces exist. Every normal link preserves the explicit profile.
+- `storage/schema.ts` contains unchanged historical declarations and a read-only exact-schema preflight. Known native versions 10/20 upgrade through the existing additive declarations to 30. Unknown schemas stop before automatic repair. No data-copy or key migration is introduced.
+- `ProductApp` opens storage without creating identities, observes blocked/versionchange/close failures and shows the current profile/build. `shared.ts` binds live-query results/errors to their query/subscription, clearing failed/stale results.
+- `WorkspaceStorage` distinguishes loading, healthy storage and recovery-required. `storage/health.ts` reads raw metadata/references and checks stored key associations locally outside transactions. Corrupt/orphan associations pause normal UI writes rather than rendering a misleading empty list. Other already-open old clients cannot be remotely paused by this gate.
+- `storage/backup.ts` snapshots explicit public/roster fields transactionally, excluding both private-key tables and sync-session staging. Diagnostics contain public IDs/counts. Neither export restores signing authority; no trust-promoting importer was added.
+- `StorageFailure` offers safe retry/context guidance and native read-only diagnostics even when Dexie cannot open. `AppUpdateNotice` observes the existing waiting-worker lifecycle without force activation. Build IDs identify actual source bundles; `vercel.json` prepares SPA routing parity with preview, without deployment.
+
+Real browser tests now cover restart, historical schemas, write rollback/read errors, concurrent tabs, keys and two production builds/SW update. Full validation limits are in [RELIABILITY_TEST_RESULTS.md](RELIABILITY_TEST_RESULTS.md). Storage persistence requests reduce one risk where granted; neither backups without keys nor replication guarantee durable authority.

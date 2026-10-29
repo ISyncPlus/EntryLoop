@@ -1304,3 +1304,50 @@
     border: 0;
   }
 }
+
+/* Shared workbench surfaces must inherit the product theme, including dark-mode authorization. */
+.product-app .panel {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.product-app .import-result {
+  background: var(--raised);
+  color: var(--ink);
+}
+.product-app .transfer-grid > div {
+  border-color: var(--line);
+}
+.product-app .error {
+  background: var(--bad-bg);
+  color: var(--negative);
+  border-color: var(--negative);
+}
+.product-app .conflict-label,
+.product-app .danger-text {
+  color: var(--negative);
+}
+.workspace-context {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.product-app .workspace-storage {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.workspace-storage dl {
+  display: grid;
+  gap: 10px;
+}
+.workspace-storage dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+.workspace-storage dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.workspace-storage button {
+  margin: 4px 8px 4px 0;
+}

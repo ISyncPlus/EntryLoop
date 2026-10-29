@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { liveQuery } from 'dexie';
+import { href } from '../product/shared';
 import type { CheckInRecord, ScannerDevice } from '../check-in/domain/models';
 import { events, ticketsFor } from '../check-in/domain/fixtures';
 import { reconcile } from '../check-in/domain/reconcile';
@@ -251,7 +252,7 @@ export function Workbench({ db }: { db: EntryLoopDB }) {
   return (
     <div className="shell">
       <header>
-        <a href="/" className="wordmark">
+        <a href={href('/')} className="wordmark">
           EntryLoop
         </a>
         <span>Phase 1 · Engineering workbench</span>

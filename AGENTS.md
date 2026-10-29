@@ -23,9 +23,22 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 - No secrets, certificates or private keys in source control. No deployment, push, external messages, unrelated repository edits, backend or scope expansion without user approval.
 - Maintain README, architecture, decisions, threat model, roadmap and development log. Distinguish implemented, experimental and unverified work. Record third-party and AI assistance; do not invent hackathon compliance approval.
 
+## Permanent persistence and data-safety rules
+
+- Never equate an empty events table, missing namespace or failed query with proven deletion. Separate observed evidence, reproductions and hypotheses. An unexplained real data-loss/access incident keeps the reliability gate FAILED even if tests pass.
+- Never clear/reset/recreate an application database, delete events/keys, make private keys exportable, silently replace identities or rename namespaces as a repair. Before a future migration/restoration, capture a key-free diagnostic and recoverable-records backup; validate the original context and authority and obtain explicit approval for destructive production changes.
+- Keep historical schema declarations immutable. Native IndexedDB version 30 means Dexie version 3. Unknown versions/store/index mismatches must stop with recovery guidance, not automatic repair/downgrade. Preserve event/key/operation associations and use transactions for critical writes.
+- Every normal navigation URL carries its explicit workspace/profile. A bare PWA/browser launch resolves existing storage or asks; no error path silently opens a fresh default profile. Profiles are database namespaces, not authorization. Do not claim cross-browser/PWA/origin storage visibility.
+- Product startup only opens/checks storage; it must not create or replace scanner identities. Admission and credential import require existing local keys. Explicit enrollment and synthetic-workbench initialization are separate intentional actions.
+- Loading, successful empty, storage error and recovery-required are distinct states. Clear stale query data on failure/query change and stale errors on success. A read failure must never render first-event guidance.
+- Retain original non-exportable CryptoKeys. Diagnostics may contain counts/public IDs, never private material. Recoverable exports use explicit public/roster field allowlists and disclose PII; they do not restore signing authority or silently authorize imports.
+- Test actual browser storage, process restart, historical schemas, same/different profiles, concurrent tabs, offline transitions, compatible production builds/SW updates and injected read/write failures. fake-indexeddb alone is insufficient. Never hide failing tests or report ENOSPC/incomplete runs as passed.
+- Protect the host and evidence during testing: check space on disk-pressure failures, pause heavy browser runs, retain failure traces and touch only explicitly disposable project artifacts. Never free space by clearing user browser/site data. Current disk pressure is not proof of a historical eviction.
+- Preserve SW waiting lifecycle and database context across updates. Show build/context/recovery information. Deployment rewrites/config fixes are not live fixes until deployment is separately authorized and verified.
+
 ## Scope gate
 
-Phase 2B scanner authorization, signed admissions, bounded resumable optical synchronization and recovery/revocation policy are authorized. Preserve Phase 1 and Phase 2A functionality. The latest user instruction retains the current interface and defers full UI/UX redesign to Stage 4. Preserve the pure reconciliation engine and Phase 1 workbench at /dev/workbench. Stop after Phase 2B. Stage 4 UI/UX redesign, cloud synchronization, payments, deployment and unrelated functionality require later authorization. Before expanding, read docs/ROADMAP.md and the latest user instruction.
+The current authorization is the critical persistence reliability audit/hardening task. Phase 2B physical acceptance is paused. Preserve all Phase 1/2A/2B behavior and the pure reconciliation engine. Fix confirmed reliability/accessibility defects, add required evidence/tests/recovery documentation, then stop. Stage 3, full Stage 4 UI/UX redesign, cloud services, payments, deployment/push and production data changes are not authorized. The actual disappearance remains unresolved until evidence establishes its cause; do not call it permanently fixed.
 
 ## Validation commands
 

@@ -1,5 +1,15 @@
 # Development log
 
+## October 28, 2026 · Africa/Lagos · Persistence reliability hold
+
+The owner reported disappearance of an organizer event after issuing three tickets and preparing a Pixel 8. Began with clean commit 408ce66 and read the existing engineering rules, source, architecture, migrations, threat model, Phase 2B report and tests. Independently reproduced profile-based apparent disappearance with intact stored rows/keys, misleading live-query empty/error behavior, dark authorization-panel contrast and deployed deep-link 404. No committed-record deletion was reproduced. Later owner-provided native inspection lists only organizer with main absent, differing from the initial two-database list; owner knows of no intervening change. Original orphan/key inventory remains pending.
+
+Implemented explicit context-preserving navigation and launch selection; separate loading/empty/storage-error/recovery-required states; unchanged-schema read-only preflight; orphan/metadata/key association checks; no identity generation on product startup or failed authorization; key-free allowlisted exports; persistence request/status; waiting-update/build information; scoped contrast correction; prepared Vercel SPA rewrite. No schema version/name change, key export, reconciliation rewrite, production write, deployment, push, dependency addition or Stage 4 redesign.
+
+Executed TypeScript, lint, formatting, 113 unit/integration tests and production build successfully. All 28 new Chromium/WebKit reliability browser executions passed in their targeted run. A subsequent full 52-case run failed/incompleted under ENOSPC; traces retained. Only regenerable project npm download cache was removed; heavy tests paused pending adequate disk space. Do not count that run as passed. Current authoritative results: RELIABILITY_TEST_RESULTS.md.
+
+**Incident reliability gate remains FAILED.** PERSISTENCE_AUDIT.md records exact evidence and hypotheses; PERSISTENCE_RECOVERY.md states non-exportable-key recovery limits and safe manual procedure. UX_AUDIT.md records all ten actual usability findings without pretending physical retesting occurred. Codex assisted with investigation, changes, regression tests and documentation; the human supplied incident observations and read-only production database results. No recovery of absent information/authority is claimed.
+
 ## October 27, 2026 · Africa/Lagos · Phase 2B
 
 Inspected AGENTS.md, architecture, Phase 2A report, threat model, persistence, ticket crypto, event repository, scanner/provisioning callers, reconciliation and existing tests before changing code. Applied the Ponytail coding workflow: native crypto, additive tables and existing presentation patterns, with no new dependency or design phase. All work remained in EntryLoop; no deployment, push, backend or unrelated repository changes were performed.

@@ -1,8 +1,19 @@
-# EntryLoop · Phase 2B
+# EntryLoop · Reliability hardening
 
 EntryLoop manages local events, issues signed QR tickets and reconciles check-ins between disconnected entrances through QR codes. Phase 2B adds event-scoped scanner authorization, signed admissions, revocation policies and resumable authenticated optical exchange. No backend, Wi-Fi, Bluetooth or internet is needed for the prepared core workflow.
 
 This is a working MVP prototype with explicit limits, not an independent security certification. The owner observed Phase 1 reconciliation on two physical devices. New Phase 2B behavior has automated browser/QR-image evidence; **physical phone camera acceptance remains unverified**. UI/UX redesign is deferred to Stage 4; the existing interface is retained.
+
+## Reliability hold · October 28, 2026
+
+**Acceptance gate: FAILED.** An organizer event disappeared during real-device testing; the original cause is not established. Physical Phase 2B acceptance is paused. Confirmed local fixes preserve workspace URLs, separate storage failures from empty results, check schema/key/record integrity and add key-free diagnostics/records export. No database rename/version bump, deployment or production-data change was performed.
+
+- [Evidence and confirmed defects](docs/PERSISTENCE_AUDIT.md)
+- [Safe recovery limits and exact MacBook/two-phone verification](docs/PERSISTENCE_RECOVERY.md)
+- [Executed reliability tests and disk-space blocker](docs/RELIABILITY_TEST_RESULTS.md)
+- [Actual usability findings; full redesign deferred](docs/UX_AUDIT.md)
+
+Do not clear site data, delete databases or replace keys as a recovery step. Current production deep links also return 404; the local Vercel rewrite is prepared but not deployed. The full browser gate encountered disk exhaustion; targeted tests are not reported as a complete passing gate.
 
 ## Local setup
 
@@ -40,6 +51,8 @@ The gate runs strict TypeScript, lint, formatting, unit/integration tests, fresh
 | `/scan`                | Event-package import and prepared events                                               |
 | `/scan/<event UUID>`   | Authorized ticket admission, local trusted totals, evidence and authenticated sync     |
 | `/dev/workbench`       | Clearly labeled synthetic Phase 1 experiment, retaining unsigned v1 exchange           |
+
+Bare launches reopen the sole existing workspace or ask you to choose; each normal navigation URL carries its workspace explicitly. **Storage context and recovery** shows origin/database/build, existing-workspace discovery, persistence status and key-free exports. A scanner-only event does not appear as an organizer event.
 
 Use `?scanner=organizer`, `?scanner=gate-a`, `?scanner=gate-b` for isolated desktop test databases. Same-profile tabs intentionally share data. **Profiles are namespaces, not authorization or separate physical devices.** Theme links retain `?theme=light|dark`. The additive Dexie v3 migration preserves the original database names, organizer keys, tickets and all historical logs.
 

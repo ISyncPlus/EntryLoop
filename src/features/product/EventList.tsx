@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import { trustedSnapshot } from '../security/operations';
 import { useLiveData, href, eventDate } from './shared';
-import { Feedback } from './Feedback';
+import { StorageFailure } from './StorageFailure';
 import { PackageImport } from './Provisioning';
 export function EventList({
   db,
@@ -27,6 +27,7 @@ export function EventList({
     );
   }, [db, scanner]);
   const { data, error } = useLiveData(query);
+  if (error) return <StorageFailure error={error} database={db.name} />;
   return (
     <>
       <div className="workspace-heading">
@@ -44,7 +45,6 @@ export function EventList({
           </a>
         )}
       </div>
-      <Feedback error={error} />
       {data ? (
         <>
           {data.length > 0 ? (
@@ -106,16 +106,16 @@ export function EventList({
                 <h2>
                   {scanner
                     ? 'Prepare once. Check in offline.'
-                    : 'Start with your event.'}
+                    : 'No organizer events in this workspace.'}
                 </h2>
                 <p>
                   {scanner
                     ? 'Import an event package from the organizer, confirm their key, then check signed tickets without a server.'
-                    : 'Create your event, bring in your guest list and issue signed QR tickets. Every check-in stays on the device until you exchange it.'}
+                    : 'No organizer events were found by a successful read of this workspace. If an event is missing, check Storage context and recovery above before creating a replacement. Scanner-only events appear under Event check-in.'}
                 </p>
                 {!scanner && (
                   <a className="button primary" href={href('/events/new')}>
-                    Create your first event
+                    Create an event in this workspace
                   </a>
                 )}
               </div>

@@ -77,3 +77,7 @@ Replace manual real-event selections with complete snapshot preparation, a recei
 ## 019 · Migration cannot manufacture trust
 
 Preserve all old tables/keys/logs through additive v3. Package v1 remains legacy preparation but cannot authorize or downgrade a secured event. Unsigned real-event imports fail, and old unsigned records stay visible/excluded; never sign/promote them retrospectively. Legacy-known local tickets still block repeats until investigated. Old builds require operational retirement; protocol validation cannot force an update on an unreachable device.
+
+## 020 · Preserve evidence and explicit storage context
+
+An unexplained production disappearance keeps the reliability gate FAILED independently of automated results. Preserve database names/history and non-exportable keys; stop unknown-schema repair and association failures with actionable recovery states. Resolve root launches from existing namespaces or an explicit choice, then carry the namespace in every normal URL. Read errors cannot become empty lists. Exports are key-free recoverable information, not signing-identity backups or trusted automatic imports. No destructive startup, identity replacement or insecure key backup is an acceptable repair.
