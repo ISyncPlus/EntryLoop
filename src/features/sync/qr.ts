@@ -1,21 +1,6 @@
-import QRCode from 'qrcode';
+export { makeQrImage } from './qr-render';
 import { BrowserQRCodeReader } from '@zxing/browser';
 import { DecodeHintType } from '@zxing/library';
-export async function makeQrImage(
-  text: string,
-  available = 320,
-): Promise<{ image: string; displaySize: number }> {
-  const modules =
-    QRCode.create(text, { errorCorrectionLevel: 'H' }).modules.size + 8;
-  const displaySize =
-    modules * Math.max(1, Math.floor(Math.min(360, available) / modules));
-  const image = await QRCode.toDataURL(text, {
-    errorCorrectionLevel: 'H',
-    margin: 4,
-    scale: 8,
-  });
-  return { image, displaySize };
-}
 // Only generated SVG ticket geometry is used here; no payload text is read from markup.
 async function readTicketCrop(file: File, url: string): Promise<string | null> {
   if (file.type !== 'image/svg+xml') return null;

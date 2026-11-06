@@ -460,3 +460,9 @@ footer {
     gap: 5px;
   }
 }
+
+/* Contain narrow targets instead of silently resampling or clipping the quiet zone. */
+.qr-display {
+  width: 100%;
+  overflow-x: auto;
+}

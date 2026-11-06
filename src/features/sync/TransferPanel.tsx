@@ -1,3 +1,4 @@
+import { QrDisplay } from './QrDisplay';
 import { useCallback, useRef, useState } from 'react';
 import { makeQrImage, readQrImage } from './qr';
 import type { CheckInRecord, SyncResult } from '../check-in/domain/models';
@@ -24,6 +25,7 @@ export function TransferPanel({ db, eventId, selected, onImported }: Props) {
     image: string;
     count: number;
     displaySize: number;
+    totalModules: number;
   } | null>(null);
   const [result, setResult] = useState<Pick<
     SyncResult,
@@ -114,10 +116,9 @@ export function TransferPanel({ db, eventId, selected, onImported }: Props) {
           </button>
           {outgoing && (
             <div className="outgoing">
-              <img
-                className="qr"
-                style={{ width: outgoing.displaySize }}
-                src={outgoing.image}
+              <QrDisplay
+                image={outgoing.image}
+                totalModules={outgoing.totalModules}
                 alt="QR transfer containing selected check-in operations"
               />
               <p data-testid="outgoing-count">

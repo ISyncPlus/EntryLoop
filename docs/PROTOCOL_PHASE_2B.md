@@ -31,7 +31,7 @@ Same operation UUID with changed record or proof content rejects the whole impor
 
 ## Optical v2 message shapes
 
-Every message has `{p:"ELS",v:2,k,...,z}`. `z` is a scanner signature over the entire message except `z`. Every serialized frame is measured as UTF-8 before output and before parsing. **Hard limit: 900 bytes.** Generated QRs use H error correction, four-module quiet zones and integer module sizing. There is no timed animation, compression, Bluetooth, WebRTC or network transport.
+Every message has `{p:"ELS",v:2,k,...,z}`. `z` is a scanner signature over the entire message except `z`. Every serialized frame is measured as UTF-8 before output and before parsing. **Hard limit: 900 bytes.** Initially generated QRs used H. Priority 8 now uses M after pixel decoding comparisons, four-module quiet zones and physical-pixel module sizing; see QR_AUDIT.md. There is no timed animation, compression, Bluetooth, WebRTC or network transport.
 
 | `k`                       | Additional fields | Sender/signing key                                                 |
 | ------------------------- | ----------------- | ------------------------------------------------------------------ |
@@ -66,3 +66,7 @@ Trust context is SHA-256 over canonical `{organizer:<pinned fingerprint>,policy:
 8. A one-way receipt proves the intended receiver signed receipt of the complete offered content, subject to trust in its application/device. Matching offered/result/current roots and context establish agreement at that acknowledgment. Extra receiver operations require a reverse exchange. Later admissions, policy/catalog changes or altered local state invalidate current-match feedback. A receipt is never proof of permanent global convergence.
 
 Messages are authenticated, not encrypted. An authorized malicious scanner can lie about physical attendance or its receipt behavior. Large snapshots require many camera reads; limits are implementation ceilings, not measured phone throughput. Physical optics and interruption usability require the acceptance procedure in TESTING_PHASE_2B.md.
+
+## November 6 transport representation
+
+Signed versions/domains/shapes above remain unchanged. ELQ1 is an optional lossless binary/Base45 optical wrapper around these JSON messages; all values are reconstructed before the existing schema/signature checks. Both representations retain the 900-byte limits and JSON-compatible durable sessions. Explicit JSON compatibility output supports old apps; a new scanner still accepts old JSON. No key or signature is shortened cryptographically. See QR_AUDIT.md for the frozen transport, bounded decoder, M/Q/H measurements and hardware limits.

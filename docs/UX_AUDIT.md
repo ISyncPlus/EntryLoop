@@ -31,3 +31,7 @@ Automated contrast checks are evidence for the tested elements/themes, not a com
 6. Review focus order, error/status announcements, touch targets, dark/light contrast and real device layout. Do not represent automated browser tests as physical acceptance.
 
 Deployment, cloud transport, key backup/rotation, Stage 3 and full Stage 4 are not part of this hardening task.
+
+## Priority 8 targeted follow-up · November 6
+
+QR density and resampling are now addressed in the engineering layer: compact signed optical payloads, measured M/Q/H tradeoffs, full-resolution downloads, preserved quiet zones, physical-pixel sizing and small-target guidance. Explicit compatibility controls explain old-peer limitations. The original failed screenshot/camera conditions have not been reproduced; automated downloaded/generated/screenshot pixels are separate evidence. Enrollment still requires full fingerprint comparison and explicit authorization; the ten real findings and Stage 4 onboarding/terminology/design work remain. No full redesign was undertaken. QR_AUDIT.md contains results and Android/iOS/MacBook acceptance instructions.

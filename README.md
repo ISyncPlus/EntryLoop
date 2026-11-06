@@ -13,7 +13,7 @@ This is a working MVP prototype with explicit limits, not an independent securit
 - [Executed reliability tests and disk-space blocker](docs/RELIABILITY_TEST_RESULTS.md)
 - [Actual usability findings; full redesign deferred](docs/UX_AUDIT.md)
 
-Do not clear site data, delete databases or replace keys as a recovery step. Current production deep links also return 404; the local Vercel rewrite is prepared but not deployed. The full browser gate encountered disk exhaustion; targeted tests are not reported as a complete passing gate.
+Do not clear site data, delete databases or replace keys as a recovery step. Current production deep links also return 404; the local Vercel rewrite is prepared but not deployed. The October full-browser attempt encountered disk exhaustion. On November 6 the unchanged persistence suite passed all 52 browser tests after space became available; this clears that environment blocker, not the original incident. Current final results are in RELIABILITY_TEST_RESULTS.md.
 
 ## Local setup
 
@@ -84,6 +84,12 @@ In **Sync & conflicts**:
 6. If the receiver had additional operations, reverse the exchange. Matching canonical operation identity/content roots and policy/catalog context establish snapshot agreement. Counts alone never prove convergence. Later admissions or policy changes require a new exchange.
 
 Camera stops after each code for review. QR image/JSON/manual-payload alternatives use the same verification but are not physical camera evidence. Optical exchange uses no network requests. There is no animated-frame or radio-based transport.
+
+## QR hardening · Priority 8
+
+Enrollment, authorization, signed tickets and secure sync now use a smaller bounded ELQ1 binary/Base45 transport by default. The original signed content, verification rules and stored tokens stay intact. QR generation uses M correction, opaque black/white output and four-module quiet zones; on-screen sizing aligns to device pixels. [QR_AUDIT.md](docs/QR_AUDIT.md) records every format, measurements, compression evaluation and physical acceptance procedure.
+
+Updated scanners accept old JSON. Older apps require **Compatibility QR (JSON for older EntryLoop)** for each security/sync output, and **Compatibility tickets** before ticket export. Existing guided multi-batch sync/resume/acknowledgments stay; there is no animated or radio protocol. Compact QR image tests do not prove physical camera reliability.
 
 ## Compatibility and security limits
 

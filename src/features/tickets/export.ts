@@ -1,3 +1,5 @@
+import { packOptical } from '../sync/optical';
+import { qrGeometry, QR_CORRECTION, QUIET_ZONE } from '../sync/qr-render';
 import QRCode from 'qrcode';
 import type { Attendee, IssuedTicket, ManagedEvent } from '../events/models';
 export const escapeXml = (text: string): string =>
@@ -43,6 +45,7 @@ export async function renderTicketSvg(
   event: ManagedEvent,
   attendee: Attendee,
   ticket: IssuedTicket,
+  legacy = false,
 ): Promise<string> {
   if (
     ticket.eventId !== event.id ||
@@ -51,15 +54,20 @@ export async function renderTicketSvg(
     ticket.attendeeId !== attendee.id
   )
     throw new Error('Ticket export identity mismatch.');
-  const modules =
-    QRCode.create(ticket.payload, { errorCorrectionLevel: 'H' }).modules.size +
-    8;
-  const qrSize = modules * Math.max(1, Math.floor(520 / modules));
-  const qr = await QRCode.toString(ticket.payload, {
+  const wire =
+    !legacy && ticket.payload.startsWith('{')
+      ? packOptical(ticket.payload)
+      : ticket.payload;
+  const geometry = qrGeometry(wire);
+  const qrSize =
+    geometry.totalModules *
+    Math.max(1, Math.floor(520 / geometry.totalModules));
+  const qr = await QRCode.toString(wire, {
     type: 'svg',
-    errorCorrectionLevel: 'H',
-    margin: 4,
+    errorCorrectionLevel: QR_CORRECTION,
+    margin: QUIET_ZONE,
     width: qrSize,
+    color: { dark: '#000000ff', light: '#ffffffff' },
   });
   const lines = (
     text: string,
@@ -87,6 +95,7 @@ export async function renderTicketSheet(
   event: ManagedEvent,
   attendees: readonly Attendee[],
   tickets: readonly IssuedTicket[],
+  legacy = false,
 ): Promise<string> {
   if (!tickets.length || tickets.length > 500)
     throw new Error(
@@ -97,7 +106,7 @@ export async function renderTicketSheet(
     const attendee = attendees.find((row) => row.id === ticket.attendeeId);
     if (!attendee) throw new Error('Attendee missing from ticket export.');
     sections.push(
-      `<article>${await renderTicketSvg(event, attendee, ticket)}</article>`,
+      `<article>${await renderTicketSvg(event, attendee, ticket, legacy)}</article>`,
     );
   }
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escapeXml(event.name)} · EntryLoop tickets</title><style>body{margin:0;background:#e6ece8;font-family:Arial,sans-serif}article{max-width:480px;margin:24px auto;break-after:page}article>svg{width:100%;height:auto;display:block}@media print{body{background:white}article{margin:0 auto;max-width:160mm;page-break-after:always}}</style></head><body>${sections.join('')}</body></html>`;

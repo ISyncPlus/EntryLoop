@@ -1,3 +1,4 @@
+import { unpackOptical } from '../sync/optical';
 import {
   publicKeySchema,
   ticketTokenSchema,
@@ -105,6 +106,7 @@ export async function verifyTicket(
   eventId: string,
   key: PublicKey,
 ): Promise<TicketToken> {
+  text = unpackOptical(text);
   if (encoder.encode(text).length > 512)
     throw new Error('Ticket exceeds the supported 512-byte capacity.');
   let input: unknown;

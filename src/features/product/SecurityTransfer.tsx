@@ -1,3 +1,5 @@
+import { packOptical } from '../sync/optical';
+import { QrDisplay } from '../sync/QrDisplay';
 import { useEffect, useState, useId } from 'react';
 import { CameraScanner } from '../sync/CameraScanner';
 import { makeQrImage, readQrImage } from '../sync/qr';
@@ -74,16 +76,26 @@ export function SecurityInput({
   );
 }
 export function SecurityQr({ text }: { text: string }) {
-  const [qr, setQr] = useState<Awaited<ReturnType<typeof makeQrImage>> | null>(
-    null,
-  );
+  const [legacy, setLegacy] = useState(false);
+  const [generated, setQr] = useState<
+    | (Awaited<ReturnType<typeof makeQrImage>> & {
+        source: string;
+        legacy: boolean;
+      })
+    | null
+  >(null);
+  const qr =
+    generated?.source === text && generated.legacy === legacy
+      ? generated
+      : null;
   const [error, setError] = useState('');
   useEffect(() => {
     let cancelled = false;
-    void makeQrImage(text, 320)
+    void Promise.resolve()
+      .then(() => makeQrImage(legacy ? text : packOptical(text), 320))
       .then((value) => {
         if (!cancelled) {
-          setQr(value);
+          setQr({ ...value, source: text, legacy });
           setError('');
         }
       })
@@ -96,15 +108,14 @@ export function SecurityQr({ text }: { text: string }) {
     return () => {
       cancelled = true;
     };
-  }, [text]);
+  }, [text, legacy]);
   return (
     <div className="outgoing">
       {qr && (
         <>
-          <img
-            className="qr"
-            src={qr.image}
-            style={{ width: qr.displaySize }}
+          <QrDisplay
+            image={qr.image}
+            totalModules={qr.totalModules}
             alt="Authenticated security exchange QR"
           />
           <a href={qr.image} download="entryloop-security.png">
@@ -112,9 +123,27 @@ export function SecurityQr({ text }: { text: string }) {
           </a>
         </>
       )}
-      <p>{new TextEncoder().encode(text).length} UTF-8 bytes</p>
+      <label>
+        <input
+          type="checkbox"
+          checked={legacy}
+          onChange={(event) => setLegacy(event.target.checked)}
+        />
+        Compatibility QR (JSON for older EntryLoop)
+      </label>
+      <p data-testid="security-qr-statistics">
+        {qr
+          ? `${qr.bytes} QR bytes · version ${qr.version} · ${qr.modules} × ${qr.modules} modules · ${qr.correction} correction · ${qr.imageSize} × ${qr.imageSize} image pixels`
+          : 'QR unavailable'}{' '}
+        · {new TextEncoder().encode(text).length} signed JSON bytes
+      </p>
+      <p>
+        Compact codes require the updated app on both devices. Choose
+        compatibility for older apps. Signatures and authorization checks are
+        identical.
+      </p>
       <details>
-        <summary>Exact security payload</summary>
+        <summary>Signed message JSON / manual fallback</summary>
         <textarea
           aria-label="Outgoing security payload"
           readOnly

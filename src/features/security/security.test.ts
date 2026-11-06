@@ -1,3 +1,4 @@
+import { packOptical } from '../sync/optical';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import Dexie from 'dexie';
 import { EntryLoopDB } from '../check-in/persistence/database';
@@ -417,6 +418,57 @@ describe('offline scanner authorization and signed admissions', () => {
   });
 });
 describe('bounded resumable optical exchange', () => {
+  it('verifies compact frames before staging, resumes mixed legacy/compact batches and preserves conflicts and acknowledgments', async () => {
+    const { a, b, event, tickets } = await pair();
+    await admitSignedTicket(a, event.id, packOptical(tickets[0]!.payload));
+    await admitSignedTicket(a, event.id, tickets[1]!.payload);
+    await admitSignedTicket(b, event.id, packOptical(tickets[0]!.payload));
+    await expect(
+      admitSignedTicket(b, event.id, packOptical(tickets[0]!.payload)),
+    ).rejects.toThrow('already admitted');
+    const request = await startReceive(b, event.id);
+    const out = (
+      await acceptFrame(a, event.id, packOptical(frameText(request.request)))
+    ).session;
+    await acceptFrame(b, event.id, packOptical(frameText(out.offer!)));
+    const original = out.frames['0']!;
+    const forged = {
+      ...(JSON.parse(original) as Record<string, unknown>),
+      z: 'A'.repeat(86),
+    };
+    await expect(
+      acceptFrame(b, event.id, packOptical(JSON.stringify(forged))),
+    ).rejects.toThrow('signature');
+    expect((await b.syncSessions.get(out.id))!.frames).toEqual({});
+    const missing = await missingRequest(b, out.id);
+    expect(
+      (await acceptFrame(a, event.id, packOptical(missing))).resend,
+    ).toEqual([0]);
+    b.close();
+    const reopened = database(b.name.replace('entryloop-v1-', ''));
+    const incoming = (
+      await acceptFrame(reopened, event.id, packOptical(original))
+    ).session;
+    expect(incoming.result).toMatchObject({
+      transferred: 2,
+      imported: 2,
+      skipped: 0,
+    });
+    expect(
+      (await acceptFrame(reopened, event.id, original)).session.result,
+    ).toEqual(incoming.result);
+    const done = (
+      await acceptFrame(a, event.id, packOptical(frameText(incoming.ack!)))
+    ).session;
+    expect(await convergenceStatus(a, done)).toContain('Logs differ');
+    await transfer(reopened, a, event.id);
+    expect((await trustedSnapshot(a, event.id)).root).toBe(
+      (await trustedSnapshot(reopened, event.id)).root,
+    );
+    expect((await trustedSnapshot(a, event.id)).state.conflicts).toHaveLength(
+      1,
+    );
+  });
   it('automatically batches, stages out of order, recovers after reopen, requests missing frames and verifies convergence', async () => {
     const { a, b, event, tickets } = await pair();
     for (const ticket of tickets)

@@ -1,3 +1,5 @@
+import { packOptical } from '../sync/optical';
+import { QrDisplay } from '../sync/QrDisplay';
 import { useEffect, useState } from 'react';
 import type { Attendee, IssuedTicket, ManagedEvent } from '../events/models';
 import {
@@ -12,18 +14,23 @@ function TicketPreview({
   event,
   attendee,
   ticket,
+  legacy,
 }: {
   event: ManagedEvent;
   attendee: Attendee;
   ticket: IssuedTicket;
+  legacy: boolean;
 }) {
-  const [qr, setQr] = useState<{ image: string; displaySize: number } | null>(
+  const [qr, setQr] = useState<Awaited<ReturnType<typeof makeQrImage>> | null>(
     null,
   );
   const [error, setError] = useState('');
   useEffect(() => {
     let cancelled = false;
-    void makeQrImage(ticket.payload, 280)
+    void Promise.resolve()
+      .then(() =>
+        makeQrImage(legacy ? ticket.payload : packOptical(ticket.payload), 280),
+      )
       .then((image) => {
         if (!cancelled) setQr(image);
       })
@@ -33,7 +40,7 @@ function TicketPreview({
     return () => {
       cancelled = true;
     };
-  }, [ticket.payload]);
+  }, [ticket.payload, legacy]);
   return (
     <article
       className="digital-ticket"
@@ -57,10 +64,10 @@ function TicketPreview({
       </div>
       <div className="ticket-optical">
         {qr ? (
-          <img
-            data-testid="ticket-qr"
-            style={{ width: qr.displaySize }}
-            src={qr.image}
+          <QrDisplay
+            image={qr.image}
+            totalModules={qr.totalModules}
+            testId="ticket-qr"
             alt={`Signed ticket QR for ${attendee.name}`}
           />
         ) : (
@@ -85,6 +92,7 @@ export function TicketManager({
   attendees: Attendee[];
   tickets: IssuedTicket[];
 }) {
+  const [legacy, setLegacy] = useState(false);
   const [selected, setSelected] = useState(tickets[0]?.ticketId ?? '');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -98,13 +106,13 @@ export function TicketManager({
       if (all)
         downloadText(
           `entryloop-${event.id}-tickets.html`,
-          await renderTicketSheet(event, attendees, tickets),
+          await renderTicketSheet(event, attendees, tickets, legacy),
           'text/html',
         );
       else if (ticket && attendee)
         downloadText(
           `entryloop-${ticket.ticketId}.svg`,
-          await renderTicketSvg(event, attendee, ticket),
+          await renderTicketSvg(event, attendee, ticket, legacy),
           'image/svg+xml',
         );
     } catch (failure) {
@@ -130,6 +138,19 @@ export function TicketManager({
           Download ticket sheet
         </button>
       </div>
+      <label>
+        <input
+          type="checkbox"
+          checked={legacy}
+          onChange={(e) => setLegacy(e.target.checked)}
+        />
+        Compatibility tickets (JSON QR for older EntryLoop)
+      </label>
+      <p className="fine-print">
+        Compact tickets require updated scanners. Existing ticket IDs/signatures
+        are retained. Select compatibility before export when any scanner uses
+        an older app.
+      </p>
       <Feedback error={error} />
       {!ticket || !attendee ? (
         <div className="empty-state compact">
@@ -175,10 +196,11 @@ export function TicketManager({
             <a href={href(`/scan/${event.id}`)}>Open event check-in</a>
           </div>
           <TicketPreview
-            key={ticket.ticketId}
+            key={ticket.ticketId + ':' + legacy}
             event={event}
             attendee={attendee}
             ticket={ticket}
+            legacy={legacy}
           />
         </div>
       )}

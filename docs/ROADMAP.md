@@ -2,7 +2,7 @@
 
 ## Reliability hold · Current task
 
-**FAILED acceptance gate.** Phase 2B physical testing is paused pending evidence explaining the original event's disappearance. Confirmed access/error/schema/key-safety defects are hardened locally; see PERSISTENCE_AUDIT.md, PERSISTENCE_RECOVERY.md, RELIABILITY_TEST_RESULTS.md and UX_AUDIT.md. Complete full validation once disk space permits; do not call targeted tests a complete pass. No deployment or production restoration is authorized.
+**FAILED acceptance gate.** Phase 2B physical testing is paused pending evidence explaining the original event's disappearance. Confirmed access/error/schema/key-safety defects are hardened locally; see PERSISTENCE_AUDIT.md, PERSISTENCE_RECOVERY.md, RELIABILITY_TEST_RESULTS.md and UX_AUDIT.md. The pre-QR 52-browser persistence gate passed November 6 after disk space became available; final Priority 8 results are in RELIABILITY_TEST_RESULTS.md. No new original-incident evidence has been supplied. No deployment or production restoration is authorized.
 
 ## Phase 1 · Completed, owner-confirmed physical reconciliation
 
@@ -17,6 +17,10 @@ Local events with guarded editing, manual/CSV attendees, opaque tickets, native 
 Event-scoped organizer-authorized scanner credentials; scanner-local non-exportable keys; canonical signed admissions and proof sidecars; trusted-only attendance with retained legacy/revoked evidence; signed monotonic scanner/ticket revocation; public package v2; receiver-bound automatic QR snapshots; explicit capacity bounds; durable out-of-order staging, progress/missing requests and signed acknowledgments over operation identities/content. No backend/dependency/UI redesign was introduced.
 
 Exact protocols, migration, operational recovery and manual hardware acceptance are in PROTOCOL_PHASE_2B.md, RECOVERY_PHASE_2B.md and TESTING_PHASE_2B.md. PHASE_2B_REPORT.md and DEVELOPMENT_LOG.md record executed validation.
+
+## Priority 8 · QR hardening
+
+Compact lossless optical encoding, legacy compatibility, measured correction/geometry and actual browser pixel tests are part of the current hardening scope. QR_AUDIT.md records implementation, compression/multi-batch decisions and Android/iOS/MacBook camera work. The persistence incident remains unresolved; owner authorization to continue QR work does not establish the historical cause or authorize deployment/Stage 3/4.
 
 ## Before real-world reliance
 

@@ -1,3 +1,4 @@
+import { unpackOptical } from '../sync/optical';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import type { ManagedEvent } from '../events/models';
@@ -61,6 +62,7 @@ export function ScannerAuthority({
       setError('');
       setNotice('');
       try {
+        text = unpackOptical(text);
         if (new TextEncoder().encode(text).length > 1024 * 1024)
           throw new Error('Security payload exceeds 1 MiB.');
         const value: unknown = JSON.parse(text);

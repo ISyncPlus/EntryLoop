@@ -73,3 +73,7 @@ The alternate output retains earlier ENOSPC evidence. Do not use browser/site-da
 ## Still unverified
 
 Original event/key location or actual deletion/eviction cause; incident-time disk/quota/clear-event telemetry; historical cached client build; exact original browser/PWA partition; original orphan store counts; actual Vercel deployment of the local rewrite; real MacBook/Pixel 8/second-phone acceptance; OS-level installation/storage partition behavior and eviction durability. Physical acceptance remains paused. Manual procedure: PERSISTENCE_RECOVERY.md.
+
+## November 6, 2026 · resumed validation
+
+The host now has 19 GiB available. Before QR implementation, rebuilt the unchanged hardening source and ran all 52 existing browser tests serially in Chromium/WebKit: **52 passed (2.3 minutes)**. Output: ignored `.cache/reliability-resume-tests/`; earlier ENOSPC evidence retained. No production/browser user data was cleared. This supersedes the full-suite environmental blocker, not the unexplained incident: the incident gate remains FAILED and no absent organizer authority is claimed recovered.

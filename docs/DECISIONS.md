@@ -81,3 +81,7 @@ Preserve all old tables/keys/logs through additive v3. Package v1 remains legacy
 ## 020 · Preserve evidence and explicit storage context
 
 An unexplained production disappearance keeps the reliability gate FAILED independently of automated results. Preserve database names/history and non-exportable keys; stop unknown-schema repair and association failures with actionable recovery states. Resolve root launches from existing namespaces or an explicit choice, then carry the namespace in every normal URL. Read errors cannot become empty lists. Exports are key-free recoverable information, not signing-identity backups or trusted automatic imports. No destructive startup, identity replacement or insecure key backup is an acceptable repair.
+
+## 021 · Compact optics preserve signed semantics
+
+Use a bounded lossless ELQ1 binary/Base45 wrapper, native keys/signatures unchanged, existing verified JSON protocols and explicit compatibility output. Fixed layouts remove only implied names/constants; raw UUID/key/signature/hash bytes reduce payload without reducing entropy. Freeze encoding rules per version and retain old decoding/golden vectors. Choose M for the measured clean targets instead of H by default; document actual pixel outcomes and require physical cameras before operational claims. Keep existing guided multi-batch sync; compression/compressed EC points/animation are deferred because their added parser/protocol/compatibility cost was not necessary for the measured single-enrollment target.

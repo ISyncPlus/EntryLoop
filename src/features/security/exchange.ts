@@ -1,3 +1,4 @@
+import { unpackOptical } from '../sync/optical';
 import { z } from 'zod';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import { sign, verify } from '../tickets/signatures';
@@ -137,6 +138,7 @@ export function frameText(message: Message): string {
   return text;
 }
 export function parseFrame(text: string): Message {
+  text = unpackOptical(text);
   if (new TextEncoder().encode(text).length > MAX_FRAME_BYTES)
     throw new Error('QR exceeds the supported 900-byte capacity.');
   let input: unknown;

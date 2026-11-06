@@ -36,9 +36,17 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 - Protect the host and evidence during testing: check space on disk-pressure failures, pause heavy browser runs, retain failure traces and touch only explicitly disposable project artifacts. Never free space by clearing user browser/site data. Current disk pressure is not proof of a historical eviction.
 - Preserve SW waiting lifecycle and database context across updates. Show build/context/recovery information. Deployment rewrites/config fixes are not live fixes until deployment is separately authorized and verified.
 
+## Permanent optical transport rules
+
+- ELQ1 is a bounded lossless wrapper around the existing signed messages. Keep every signed identity, key/signature bit, nonce, epoch and root intact; normalize no signed spelling. Decode before the existing strict schema/signature boundary and before any trusted persistence.
+- Freeze ELQ1's complete dictionary, fixed layouts and canonical selection rules. Even appending words/layouts can invalidate older packets through canonical re-encoding. Changes require a new optical version with the old decoder retained and golden compatibility fixtures.
+- Preserve old JSON imports and explicit JSON output for old peers/ticket scanners. A new optical wrapper does not upgrade an old app remotely. Never silently fall back to unsigned/truncated content or change stored ticket signatures/keys for QR density.
+- Keep the 900-byte wire/reconstructed-message limits, old per-protocol bounds, black/white contrast and four-module quiet zones. Compare correction levels with actual pixels; do not automatically choose H. Align physical module pixels, hide stale-format images and warn on undersized targets.
+- Record format/byte/version/module/correction/image-size and decode outcomes, including failures. Download/screenshot/rescale decoding in Chromium/WebKit is not Android/iOS/Mac camera proof. No animated/zip/compressed-key protocol without measured need and bounded verified parsing.
+
 ## Scope gate
 
-The current authorization is the critical persistence reliability audit/hardening task. Phase 2B physical acceptance is paused. Preserve all Phase 1/2A/2B behavior and the pure reconciliation engine. Fix confirmed reliability/accessibility defects, add required evidence/tests/recovery documentation, then stop. Stage 3, full Stage 4 UI/UX redesign, cloud services, payments, deployment/push and production data changes are not authorized. The actual disappearance remains unresolved until evidence establishes its cause; do not call it permanently fixed.
+The current authorization is the critical persistence reliability audit/hardening task. Phase 2B physical acceptance is paused. Preserve all Phase 1/2A/2B behavior and the pure reconciliation engine. Fix confirmed reliability/accessibility defects, add required evidence/tests/recovery documentation and complete Priority 8 QR optimization, then stop. The owner authorized proceeding with the standard sweep/QR work despite no new historical evidence on November 6, 2026; the unresolved incident gate remains FAILED. Stage 3, full Stage 4 UI/UX redesign, cloud services, payments, deployment/push and production data changes are not authorized. The actual disappearance remains unresolved until evidence establishes its cause; do not call it permanently fixed.
 
 ## Validation commands
 
