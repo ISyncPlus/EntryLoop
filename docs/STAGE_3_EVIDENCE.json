@@ -1,0 +1,342 @@
+{
+  "observedOn": "2026-11-06",
+  "testedBuild": {
+    "build": "362466aa0c8b",
+    "revision": "8d718e7cbc188460bac23fbe58ecd60f893de87e",
+    "dirty": true
+  },
+  "reportingHead": "8c90457c475f0521be7b6dc263a7057077ac07c1",
+  "startupMethod": "3 fresh contexts/engine; local production preview; no throttling; wall timings include automation; small observations, not phone/network guarantees.",
+  "startupBefore": [
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 227,
+      "domContentLoadedMs": 130.5,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 44.10000000009313
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 148,
+      "domContentLoadedMs": 86.10000000009313,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 39.799999999813735
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 147,
+      "domContentLoadedMs": 88.79999999981374,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 42.10000000009313
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 380,
+      "domContentLoadedMs": 198,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 37
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1655,
+          "duration": 5
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 202,
+      "domContentLoadedMs": 81,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 33
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1655,
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 164,
+      "domContentLoadedMs": 90,
+      "scripts": [
+        {
+          "name": "index--NMeXapa.js",
+          "bytes": 1056669,
+          "duration": 36
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1655,
+          "duration": 2
+        }
+      ]
+    }
+  ],
+  "startupAfter": [
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 356,
+      "domContentLoadedMs": 126.40000000037253,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 41.09999999962747
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 126,
+      "domContentLoadedMs": 64.09999999962747,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 30.899999999441206
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "interactiveWallMs": 104,
+      "domContentLoadedMs": 57.700000000186265,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 24.799999999813735
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 320,
+      "domContentLoadedMs": 159,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 25
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1813,
+          "duration": 3
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 111,
+      "domContentLoadedMs": 50,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 20
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1813,
+          "duration": 2
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "interactiveWallMs": 118,
+      "domContentLoadedMs": 55,
+      "scripts": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853,
+          "duration": 21
+        },
+        {
+          "name": "sw.js",
+          "bytes": 1813,
+          "duration": 2
+        }
+      ]
+    }
+  ],
+  "readiness": {
+    "chromium": {
+      "browser": "chromium",
+      "build": {
+        "build": "362466aa0c8b",
+        "revision": "8d718e7cbc188460bac23fbe58ecd60f893de87e",
+        "dirty": true
+      },
+      "beforeDecoder": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853
+        }
+      ],
+      "afterDecoder": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 581853
+        },
+        {
+          "name": "esm-6nV-LJEB.js",
+          "bytes": 26867
+        },
+        {
+          "name": "esm-BYPFX0se.js",
+          "bytes": 453908
+        }
+      ],
+      "generationWorkflowMs": 60,
+      "firstDecodeWorkflowMs": 67,
+      "offlineFirstDecode": true,
+      "physicalCamera": false
+    },
+    "webkit": {
+      "browser": "webkit",
+      "build": {
+        "build": "362466aa0c8b",
+        "revision": "8d718e7cbc188460bac23fbe58ecd60f893de87e",
+        "dirty": true
+      },
+      "beforeDecoder": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 0
+        }
+      ],
+      "afterDecoder": [
+        {
+          "name": "index-i7e4-eFR.js",
+          "bytes": 0
+        },
+        {
+          "name": "esm-6nV-LJEB.js",
+          "bytes": 0
+        },
+        {
+          "name": "esm-BYPFX0se.js",
+          "bytes": 0
+        }
+      ],
+      "generationWorkflowMs": 104,
+      "firstDecodeWorkflowMs": 84,
+      "offlineFirstDecode": true,
+      "physicalCamera": false
+    }
+  },
+  "acceptance": {
+    "chromium": {
+      "eventId": "9167fbd5-129a-42e5-b1f6-00d293c8e25d",
+      "attendees": 7,
+      "admittingDevices": 2,
+      "admissions": 7,
+      "uniqueTickets": 6,
+      "conflictTickets": 1,
+      "operationIds": [
+        "1d84a548-a75f-42a1-8385-5b4cf54ceff0",
+        "299c5801-d20b-4032-ba15-7549f7e87b82",
+        "469cc701-35c0-45b1-858b-a75cb4ad9701",
+        "5ad81820-39cb-4470-9410-74a8c1aae7b2",
+        "b2f9968a-c631-45e8-a368-daf6b6ec522a",
+        "cb1f76d4-7523-4dad-81c0-0545bac4b8f7",
+        "e54ebea5-a3fa-45e7-ac31-28919c55be6c"
+      ],
+      "receiptRoots": [
+        {
+          "offered": "9cdbba3717be6666f7bc65eebb82814363d7346e619336d5bd4002dac43f5e1c",
+          "resulting": "9cdbba3717be6666f7bc65eebb82814363d7346e619336d5bd4002dac43f5e1c"
+        }
+      ],
+      "profilesRestarted": 3,
+      "physicalCameraTested": false
+    },
+    "webkit": {
+      "eventId": "b5aa6957-6c77-4f9d-9d4d-75b1a70cee30",
+      "attendees": 7,
+      "admittingDevices": 2,
+      "admissions": 7,
+      "uniqueTickets": 6,
+      "conflictTickets": 1,
+      "operationIds": [
+        "40dde75f-6476-4dd1-a5e7-ac84ccf2143c",
+        "55f817cf-ffc3-41cf-aea7-e22d5c171391",
+        "58a1d3d4-fdb8-4ee6-bbcb-71ad06eccb92",
+        "6ce05170-c9cd-4984-aab3-73117c098cd9",
+        "76581e72-2f0b-4f0e-b571-47b0444c1458",
+        "91722cff-3f67-4f9e-841d-532a9e3112e2",
+        "9f8a5be7-2004-4426-b09c-0f0b83083190"
+      ],
+      "receiptRoots": [
+        {
+          "offered": "db16e06374fc0c90a7f7e4a2485ba942e959fc224a559943e20e855466c0d95b",
+          "resulting": "db16e06374fc0c90a7f7e4a2485ba942e959fc224a559943e20e855466c0d95b"
+        }
+      ],
+      "profilesRestarted": 3,
+      "physicalCameraTested": false
+    }
+  },
+  "staging": {
+    "target": "/Users/InhouseHQ/Desktop/EntryLoop/.cache/stage3/staging-362466aa0c8b-1793928842604",
+    "build": "362466aa0c8b",
+    "files": 106,
+    "deploymentPerformed": false,
+    "rebuiltOutputFiles": 15,
+    "assetMismatches": [],
+    "assetSha256": {
+      "assets/esm-6nV-LJEB.js": "053d706f36f866b54c390520e0d9d49d9f7e38c4d428460c12d918ea0c5d3410",
+      "assets/esm-BYPFX0se.js": "f8f1fed0b50f2b6807820b074f36c8b7b334b6e456c7affe0e4577bdad460716",
+      "assets/index-Dw9zaWTN.css": "4b2c06ac91b770091a0bcfe643f530edb229326bbb17f942303b17466fb2db1f",
+      "assets/index-i7e4-eFR.js": "c174bf873e455a9a0468eb63839d6b87b2ffd594e07849c030ff478137af9da5",
+      "build-info.json": "5ca91d2b117ed18c20ce482f600b92ea597871b64df974db2b40dc2d35662c16",
+      "fonts/IBMPlexSans-Regular.woff2": "ba711a3085ff9f27440b6b9c4550cfc47c97bf36591d5da958b975bb3add8c1a",
+      "fonts/IBMPlexSans-SemiBold.woff2": "f78048030eab62e860efa39a0df79e2e5581bf122eb95b9bc42c0b8a4988d205",
+      "fonts/OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "icon-192.png": "4db6313c7147b5ff67792a94362453b79721928c7b750ad9900c991743955b57",
+      "icon-512.png": "e70bedcdacb2f4e2bfe6007a10e4eee9d4b71c830ba8dfe09736b9f3d3e36747",
+      "index.html": "ec0fb19d1f950662055aa06fe0da883c1c0124189f7440e7a99eba88cff09312",
+      "manifest.webmanifest": "3f641c55f790c2dc0640810d518db37e45b6762cf21fc7c65bb55305f39fd788",
+      "registerSW.js": "9742073ef7fc795e7673d98f272992843298426a0ffd8cb3507784df5143608b",
+      "sw.js": "8f3da03bdb020e2bb8dff82c8c6a321f0745911606693d4e9a2722d976ab75fc",
+      "workbox-2fbc6a65.js": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e"
+    }
+  },
+  "validation": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "format": "passed",
+    "unitIntegration": 126,
+    "unitFiles": 19,
+    "browserCases": 64,
+    "browserRun": ".cache/stage3/final-complete-tests",
+    "physicalDevicesTested": false,
+    "originalIncidentGate": "FAILED"
+  }
+}

@@ -1,5 +1,15 @@
 # Development log
 
+## November 6, 2026 · Stage 3 product readiness and integration
+
+Read the attached user request as the expressly delegated Stage 3 instructions; updated the prior scope gate without treating it as a permanent prohibition. Preserved pre-existing work, event/key storage names/schemas, non-exportable keys and reconciliation/crypto/ELQ1 contracts. Audited organizer/staff handoffs and read-only diagnostics; no original-incident evidence surfaced and its gate stays FAILED.
+
+Implemented organizer Attendance & sync reuse, truthful workspace enumeration failures, key-free/roster-free diagnostic metadata without arbitrary error text, stable ticket-payload accessible naming and pending-exchange QR hiding. Deferred scanner decoder evaluation while keeping every chunk precached and cancellation safe. Restricted Tailwind scanning to app src so documentation no longer changes CSS. Added public build/revision/dirty provenance and a local allowlisted staging snapshot command; no account/deployment/push operation.
+
+All **126 unit/integration and 64 Chromium/WebKit browser cases** passed on final source. Seven fictional attendees, two admitting entrance devices, duplicate conflict, partial optical transfer/process restart/missing request, reverse roots/acknowledgment, explicit organizer receipt and all three restarts were exercised with actual native crypto/IndexedDB/QR pixels. Stage 3 early failures/test adjustments are retained in its report; no failing test was deleted. Initial entry JS fell from 1,056,669 to 581,853 bytes; local timing samples and first-use offline decoder results are published without physical-camera/large-scale claims. Latest staging source reproduced all 15 generated output files byte for byte. Exact build/dirty commit/source artifact and hashes: STAGE_3_REPORT.md and STAGE_3_EVIDENCE.json.
+
+Created workflow, separate stable staging, physical acceptance and comprehensive Stage 4 UX specifications. Applied design-taste-frontend for planning only (community app, Accent ladder, seed 877116420, palette/type kept); no full design or inspector score claimed. Live staging requires approved new project/account steps; Android/iOS/Mac camera testing remains outstanding. No backend, new dependency, real attendee dataset, cloud sync, payment feature or Stage 4 implementation. Codex assisted with audit, source/test changes, measurements and documentation.
+
 ## November 6, 2026 · Africa/Lagos · Priority 8 and resumed reliability validation
 
 Read current AGENTS/docs/source and the pasted incident report as reference data, preserved the user's existing .DS_Store, and checked available space (19 GiB). Rebuilt/reran all 52 existing browser regressions successfully before QR changes. The owner reports no new incident evidence and explicitly authorized a standard sweep followed by moving forward within hardening; actual data deletion remains unproven and the incident gate stays FAILED.
