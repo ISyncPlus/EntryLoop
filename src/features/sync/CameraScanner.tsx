@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BrowserQRCodeReader, type IScannerControls } from '@zxing/browser';
-import {
-  ChecksumException,
-  FormatException,
-  NotFoundException,
-} from '@zxing/library';
+import type { IScannerControls } from '@zxing/browser';
 
 type Props = {
   onPayload: (payload: string) => Promise<void>;
@@ -16,13 +11,21 @@ export function CameraScanner({ onPayload, disabled }: Props) {
   const video = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (!active || !video.current) return;
+    const preview = video.current;
     let cancelled = false;
     let controls: IScannerControls | undefined;
-    const reader = new BrowserQRCodeReader();
-    void reader
-      .decodeFromVideoDevice(
+    void (async () => {
+      const [
+        { BrowserQRCodeReader },
+        { ChecksumException, FormatException, NotFoundException },
+      ] = await Promise.all([
+        import('@zxing/browser'),
+        import('@zxing/library'),
+      ]);
+      if (cancelled) return undefined;
+      return new BrowserQRCodeReader().decodeFromVideoDevice(
         undefined,
-        video.current,
+        preview,
         (result, scanError, current) => {
           if (cancelled) {
             current.stop();
@@ -45,8 +48,10 @@ export function CameraScanner({ onPayload, disabled }: Props) {
             setError(scanError.message);
           }
         },
-      )
+      );
+    })()
       .then((started) => {
+        if (!started) return;
         controls = started;
         if (cancelled) started.stop();
       })

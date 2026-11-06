@@ -1,6 +1,15 @@
 export { makeQrImage } from './qr-render';
-import { BrowserQRCodeReader } from '@zxing/browser';
-import { DecodeHintType } from '@zxing/library';
+async function imageReader(pure: boolean) {
+  const [{ BrowserQRCodeReader }, { DecodeHintType }] = await Promise.all([
+    import('@zxing/browser'),
+    import('@zxing/library'),
+  ]);
+  return new BrowserQRCodeReader(
+    new Map([
+      [pure ? DecodeHintType.PURE_BARCODE : DecodeHintType.TRY_HARDER, true],
+    ]),
+  );
+}
 // Only generated SVG ticket geometry is used here; no payload text is read from markup.
 async function readTicketCrop(file: File, url: string): Promise<string | null> {
   if (file.type !== 'image/svg+xml') return null;
@@ -44,9 +53,7 @@ async function readTicketCrop(file: File, url: string): Promise<string | null> {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Image decoding requires a 2D canvas.');
   context.drawImage(source, x, y, width, height, 0, 0, width, height);
-  return new BrowserQRCodeReader(new Map([[DecodeHintType.PURE_BARCODE, true]]))
-    .decodeFromCanvas(canvas)
-    .getText();
+  return (await imageReader(true)).decodeFromCanvas(canvas).getText();
 }
 export async function readQrImage(file: File): Promise<string> {
   if (!file.type.startsWith('image/') || file.size > 10 * 1024 * 1024)
@@ -61,16 +68,12 @@ export async function readQrImage(file: File): Promise<string> {
     }
     try {
       return (
-        await new BrowserQRCodeReader(
-          new Map([[DecodeHintType.TRY_HARDER, true]]),
-        ).decodeFromImageUrl(url)
+        await (await imageReader(false)).decodeFromImageUrl(url)
       ).getText();
     } catch {
       // ZXing's pure pixel path handles pristine screen captures missed by its general detector.
       return (
-        await new BrowserQRCodeReader(
-          new Map([[DecodeHintType.PURE_BARCODE, true]]),
-        ).decodeFromImageUrl(url)
+        await (await imageReader(true)).decodeFromImageUrl(url)
       ).getText();
     }
   } catch (failure) {

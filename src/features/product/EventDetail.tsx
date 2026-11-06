@@ -1,3 +1,5 @@
+import { SecureSyncPanel } from './SecureSyncPanel';
+import { OperationsLedger } from '../workbench/OperationsLedger';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import { trustedSnapshot } from '../security/operations';
@@ -87,21 +89,25 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
         aria-label="Event workspace"
         onKeyDown={navigateTabs}
       >
-        {['Guest list', 'Tickets', 'Scanner devices', 'Event details'].map(
-          (tab) => (
-            <button
-              key={tab}
-              role="tab"
-              aria-selected={view === tab}
-              tabIndex={view === tab ? 0 : -1}
-              aria-controls="event-tab-panel"
-              id={`tab-${tab.replaceAll(' ', '-')}`}
-              onClick={() => setView(tab)}
-            >
-              {tab}
-            </button>
-          ),
-        )}
+        {[
+          'Guest list',
+          'Tickets',
+          'Scanner devices',
+          'Attendance & sync',
+          'Event details',
+        ].map((tab) => (
+          <button
+            key={tab}
+            role="tab"
+            aria-selected={view === tab}
+            tabIndex={view === tab ? 0 : -1}
+            aria-controls="event-tab-panel"
+            id={`tab-${tab.replaceAll(' ', '-')}`}
+            onClick={() => setView(tab)}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
       <div
         id="event-tab-panel"
@@ -129,6 +135,36 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
             <DeviceExport db={db} event={event} issuedCount={tickets.length} />
             <ScannerAuthority db={db} event={event} />
           </>
+        )}
+        {view === 'Attendance & sync' && (
+          <section aria-label="Organizer attendance and synchronization">
+            <h2>Attendance and synchronization</h2>
+            <p>
+              These totals include only signed admissions stored here. Receive
+              the entrance logs before reviewing them; disconnected entrances
+              may hold additional records.
+            </p>
+            <p>
+              The organizer must explicitly authorize its own scanner identity
+              to exchange signed records. This grants admission authority too;
+              it is not a read-only credential.
+            </p>
+            <button onClick={() => setView('Scanner devices')}>
+              Open scanner authorization
+            </button>
+            <p data-testid="organizer-attendance">
+              {attendance.attendance} unique tickets ·{' '}
+              {attendance.operations.length} operations ·{' '}
+              {attendance.conflicts.length} conflicts
+            </p>
+            <SecureSyncPanel db={db} eventId={id} />
+            <OperationsLedger
+              records={attendance.operations}
+              scannerId=""
+              selected={[]}
+              conflicts={attendance.conflicts}
+            />
+          </section>
         )}
         {view === 'Event details' && (
           <section className="event-details">

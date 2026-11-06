@@ -46,7 +46,7 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 
 ## Scope gate
 
-The current authorization is the critical persistence reliability audit/hardening task. Phase 2B physical acceptance is paused. Preserve all Phase 1/2A/2B behavior and the pure reconciliation engine. Fix confirmed reliability/accessibility defects, add required evidence/tests/recovery documentation and complete Priority 8 QR optimization, then stop. The owner authorized proceeding with the standard sweep/QR work despite no new historical evidence on November 6, 2026; the unresolved incident gate remains FAILED. Stage 3, full Stage 4 UI/UX redesign, cloud services, payments, deployment/push and production data changes are not authorized. The actual disappearance remains unresolved until evidence establishes its cause; do not call it permanently fixed.
+The current authorization is Stage 3 product readiness and integration, explicitly requested November 6, 2026. Preserve all Phase 1/2A/2B and QR/persistence behavior, audit end-to-end workflows, fix confirmed integration defects, measure bottlenecks, prepare stable separate staging and physical acceptance, and write the Stage 4 UX specification using the selected skill. The original incident remains unexplained and its reliability gate remains FAILED. Stage 4 implementation, cloud sync, payments, production deployment/data changes and push remain unauthorized. Account/credential/project changes for staging require approval after a concrete reviewable artifact/plan is ready. Stop after Stage 3.
 
 ## Validation commands
 

@@ -38,6 +38,12 @@ export function WorkspaceLaunch({
             </li>
           ))}
         </ul>
+      ) : error ? (
+        <p>
+          Existing workspaces could not be inspected. No conclusion about stored
+          events is available. Open the exact original workspace URL without
+          clearing data.
+        </p>
       ) : (
         <p>
           No existing workspace was detected here. If you expected an event,

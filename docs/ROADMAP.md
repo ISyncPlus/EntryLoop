@@ -1,8 +1,10 @@
 # Roadmap
 
-## Reliability hold · Current task
+## Stage 3 · Current authorization
 
-**FAILED acceptance gate.** Phase 2B physical testing is paused pending evidence explaining the original event's disappearance. Confirmed access/error/schema/key-safety defects are hardened locally; see PERSISTENCE_AUDIT.md, PERSISTENCE_RECOVERY.md, RELIABILITY_TEST_RESULTS.md and UX_AUDIT.md. The pre-QR 52-browser persistence gate passed November 6 after disk space became available; final Priority 8 results are in RELIABILITY_TEST_RESULTS.md. No new original-incident evidence has been supplied. No deployment or production restoration is authorized.
+Product-readiness integration, workflow/storage audit, measured decoder loading, local staging artifact/provenance, seven-person offline acceptance and Stage 4 planning. See STAGE_3_REPORT.md for current executed gates, external deployment blocks and performance evidence. No full redesign, cloud feature, payments, push or production deployment is authorized.
+
+The original organizer disappearance is still unexplained: its incident/release reliability gate remains **FAILED**, independently of passing new scenarios. The owner explicitly authorized Stage 3 despite that unresolved evidence. No absent event/key is claimed restored.
 
 ## Phase 1 · Completed, owner-confirmed physical reconciliation
 

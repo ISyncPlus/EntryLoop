@@ -1,3 +1,4 @@
+import QRCode from 'qrcode';
 import { test, expect, type Page } from '@playwright/test';
 async function ready(page: Page, profile: string) {
   await page.goto(`/dev/workbench?scanner=${profile}`);
@@ -59,6 +60,24 @@ test('two isolated offline browsers exchange actual QR images and converge', asy
     expect(idA).not.toBe(idB);
     await a.setOffline(true);
     await b.setOffline(true);
+    // Initialize the deferred reader from its offline precache before measuring record exchange.
+    // This negative control decodes real pixels and must accept no admissions.
+    const readiness = await QRCode.toBuffer('{"v":99}', {
+      margin: 4,
+      scale: 8,
+      errorCorrectionLevel: 'M',
+    });
+    for (const page of [pa, pb]) {
+      await page.getByLabel('Read QR image (local file)').setInputFiles({
+        name: 'readiness.png',
+        mimeType: 'image/png',
+        buffer: readiness,
+      });
+      await expect(page.getByRole('alert')).toContainText(
+        'Unsupported payload version',
+      );
+      await expect(page.getByTestId('operations')).toHaveText('0');
+    }
     const networkRequests: string[] = [];
     for (const page of [pa, pb])
       page.on('request', (request) => {

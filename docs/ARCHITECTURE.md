@@ -143,3 +143,11 @@ Real browser tests now cover restart, historical schemas, write rollback/read er
 ## Priority 8 · Optical representation only
 
 `sync/optical.ts` adds frozen versioned ELQ1 binary/Base45 transport without changing signed protocol content or database schemas. `verifyTicket`, `parseFrame` and the scanner-authority receive boundary unwrap before existing validation/verification. `SecurityQr`/ticket exports choose compact or explicit JSON compatibility output; stored tickets/sync frames remain JSON. `qr-render.ts` owns correction/quiet-zone/module/image metadata, and `QrDisplay.tsx` aligns actual device pixels and contains narrow targets. Existing ZXing decoding paths and the pure reconciliation engine stay intact. The generator remains backed by the installed QRCode package, with no new dependency. See QR_AUDIT.md for the format contract and QR_MEASUREMENTS.json for measured results.
+
+## Stage 3 integration and build readiness
+
+EventDetail adds an organizer Attendance & sync view by reusing SecureSyncPanel/OperationsLedger; explicit local organizer scanner authorization remains required and admission-capable. No observer or alternate cryptographic protocol was added. Pending exchange actions hide the old QR, and repeated manual ticket entry has a stable accessible name.
+
+ZXing implementation/error classes now load through dynamic imports on image/camera use, with cancellation before delayed capture starts. All chunks and public build-info.json are precached; first-use decoding after disconnection and update/restart regressions verify offline viability. Total offline installation bytes are not claimed reduced. Tailwind source scanning is restricted to src so unrelated documentation cannot alter staged CSS. No UI identity redesign.
+
+Build diagnostics expose source-input fingerprint, Git revision and dirty/unknown state. The local-only scripts/prepare-staging.mjs creates an allowlisted code snapshot with original build provenance and per-file SHA-256, excluding browser data/credentials/private material; it performs no account/deployment action. Snapshot rebuild equality is tested/reported separately. Diagnostics omit raw error text as it may contain personal values. Database names/versions/migrations and reconciliation/crypto/ELQ1 semantics are unchanged.

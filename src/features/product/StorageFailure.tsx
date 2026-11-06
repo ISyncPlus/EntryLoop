@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { workspaceInventory } from '../storage/workspaces';
-import { BUILD_ID } from '../storage/build';
+import { BUILD_ID, SOURCE_REVISION, SOURCE_DIRTY } from '../storage/build';
 import { downloadText } from '../tickets/export';
 import { message } from './shared';
 export function StorageFailure({
@@ -22,7 +22,9 @@ export function StorageFailure({
             origin: window.location.origin,
             database,
             build: BUILD_ID,
-            error,
+            revision: SOURCE_REVISION,
+            dirty: SOURCE_DIRTY,
+            status: 'storage-unavailable',
             workspaces,
           },
           null,

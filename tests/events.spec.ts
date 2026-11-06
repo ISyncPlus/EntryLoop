@@ -244,6 +244,10 @@ test('organizer creates, imports guests, issues and exports signed tickets; prep
     ).toHaveAttribute('aria-selected', 'true');
     await page.keyboard.press('ArrowLeft');
     await expect(
+      page.getByRole('tab', { name: 'Attendance & sync' }),
+    ).toHaveAttribute('aria-selected', 'true');
+    await page.keyboard.press('ArrowLeft');
+    await expect(
       page.getByRole('tab', { name: 'Scanner devices' }),
     ).toHaveAttribute('aria-selected', 'true');
     await page.keyboard.press('Home');

@@ -281,7 +281,31 @@ describe('real event workflow and storage boundaries', () => {
     ).rejects.toThrow('already admitted');
     const snapshotA = await trustedSnapshot(a, event.id);
     const payload = JSON.stringify(snapshotA.operations);
-    expect(payload).not.toContain('Ada');
+    // Base64 signatures can contain "Ada" by chance; inspect the schema and complete personal values.
+    for (const operation of snapshotA.operations) {
+      expect(Object.keys(operation.record).sort()).toEqual([
+        'eventId',
+        'operationId',
+        'recordedAt',
+        'scannerId',
+        'ticketId',
+      ]);
+      expect(Object.keys(operation.proof).sort()).toEqual([
+        'authorizationEpoch',
+        'credentialHash',
+        'eventId',
+        'operationId',
+        'signature',
+        'v',
+      ]);
+    }
+    for (const personal of [
+      'Ada Stone',
+      'Sam River',
+      'ada@example.com',
+      'sam@example.com',
+    ])
+      expect(payload).not.toContain(personal);
     expect(payload).not.toContain('@');
     await mergeTrusted(
       b,

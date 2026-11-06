@@ -73,7 +73,7 @@ export function SecureSyncPanel({
   }
   const session = data?.session;
   const queue = session ? outgoingFrames(session, resend) : [];
-  const current = special || queue[index]?.text || '';
+  const current = busy ? '' : special || queue[index]?.text || '';
   const missing =
     session?.direction === 'incoming' ? missingIndices(session) : [];
   return (

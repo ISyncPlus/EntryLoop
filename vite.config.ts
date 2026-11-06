@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
@@ -11,22 +12,55 @@ function sourceFiles(path: string): string[] {
       : [path + '/' + entry.name],
   );
 }
+const inputHash = createHash('sha256');
+for (const path of [
+  ...sourceFiles('src'),
+  ...sourceFiles('public'),
+  ...sourceFiles('scripts'),
+  'index.html',
+  'package.json',
+  'package-lock.json',
+  'vite.config.ts',
+].sort())
+  inputHash.update(path + '\0').update(readFileSync(path));
 const buildId =
-  process.env.ENTRYLOOP_BUILD_ID ??
-  createHash('sha256')
-    .update(
-      [
-        ...sourceFiles('src'),
-        'index.html',
-        'package-lock.json',
-        'vite.config.ts',
-      ]
-        .sort()
-        .map((path) => path + '\n' + readFileSync(path, 'utf8'))
-        .join('\n'),
-    )
-    .digest('hex')
-    .slice(0, 12);
+  process.env.ENTRYLOOP_BUILD_ID ?? inputHash.digest('hex').slice(0, 12);
+let revision = 'unavailable',
+  dirty: boolean | null = null;
+if (existsSync('build-provenance.json')) {
+  const input: unknown = JSON.parse(
+    readFileSync('build-provenance.json', 'utf8'),
+  );
+  if (
+    !input ||
+    typeof input !== 'object' ||
+    !('revision' in input) ||
+    !('dirty' in input) ||
+    typeof input.revision !== 'string' ||
+    !/^(?:[a-f0-9]{40,64}|unavailable)$/.test(input.revision) ||
+    ![true, false, null].includes(input.dirty as boolean | null)
+  )
+    throw new Error(
+      'Invalid staging source provenance. Do not mislabel a build.',
+    );
+  revision = input.revision;
+  dirty = input.dirty as boolean | null;
+} else {
+  try {
+    revision = execFileSync('git', ['rev-parse', 'HEAD'], {
+      encoding: 'utf8',
+    }).trim();
+    dirty = Boolean(
+      execFileSync('git', ['status', '--porcelain'], {
+        encoding: 'utf8',
+      }).trim(),
+    );
+  } catch {
+    console.warn(
+      'Git provenance unavailable; build metadata will report unknown.',
+    );
+  }
+}
 const certPath = process.env.ENTRYLOOP_TLS_CERT;
 const keyPath = process.env.ENTRYLOOP_TLS_KEY;
 if (Boolean(certPath) !== Boolean(keyPath))
@@ -34,12 +68,26 @@ if (Boolean(certPath) !== Boolean(keyPath))
     'Set both ENTRYLOOP_TLS_CERT and ENTRYLOOP_TLS_KEY for local HTTPS.',
   );
 export default defineConfig({
-  define: { __ENTRYLOOP_BUILD_ID__: JSON.stringify(buildId) },
+  define: {
+    __ENTRYLOOP_BUILD_ID__: JSON.stringify(buildId),
+    __ENTRYLOOP_REVISION__: JSON.stringify(revision),
+    __ENTRYLOOP_DIRTY__: JSON.stringify(dirty),
+  },
   preview:
     certPath && keyPath
       ? { https: { cert: readFileSync(certPath), key: readFileSync(keyPath) } }
       : {},
   plugins: [
+    {
+      name: 'entryloop-build-info',
+      generateBundle() {
+        this.emitFile({
+          type: 'asset',
+          fileName: 'build-info.json',
+          source: JSON.stringify({ build: buildId, revision, dirty }, null, 2),
+        });
+      },
+    },
     react(),
     tailwindcss(),
     VitePWA({
@@ -66,7 +114,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,webmanifest,woff2}'],
+        globPatterns: ['**/*.{js,css,html,json,png,svg,webmanifest,woff2}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },

@@ -52,6 +52,7 @@ export function ScanInput({
         <label>
           Signed ticket payload
           <textarea
+            aria-label="Signed ticket payload"
             rows={3}
             value={text}
             onChange={(e) => setText(e.target.value)}

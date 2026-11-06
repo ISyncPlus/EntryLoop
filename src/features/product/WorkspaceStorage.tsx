@@ -5,7 +5,7 @@ import { workspaceHealth } from '../storage/health';
 import type { WorkspaceHealth } from '../storage/health';
 import { workspaceInventory, workspaceUrl } from '../storage/workspaces';
 import { exportRecoverableRecords } from '../storage/backup';
-import { BUILD_ID } from '../storage/build';
+import { BUILD_ID, SOURCE_REVISION, SOURCE_DIRTY } from '../storage/build';
 import { downloadText } from '../tickets/export';
 import { useLiveData, message } from './shared';
 import { StorageFailure } from './StorageFailure';
@@ -117,6 +117,17 @@ function StorageTools({
           <dd>
             <code data-testid="build-id">{BUILD_ID}</code> / {db.verno} (native
             IndexedDB {db.verno * 10})
+          </dd>
+        </div>
+        <div>
+          <dt>Source revision</dt>
+          <dd data-testid="source-revision">
+            {SOURCE_REVISION} ·{' '}
+            {SOURCE_DIRTY === null
+              ? 'working tree unknown'
+              : SOURCE_DIRTY
+                ? 'modified checkout'
+                : 'clean checkout'}
           </dd>
         </div>
         <div>
@@ -240,6 +251,8 @@ function StorageTools({
                   origin: window.location.origin,
                   workspace: profile,
                   build: BUILD_ID,
+                  revision: SOURCE_REVISION,
+                  dirty: SOURCE_DIRTY,
                   health,
                   workspaces: entries,
                 },
