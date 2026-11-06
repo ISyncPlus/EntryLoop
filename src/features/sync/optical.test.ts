@@ -11,6 +11,15 @@ import { verifyTicket, verify } from '../tickets/signatures';
 import { parseFrame } from '../security/exchange';
 import { qrGeometry } from './qr-render';
 describe('bounded lossless optical transport', () => {
+  it('rejects lone UTF-16 surrogates rather than replacing signed text, while legacy JSON remains unchanged', () => {
+    const legacy = JSON.stringify({ l: '\ud800' });
+    expect(() => packOptical(legacy)).toThrow('well-formed Unicode');
+    expect(unpackOptical(legacy)).toBe(legacy);
+    const valid = JSON.stringify({ l: 'Entrance 🚪 入口' });
+    expect(JSON.parse(unpackOptical(packOptical(valid)))).toEqual(
+      JSON.parse(valid),
+    );
+  });
   it('retains an exported ELQ1 enrollment golden vector independently of the current encoder', () => {
     // Public all-zero transport fixture only; it is not a valid authorization/signature.
     const wire =

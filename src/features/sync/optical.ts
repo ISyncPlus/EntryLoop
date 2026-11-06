@@ -167,6 +167,14 @@ function binary(value: unknown): Uint8Array {
   function write(item: unknown, depth: number) {
     if (depth > 10) throw error();
     if (typeof item === 'string') {
+      // TextEncoder replaces lone UTF-16 surrogates; never change a signed alias silently.
+      if (
+        new TextDecoder('utf-8', { fatal: true }).decode(utf8.encode(item)) !==
+        item
+      )
+        throw new Error(
+          'Compact QR requires well-formed Unicode. Use compatibility JSON to preserve the exact signed message.',
+        );
       const token = words.indexOf(item);
       if (token >= 0) out.push(32 + token);
       else if (

@@ -50,7 +50,7 @@ Explicit workspace URLs/root selection, raw-table association/key checks, read-e
 
 Key-free records exports contain PII and usable signed tickets: store them securely. They are not authenticated authority backups or automatic restore packages. Private keys remain non-exportable and absent from exports. Organizer-key loss can require a replacement event/key and ticket reissuance; matching surviving keys plus trusted metadata could permit a separately reviewed metadata restoration, not an automatic promotion. See [PERSISTENCE_RECOVERY.md](PERSISTENCE_RECOVERY.md).
 
-Actual deployed deep links currently return 404; local routing configuration remains undeployed. No current examined response had Clear-Site-Data, but historical headers/cache versions are not established. Keep deployment compatibility review, storage quotas, physical PWA partition testing, independent security review and the unresolved incident as release risks.
+Public deep links returned 404 on October 28; the November 6 read-only recheck now returns 200 with a changed bundle. This audit did not deploy it, access private production storage or verify equivalence with the final local build. No current examined response had Clear-Site-Data, but historical headers/cache versions are not established. Keep deployment compatibility review, storage quotas, physical PWA partition testing, independent security review and the unresolved incident as release risks.
 
 ## Priority 8 optical transport review
 

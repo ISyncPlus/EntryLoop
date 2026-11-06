@@ -25,7 +25,7 @@ Text is `ELQ1:` followed by RFC 9285 Base45 over a bounded binary value. The pre
 - Lowercase UUID strings pack to their exact 16 bytes. Uppercase/unusual accepted representations remain literal text; no signed spelling is normalized.
 - Canonical 43/86-character base64url strings pack to 32/64 bytes, preserving every key/signature bit. Noncanonical spellings stay literal rather than being silently rewritten.
 - Lowercase SHA-256 text packs to 32 bytes; generated uppercase `T-` plus 22 hex ticket IDs pack to 11 bytes. Other supported ticket IDs remain literal.
-- Small unsigned integers use bounded little-endian base-128 varints, including safe millisecond times. Arrays preserve order. UTF-8 aliases retain their exact content.
+- Small unsigned integers use bounded little-endian base-128 varints, including safe millisecond times. Arrays preserve order. UTF-8 aliases retain their exact content. Lone UTF-16 surrogates are rejected with compatibility-JSON guidance instead of letting TextEncoder silently replace signed text.
 - Fixed layouts reconstruct only schema-implied names/constants. Enrollment retains event, scanner, alias, full public key, request nonce and full signature. No field is removed from the signed content or from signature verification.
 - Dictionary/layouts are **frozen for ELQ1**, including their selection rules. Changing/adding tokens or layouts requires a new optical version while retaining this decoder: canonical re-encoding must keep old exported packets valid. A frozen enrollment golden vector tests this independently of current encoder roundtrips.
 - Both encoded text and reconstructed JSON are capped at **900 UTF-8 bytes**; the ticket boundary additionally retains 512 bytes. No existing protocol capacity is raised. No automatic default-event/profile selection or data migration is involved.
@@ -35,18 +35,57 @@ Binary tags: 0 UTF-8 string (varint byte length); 1 unsigned safe integer; 2 ord
 
 ## Measurements and correction choice
 
-The tables below are generated from actual Chromium/WebKit runs of synthetic messages signed with native WebCrypto, fresh UUIDs and public keys. They are representative samples, **not** a decode of the owner's approximately 407-byte original enrollment QR, a camera benchmark or a statistical reliability guarantee. Alias/signature/UUID patterns can alter automatic QR segmentation and version. Matrix observations include failed stress decodes; none are hidden or converted into success.
+The tables below archive the reference `.cache/hardening-qr-final-verified/` measurement run (before the final ill-formed-Unicode guard); that guard does not change well-formed fixture encoding. Final validation after the guard separately passed 122 unit/integration and 58 browser cases. The measurements are generated from actual Chromium/WebKit runs of synthetic messages signed with native WebCrypto, fresh UUIDs and public keys. They are representative samples, **not** a decode of the owner's approximately 407-byte original enrollment QR, a camera benchmark or a statistical reliability guarantee. Alias/signature/UUID patterns can alter automatic QR segmentation and version. Matrix observations include failed stress decodes; none are hidden or converted into success.
 
 <!-- MEASUREMENTS START -->
 
-Measurements are populated from the completed browser run in QR_MEASUREMENTS.json.
+Reference Chromium sample: before is legacy JSON/H, after is compact/M. Matrix module counts exclude the four-module border; image dimensions include it. Aligned display widths below use a controlled 320 CSS-pixel bound at DPR 1; actual responsive app targets were tested separately.
+
+| Format                                                 | Payload bytes before → after | QR version before → after | Matrix side before → after | Download image side before → after (px) | Aligned display side before → after (CSS px) |
+| ------------------------------------------------------ | ---------------------------- | ------------------------- | -------------------------- | --------------------------------------- | -------------------------------------------- |
+| Enrollment request                                     | 409 → 308                    | 22 → 10                   | 105 → 57                   | 904 → 520                               | 226 → 260                                    |
+| Authorization response                                 | 347 → 286                    | 20 → 10                   | 97 → 57                    | 840 → 520                               | 315 → 260                                    |
+| Signed ticket                                          | 184 → 148                    | 14 → 6                    | 73 → 41                    | 648 → 392                               | 243 → 294                                    |
+| Sync receiver request                                  | 590 → 460                    | 26 → 13                   | 121 → 69                   | 1032 → 616                              | 258 → 308                                    |
+| Sync offer                                             | 714 → 541                    | 30 → 15                   | 137 → 77                   | 1160 → 680                              | 290 → 255                                    |
+| Two-admission batch                                    | 751 → 601                    | 30 → 16                   | 137 → 81                   | 1160 → 712                              | 290 → 267                                    |
+| Author credential batch                                | 540 → 413                    | 26 → 12                   | 121 → 65                   | 1032 → 584                              | 258 → 292                                    |
+| Missing-frame request                                  | 256 → 188                    | 17 → 8                    | 85 → 49                    | 744 → 456                               | 279 → 285                                    |
+| Completion acknowledgment                              | 425 → 307                    | 22 → 10                   | 105 → 57                   | 904 → 520                               | 226 → 260                                    |
+| Signed policy                                          | 208 → 139                    | 15 → 6                    | 77 → 41                    | 680 → 392                               | 255 → 294                                    |
+| Synthetic five-operation batch (JSON preserved; H → M) | 629 → 629                    | 27 → 19                   | 125 → 93                   | 1064 → 808                              | 266 → 303                                    |
+
+Enrollment in this sample: 409 → 308 bytes (24.7% fewer encoded bytes), with 105 → 57 matrix modules per side (70.5% less matrix area). The raw compact binary is 202 bytes; Base45 plus prefix produces 308 printable QR characters. The exact original reported ~407-byte QR was not supplied.
+
+| Browser  | Representation / correction | Native downloads decoded | Aligned element screenshots decoded | Smoothed fractional 240px images decoded |
+| -------- | --------------------------- | ------------------------ | ----------------------------------- | ---------------------------------------- |
+| chromium | legacy / M                  | 10/10 (100%)             | 10/10 (100%)                        | 6/10 (60%)                               |
+| chromium | legacy / Q                  | 10/10 (100%)             | 10/10 (100%)                        | 6/10 (60%)                               |
+| chromium | legacy / H                  | 10/10 (100%)             | 10/10 (100%)                        | 7/10 (70%)                               |
+| chromium | compact / M                 | 10/10 (100%)             | 10/10 (100%)                        | 9/10 (90%)                               |
+| chromium | compact / Q                 | 10/10 (100%)             | 10/10 (100%)                        | 9/10 (90%)                               |
+| chromium | compact / H                 | 10/10 (100%)             | 10/10 (100%)                        | 9/10 (90%)                               |
+| webkit   | legacy / M                  | 10/10 (100%)             | 10/10 (100%)                        | 6/10 (60%)                               |
+| webkit   | legacy / Q                  | 10/10 (100%)             | 10/10 (100%)                        | 4/10 (40%)                               |
+| webkit   | legacy / H                  | 10/10 (100%)             | 10/10 (100%)                        | 5/10 (50%)                               |
+| webkit   | compact / M                 | 10/10 (100%)             | 10/10 (100%)                        | 10/10 (100%)                             |
+| webkit   | compact / Q                 | 10/10 (100%)             | 10/10 (100%)                        | 9/10 (90%)                               |
+| webkit   | compact / H                 | 10/10 (100%)             | 10/10 (100%)                        | 8/10 (80%)                               |
+
+The signed-message matrix contains 360 actual decode attempts: 10 formats × 2 representations × 3 correction levels × 3 variants × 2 engines. Each cell above has only ten samples. Original/align-screenshot decoding was 100% for all measured levels; stress failures remain visible. Compact/M stress was 19/20 across both engines, compared with legacy/H 12/20. These observations do not imply population camera success rates. Additional app screenshots at 3 widths × 3 DPRs × 2 engines all decoded; downloaded app PNGs and full compact/legacy SVGs also decoded.
+
+The preserved synthetic format was additionally measured at all three correction levels in each engine: native downloads and aligned screenshots 6/6 each; smoothed 240px resizes 3/6. Existing maximum-five-operation browser regressions also passed. This format deliberately remains unsigned and is not part of the ten signed-message aggregate.
+
+Compression example: the compact two-admission binary was 397 bytes; gzip was 362 and raw DEFLATE 344 in this Chromium sample. Enrollment binary was 202, gzip 225 and raw DEFLATE 207. All per-format values and hypothetical Base45 gzip overhead are retained in QR_MEASUREMENTS.json. No compressed production format is implemented.
+
+One compact/M sync-request stress image remained unreadable in Chromium. It is retained locally at `.cache/qr-audit-results/compact-request-fractional-240.png`; QR_MEASUREMENTS.json records its exact synthetic signed JSON, image hash and transform. Thresholding and 2×/3×/4× nearest enlargement did not recover it, so speculative decoder retries were not shipped. The actual app avoids this transformation by aligning modules; all supported aligned targets passed.
 <!-- MEASUREMENTS END -->
 
 The selected default is **M for clean screen/ordinary ticket targets**, after measuring M/Q/H at equal display bounds. Increasing correction can create a larger matrix and smaller camera-visible modules. M does not reduce signature security; it provides less symbol-damage redundancy than Q/H. No logo/overlay is added. Dirty, folded, damaged print and adverse optics need physical comparison before claiming this setting is optimal. Generator tests retain Q/H for comparison; there is no automatic escalation to H.
 
 Black/white opaque output, a four-module quiet zone and eight raster pixels per module are explicit. `QrDisplay` uses measured container width and device-pixel ratio to choose an integral physical-pixel module size, with a 360 CSS-pixel upper target. Narrow targets are contained in their own scroll area instead of clipped or resampled by `max-width:100%`. A visible warning appears below three CSS pixels per module. The downloaded source remains full resolution. SVG QR generation already includes crisp-edge rendering; adding it twice produced invalid XML during development, was removed, and the existing XML regression caught it.
 
-The sweep also reproduced a state race with a failing test: changing compatibility mode could leave the previous compact QR visible while the legacy image was pending. Generated state is now bound to source and format, hiding stale images immediately. The regression holds the second generation promise pending to verify the old target is absent.
+The sweep also found the UTF-16/TextEncoder normalization edge; a regression verifies explicit rejection and preserved legacy JSON. The sweep reproduced a state race with a failing test: changing compatibility mode could leave the previous compact QR visible while the legacy image was pending. Generated state is now bound to source and format, hiding stale images immediately. The regression holds the second generation promise pending to verify the old target is absent.
 
 Ticket sheets retain scalable vector QR geometry. External browser zoom, print fitting, OS screenshots and messaging-image recompression can still rescale targets; native aligned PNG evidence is not a universal guarantee for those transformations. Keep the quiet zone and prefer original downloads.
 
@@ -60,7 +99,7 @@ Keep existing guided, signed multi-batch sync instead of introducing animation: 
 
 New apps accept old signed JSON tickets, enrollment/authorization, optical-v2 JSON and existing staged JSON sessions. Synthetic v1 stays isolated. New apps also accept ELQ1 through the same verified boundaries. Stored tickets/keys/operations/proofs/sessions are not rewritten or re-signed; no Dexie change is required.
 
-An old app cannot be taught ELQ1 by a new QR. Use **Compatibility QR (JSON for older EntryLoop)** on every security/exchange output when the other device is old, and **Compatibility tickets** before ticket export when any prepared scanner is old. The same signed JSON remains available for manual/file fallback. Prefer updating and precaching all devices before a shift; offline devices cannot discover a newer decoder automatically. Unknown optical/inner protocol versions fail explicitly; there is no security fallback or implicit authorization.
+An old app cannot be taught ELQ1 by a new QR. Compatibility mode supports earlier Phase 2B peers that already implement the same signed protocols; it does not add authorization/signed sync to Phase 1/2A clients. Use **Compatibility QR (JSON for older EntryLoop)** on every security/exchange output when the other device is old, and **Compatibility tickets** before ticket export when any prepared scanner is old. The same signed JSON remains available for manual/file fallback. Prefer updating and precaching all devices before a shift; offline devices cannot discover a newer decoder automatically. Unknown optical/inner protocol versions fail explicitly; there is no security fallback or implicit authorization.
 
 ## Validation and repeatability
 
@@ -77,7 +116,7 @@ After building, run `npm run test:e2e -- tests/qr-optimization.spec.ts --workers
 Use the storage-safe procedure in PERSISTENCE_RECOVERY.md and the trusted HTTPS setup in TESTING_PHASE_2B.md. Do not clear original incident storage or deploy without separate authorization.
 
 1. Record MacBook/front-camera model and OS/Chrome version; Android model/Chrome version; iPhone/iOS/Safari version; browser/PWA/profile/origin/build, display brightness/zoom/DPR and available storage. Prepare a disposable synthetic event and explicit workspaces, keeping the real incident evidence intact.
-2. Update/precace all apps at one trusted HTTPS origin; record storage/key associations. Disable cellular/Wi-Fi/Bluetooth after provisioning and confirm normal offline reload on each device. Do not interpret localhost on a phone as the Mac.
+2. Update/precache all apps at one trusted HTTPS origin; record storage/key associations. Disable cellular/Wi-Fi/Bluetooth after provisioning and confirm normal offline reload on each device. Do not interpret localhost on a phone as the Mac.
 3. Scan compact enrollment from each phone with the MacBook front camera. Compare all fingerprint characters directly on that scanner and explicitly authorize; return the compact credential and verify authorization. Repeat with legacy JSON mode against an older isolated build if backward operation is needed.
 4. Measure at least ten attempts per format at practical distances/angles, normal and dim lighting, low/full brightness and supported camera choices. Record successes, time to decode and exact failures. Compare M/Q/H experimentally before changing policy; headless image percentages are not camera success rates.
 5. Compare the app's aligned target, original downloaded PNG, native OS screenshot and any failing rescaled screenshot. Preserve failed images and exact dimensions without private keys/PII. Avoid messaging recompression; never crop the quiet zone. The owner's original failed screenshot was not supplied, so its exact failure was not reproduced here.

@@ -13,7 +13,7 @@ This is a working MVP prototype with explicit limits, not an independent securit
 - [Executed reliability tests and disk-space blocker](docs/RELIABILITY_TEST_RESULTS.md)
 - [Actual usability findings; full redesign deferred](docs/UX_AUDIT.md)
 
-Do not clear site data, delete databases or replace keys as a recovery step. Current production deep links also return 404; the local Vercel rewrite is prepared but not deployed. The October full-browser attempt encountered disk exhaustion. On November 6 the unchanged persistence suite passed all 52 browser tests after space became available; this clears that environment blocker, not the original incident. Current final results are in RELIABILITY_TEST_RESULTS.md.
+Do not clear site data, delete databases or replace keys as a recovery step. Production deep links returned 404 on October 28; a November 6 read-only recheck returns 200. The currently published bundle differs from the final local build. This audit performed no deployment/push or production-storage changes. The October full-browser attempt encountered disk exhaustion. On November 6 the unchanged persistence suite passed all 52 browser tests after space became available; this clears that environment blocker, not the original incident. Current final results are in RELIABILITY_TEST_RESULTS.md.
 
 ## Local setup
 

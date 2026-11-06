@@ -45,7 +45,7 @@ Keep real incident storage untouched until its inventory/backup is captured. Use
 ### MacBook preflight
 
 1. Free adequate ordinary disk space without clearing Chrome data; record available space. Keep the original browser/profile open. Save original package/ticket files and current origin/profile/context/build, DB names/native versions, table counts, event IDs and key IDs. Record unknowns honestly.
-2. On the current deployed app, normal fresh deep links still return 404 without a controlling SW; the prepared rewrite is not yet deployed. Do not confuse 404/cache/profile errors with deletion. Record them, then stop production acceptance until an authorized compatible deployment.
+2. Record the currently served build and fresh deep-link responses. They returned 404 on October 28; the November 6 read-only recheck returns 200 and a different public bundle. This audit did not deploy it or execute it against stored data. Route success does not locate missing records. Do not confuse routing/cache/profile errors with deletion, and do not assume the current public bundle matches the final local build. Confirm an authorized compatible build before acceptance.
 3. For local validation, use Node 22.12+:
 
 ```sh

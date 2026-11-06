@@ -31,7 +31,7 @@ Same operation UUID with changed record or proof content rejects the whole impor
 
 ## Optical v2 message shapes
 
-Every message has `{p:"ELS",v:2,k,...,z}`. `z` is a scanner signature over the entire message except `z`. Every serialized frame is measured as UTF-8 before output and before parsing. **Hard limit: 900 bytes.** Initially generated QRs used H. Priority 8 now uses M after pixel decoding comparisons, four-module quiet zones and physical-pixel module sizing; see QR_AUDIT.md. There is no timed animation, compression, Bluetooth, WebRTC or network transport.
+Every message has `{p:"ELS",v:2,k,...,z}`. `z` is a scanner signature over the entire message except `z`. Every serialized frame is measured as UTF-8 before output and before parsing. **Hard limit: 900 bytes.** Initially generated QRs used H. Priority 8 now uses M after pixel decoding comparisons, four-module quiet zones and physical-pixel module sizing; see QR_AUDIT.md. There is no timed animation, general-purpose compressor, Bluetooth, WebRTC or network transport. ELQ1 compact serialization is specified separately below.
 
 | `k`                       | Additional fields | Sender/signing key                                                 |
 | ------------------------- | ----------------- | ------------------------------------------------------------------ |

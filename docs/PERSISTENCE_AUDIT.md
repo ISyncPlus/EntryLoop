@@ -1,6 +1,6 @@
 # Persistence audit · October 28, 2026
 
-**Reliability acceptance gate: FAILED. The reported disappearance has not been conclusively explained or permanently fixed.** Confirmed implementation defects were hardened locally. Passing automated checks cannot resolve missing historical records. Production was not deployed or modified.
+**Reliability acceptance gate: FAILED. The reported disappearance has not been conclusively explained or permanently fixed.** Confirmed implementation defects were hardened locally. Passing automated checks cannot resolve missing historical records. This audit did not deploy or modify production storage.
 
 ## Evidence and limits
 
@@ -83,3 +83,7 @@ References: [Dexie native version scaling](https://dexie.org/docs/Dexie/Dexie.ve
 ## November 6 follow-up and standard sweep
 
 The owner reports **no new evidence** locating the original event or completing the remaining production inventory and authorized a standard sweep followed by Priority 8. Incident gate stays FAILED. With 19 GiB available, the unchanged hardening build passed all 52 browser regressions serially before QR modifications. Reviewed startup/schema/health/backup/profile code and event/key mutation callers again; no new application event/key deletion path or demonstrated committed-data loss was found. No production storage/context was modified or claimed restored. QR changes are optical representation only and preserve database/schema/authority invariants. Their final checks and limitations are recorded separately in QR_AUDIT.md and RELIABILITY_TEST_RESULTS.md.
+
+### November 6 public-response recheck
+
+Read-only HTTP requests (no app JavaScript execution or browser storage access) now return 200 for `/`, `/scan?scanner=organizer`, `/events/new?scanner=organizer` and `/sw.js`; no examined response had Clear-Site-Data. This supersedes the current routing status, not the historical October 28 404 evidence. Public `/assets/index-CSpQj7g9.js` is 1,056,488 bytes, SHA-256 `35eb6e11a0a8e3d5182c247f44b2ff5461d274400babbd2155be9df1ce291c58`. It contains ELQ1/storage-recovery text, differs from the final local build, and does not contain the new lone-surrogate guard message. These are asset observations, not a private-storage inspection or a complete production functional validation. Codex ran no deployment or push commands; no deployment actor or historical storage cause is inferred. The original event/key remains unaccounted for.

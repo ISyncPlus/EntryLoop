@@ -1,8 +1,20 @@
-# Reliability test results · October 28, 2026
+# Reliability test results
 
 **Incident/release reliability gate: FAILED.** The actual production disappearance remains unexplained. Software tests are a separate gate and cannot certify the original event/key were recovered or that loss is permanently fixed.
 
-## Executed so far
+## Current validation · November 6, 2026
+
+The standard sweep and Priority 8 source pass strict TypeScript, ESLint, formatting, **122 unit/integration tests across 15 files**, production build and **all 58 browser tests (29 per Chromium/WebKit, 2.7 minutes)**. Final complete output: ignored `.cache/hardening-qr-unicode-final/` (`.last-run.json` reports passed, no failed tests). The existing 52 browser regressions first passed unchanged before QR coding after 19 GiB became available. No tests were removed/skipped and no production data was cleared. The incident acceptance gate remains FAILED; the owner reports no new evidence and authorized moving forward with the standard sweep/QR work.
+
+Nine new unit/integration cases cover the optical grammar/RFC/golden version compatibility, unchanged signatures, hostile/corrupt bounds, mixed-format durable sync/conflicts and the reproduced stale-format QR race. Six new browser executions cover the complete pixel matrix, actual app downloads/screenshots/DPRs, explicit compact enrollment authorization and new/old SVGs. All earlier storage/key/migration/offline/SW regressions passed on the final source.
+
+The archived measurement run in `.cache/hardening-qr-final-verified/` performs 360 actual signed QR decode attempts; all native downloads and aligned screenshots pass, while deliberately smoothed fractional 240px images have failures recorded in QR_AUDIT.md / QR_MEASUREMENTS.json. Compact/M stress was 19/20, legacy/H 12/20 in this sample. These are diagnostic measurements, not physical camera success rates or hidden failed tests. Synthetic five-operation QR geometry was also measured in both engines (native and aligned 6/6 each, smoothed 3/6). The QR test harness is test-only and uses production helpers; no successful decoder callback is mocked.
+
+The sweep additionally rejected lone UTF-16 surrogates explicitly, avoiding TextEncoder normalization of signed aliases; a regression covers this edge and unchanged legacy JSON. During implementation, the existing SVG XML regression caught a duplicate shape-rendering attribute; the redundant addition was removed. A focused test reproduced the old-image/compatibility-toggle race before the state-binding fix and passes afterward. Formatting warnings were corrected. Original ENOSPC failures remain historical evidence below, not the latest gate result.
+
+Final build: 12 precached resources (~1198 KiB); existing scanner-bundle warning retained (~1056 kB minified / 303 kB gzip). No dependency added or warning suppressed. No mobile hardware, physical laptop camera, live production update or original-event recovery was performed. Exact final protocols, measurements, compatibility instructions and physical test plan: QR_AUDIT.md.
+
+## October 28 historical execution
 
 | Check                            | Result                                                                                                                                                                                                                                                    |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -77,3 +89,5 @@ Original event/key location or actual deletion/eviction cause; incident-time dis
 ## November 6, 2026 · resumed validation
 
 The host now has 19 GiB available. Before QR implementation, rebuilt the unchanged hardening source and ran all 52 existing browser tests serially in Chromium/WebKit: **52 passed (2.3 minutes)**. Output: ignored `.cache/reliability-resume-tests/`; earlier ENOSPC evidence retained. No production/browser user data was cleared. This supersedes the full-suite environmental blocker, not the unexplained incident: the incident gate remains FAILED and no absent organizer authority is claimed recovered.
+
+Final follow-up: the Unicode guard passed all 122 unit/integration and all 58 browser cases; `.cache/hardening-qr-unicode-final/.last-run.json` confirms passed/no failed tests. The archived reference measurements intentionally retain their original sample, including failures; a later fresh-key validation run can produce different stress counts without changing the ELQ1 representation. A read-only public HTTP recheck now reports deep-link 200 responses and a public bundle containing earlier QR/storage code that differs from the final local build. No deployment/push or production-storage operation was performed by Codex. See PERSISTENCE_AUDIT.md for exact asset evidence.
