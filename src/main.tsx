@@ -1,4 +1,5 @@
 import { StrictMode } from 'react';
+import { WebsiteEntry } from './features/website/WebsiteEntry';
 import { createRoot } from 'react-dom/client';
 import {
   EntryLoopDB,
@@ -7,10 +8,32 @@ import {
 import { Workbench } from './features/workbench/Workbench';
 import { ProductApp } from './features/product/ProductApp';
 import './styles.css';
+function showWebsite() {
+  root.render(
+    <StrictMode>
+      <WebsiteEntry />
+    </StrictMode>,
+  );
+}
 const root = createRoot(document.getElementById('root')!);
 import { existingProfiles, launchProfile } from './features/storage/workspaces';
 import { WorkspaceLaunch } from './features/product/WorkspaceLaunch';
 async function start() {
+  const params = new URLSearchParams(window.location.search);
+  // The public root is the brochure. Explicit workspace URLs remain operational deep links.
+  if (
+    window.location.pathname === '/welcome' ||
+    (window.location.pathname === '/' && !params.has('scanner'))
+  ) {
+    showWebsite();
+    return;
+  }
+  const setup = window.location.pathname === '/start';
+  if (setup) {
+    const url = new URL(window.location.href);
+    url.pathname = url.searchParams.get('mode') === 'staff' ? '/scan' : '/';
+    window.history.replaceState(null, '', url);
+  }
   root.render(
     <main>
       <h1>Opening EntryLoop storage…</h1>
@@ -22,8 +45,14 @@ async function start() {
   try {
     const explicit = new URLSearchParams(window.location.search).has('scanner');
     const profiles = explicit ? [] : await existingProfiles();
-    const profile = launchProfile(window.location.search, profiles);
+    let profile = launchProfile(window.location.search, profiles);
+    // Explicit website CTA may start a fresh workspace only after successful enumeration.
+    if (setup && profiles.length === 0 && profile === null) profile = 'main';
     if (profile === null) {
+      if (profiles.length === 0 && window.location.pathname === '/') {
+        showWebsite();
+        return;
+      }
       root.render(<WorkspaceLaunch profiles={profiles} />);
       return;
     }

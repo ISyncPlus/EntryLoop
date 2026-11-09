@@ -792,6 +792,18 @@
     "resolved": "https://registry.npmjs.org/@playwright/test/-/test-1.64.1.tgz"
   },
   {
+    "path": "node_modules/@radix-ui/react-compose-refs",
+    "version": "1.1.5",
+    "license": "MIT",
+    "resolved": "https://registry.npmjs.org/@radix-ui/react-compose-refs/-/react-compose-refs-1.1.5.tgz"
+  },
+  {
+    "path": "node_modules/@radix-ui/react-slot",
+    "version": "1.5.0",
+    "license": "MIT",
+    "resolved": "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.5.0.tgz"
+  },
+  {
     "path": "node_modules/@rolldown/binding-android-arm-eabi",
     "version": "1.2.15",
     "license": "MIT",
@@ -1566,10 +1578,22 @@
     "resolved": "https://registry.npmjs.org/chai/-/chai-6.3.0.tgz"
   },
   {
+    "path": "node_modules/class-variance-authority",
+    "version": "0.7.1",
+    "license": "Apache-2.0",
+    "resolved": "https://registry.npmjs.org/class-variance-authority/-/class-variance-authority-0.7.1.tgz"
+  },
+  {
     "path": "node_modules/cliui",
     "version": "6.0.0",
     "license": "ISC",
     "resolved": "https://registry.npmjs.org/cliui/-/cliui-6.0.0.tgz"
+  },
+  {
+    "path": "node_modules/clsx",
+    "version": "2.1.1",
+    "license": "MIT",
+    "resolved": "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz"
   },
   {
     "path": "node_modules/color-convert",
@@ -2140,6 +2164,12 @@
     "version": "4.2.11",
     "license": "ISC",
     "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz"
+  },
+  {
+    "path": "node_modules/gsap",
+    "version": "3.15.1",
+    "license": "Standard 'no charge' license: https://gsap.com/standard-license.",
+    "resolved": "https://registry.npmjs.org/gsap/-/gsap-3.15.1.tgz"
   },
   {
     "path": "node_modules/has-bigints",
@@ -3190,6 +3220,12 @@
     "version": "1.0.0",
     "license": "MIT",
     "resolved": "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
+  },
+  {
+    "path": "node_modules/tailwind-merge",
+    "version": "3.7.0",
+    "license": "MIT",
+    "resolved": "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.7.0.tgz"
   },
   {
     "path": "node_modules/tailwindcss",

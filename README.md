@@ -135,3 +135,11 @@ Updated scanners accept old JSON. Older apps require **Compatibility QR (JSON fo
 - [Third-party and AI attribution](THIRD_PARTY_NOTICES.md)
 
 No dependency was added for Phase 2B. Crypto uses native WebCrypto; Dexie/Zod/ZXing/QRCode and all previous package attribution remain. No cloud sync, payments, deployment, push or Stage 4 redesign was performed.
+
+## Website revision and Stage 5A candidate · November 9, 2026
+
+Use `/` or `/welcome` to review the explanatory website without opening application databases. Explicit workspace URLs such as `/?scanner=main` continue directly to the operational app. The website’s organize/prepare links enter `/start`, preserve an explicit profile when present, and require a successful storage inspection before starting new main storage. Existing organizers can open About EntryLoop and return safely. The operational UI and synthetic `/dev/workbench` remain available.
+
+Local setup (Node >=22.12): `npm ci`, `npm run build`, `npm run preview -- --port 4173 --strictPort`; then open `http://127.0.0.1:4173/` (or `/welcome`). For a separate fictional organizer use `http://127.0.0.1:4173/?scanner=stage5-organizer`; bookmark that exact context. Run `npm run check` for the full automated gate. Playwright browsers are in `.cache/ms-playwright`; if missing, run `PLAYWRIGHT_BROWSERS_PATH=.cache/ms-playwright npx playwright install chromium webkit` before the browser gate. `vite preview` is a local review server, not a deployment strategy. Initial caching/install requires access; verify normal offline reload before trusting a device.
+
+Release results/provenance: [STAGE_5A_REPORT.md](docs/STAGE_5A_REPORT.md). Safe staging instructions: [STAGING_DEPLOYMENT.md](docs/STAGING_DEPLOYMENT.md). Hardware sequence: [STAGING_ACCEPTANCE.md](docs/STAGING_ACCEPTANCE.md), with unfilled observations in [DEVICE_TEST_LOG.md](docs/DEVICE_TEST_LOG.md). Gate checklist and unresolved limitations: [RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md), [KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md). No deployment/push/account change was performed. **Original persistence incident gate remains FAILED.**

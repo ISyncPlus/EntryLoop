@@ -1,0 +1,3023 @@
+{
+ "url": "http://127.0.0.1:4173/welcome",
+ "at": "2026-11-09T16:42:41.890Z",
+ "allow": [
+  "gradient",
+  "glass",
+  "shadow",
+  "hairline",
+  "outlined-box",
+  "button-fx"
+ ],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 41,
+    "css": 6,
+    "transitions": 0,
+    "scripted": 35,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 6967,
+     "screens": 7.7,
+     "words": 661,
+     "img": 4,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 4,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 4,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 116.6,
+     "vw": 8.1,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.065,
+     "leading": 0.96,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.64,
+     "top": 164,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "lines": 2,
+     "size": 116.6,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "EntryLoop ↗",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.05,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.1,
+      "top": 27,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Doors open. Network off.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 116.6,
+      "vw": 8.1,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.065,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 164,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "The connection is light.",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.5,
+      "top": 1012,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "North shows the code.",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.028,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 1187,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "South reads and saves.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.028,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.35,
+      "top": 1187,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "→",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 80,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.05,
+      "top": 1259,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "↙",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 50,
+      "vw": 3.5,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.35,
+      "top": 1383,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Find your next move.",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.5,
+      "top": 1770,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "A welcome, not a spreadsheet.",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 2760,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready before the rush.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 3474,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Clear about the limits.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 4385,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Before the doors open.",
+      "words": 4,
+      "chars": 22,
+      "lines": 2,
+      "size": 69.1,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 5132,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Keep the doors open.",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 100.8,
+      "vw": 7,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.61,
+      "top": 6196,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EntryLoop",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 302.4,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.06,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.96,
+      "top": 6653,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      18,
+      20,
+      21,
+      23,
+      24,
+      28,
+      36,
+      50,
+      69,
+      80,
+      101,
+      117,
+      302
+     ],
+     "sizeCount": 17,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 18,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.2
+     },
+     "measureChars": 82,
+     "max": {
+      "size": 302.4,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "text": "EntryLoop"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f6f8f2",
+       "top": 0,
+       "hsl": {
+        "h": 80,
+        "s": 0.3,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#e9efe4",
+       "top": 1658,
+       "hsl": {
+        "h": 93,
+        "s": 0.26,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#c7eca8",
+       "top": 1889,
+       "hsl": {
+        "h": 93,
+        "s": 0.64,
+        "l": 0.79
+       }
+      },
+      {
+       "color": "#164f47",
+       "top": 3362,
+       "hsl": {
+        "h": 172,
+        "s": 0.56,
+        "l": 0.2
+       }
+      },
+      {
+       "color": "#081e18",
+       "top": 6021,
+       "hsl": {
+        "h": 164,
+        "s": 0.58,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#103e33",
+       "share": 0.73
+      },
+      {
+       "color": "#e1ece5",
+       "share": 0.09
+      },
+      {
+       "color": "#4c6258",
+       "share": 0.07
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.05
+      },
+      {
+       "color": "#081e18",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#164f47",
+      "hsl": {
+       "h": 172,
+       "s": 0.56,
+       "l": 0.2
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 3,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Open app ↗",
+      "Organize an event ↗"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 1,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.footer-aurora → radial-gradient(at 50% 60%, oklch(0.899941 0.0976564 131.313 / 0.14), oklch(0.817561 0.112387 48.3266 / 0.05) "
+     ],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 16,
+     "boxRadius": 8,
+     "squareMedia": 3,
+     "roundedMedia": 1,
+     "mediaRadius": 6,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.11
+     }
+    ],
+    "nav": {
+     "links": 5,
+     "fixed": false,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 6967,
+    "margins": {
+     "left": 32,
+     "right": 56
+    },
+    "sections": [
+     {
+      "sel": "section.site-hero",
+      "tag": "section",
+      "top": 96,
+      "height": 804,
+      "words": 55,
+      "media": 1,
+      "middle": 241,
+      "heading": {
+       "text": "Doors open.",
+       "size": 117,
+       "tag": "h1"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 32,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#how-it-works.optical-story.site-section",
+      "tag": "section",
+      "top": 900,
+      "height": 758,
+      "words": 82,
+      "media": 0,
+      "middle": 47,
+      "heading": {
+       "text": "The connection is light.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 62,
+      "textLeft": 32,
+      "textRight": 62,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#start.journey-section.site-section",
+      "tag": "section",
+      "top": 1658,
+      "height": 946,
+      "words": 66,
+      "media": 1,
+      "middle": 21,
+      "heading": {
+       "text": "Find your next move.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 56,
+      "textLeft": 32,
+      "textRight": 60,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.proof-section.site-section",
+      "tag": "section",
+      "top": 2604,
+      "height": 758,
+      "words": 66,
+      "media": 1,
+      "middle": 167,
+      "heading": {
+       "text": "A welcome, not a spreadsheet.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 56,
+      "textLeft": 32,
+      "textRight": 461,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#offline.offline-section.site-section",
+      "tag": "section",
+      "top": 3362,
+      "height": 911,
+      "words": 134,
+      "media": 1,
+      "middle": 94,
+      "heading": {
+       "text": "Ready before the rush.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 56,
+      "textLeft": 32,
+      "textRight": 427,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#trust.trust-section.site-section",
+      "tag": "section",
+      "top": 4273,
+      "height": 747,
+      "words": 161,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Clear about the limits.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 60,
+      "textLeft": 32,
+      "textRight": 60,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#questions.questions-section.site-section",
+      "tag": "section",
+      "top": 5020,
+      "height": 1002,
+      "words": 420,
+      "media": 0,
+      "middle": 277,
+      "heading": {
+       "text": "Before the doors open.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 57,
+      "textLeft": 32,
+      "textRight": 57,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.cinematic-footer-wrapper",
+      "tag": "footer",
+      "top": 6021,
+      "height": 946,
+      "words": 59,
+      "media": 0,
+      "middle": 103,
+      "heading": {
+       "text": "Keep the doors open.",
+       "size": 101,
+       "tag": "h2"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": -230,
+      "textRight": -37,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 2468,
+      "height": 272
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Doors open. Network off.",
+      "size": 117,
+      "top": 164,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 32,
+      "n": 14
+     },
+     {
+      "x": 645,
+      "n": 8
+     },
+     {
+      "x": 978,
+      "n": 4
+     },
+     {
+      "x": 507,
+      "n": 2
+     },
+     {
+      "x": 260,
+      "n": 1
+     },
+     {
+      "x": 876,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.18,
+    "voidBox": {
+     "x": 660,
+     "y": 120,
+     "w": 360,
+     "h": 660
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 41,
+    "css": 6,
+    "transitions": 0,
+    "scripted": 35,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 8768,
+     "screens": 8.6,
+     "words": 651,
+     "img": 4,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 4,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 3,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 64,
+     "vw": 8.3,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.065,
+     "leading": 0.96,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.56,
+     "top": 148,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "lines": 2,
+     "size": 64,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "EntryLoop ↗",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 3.6,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.05,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 27,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Doors open. Network off.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 64,
+      "vw": 8.3,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.065,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.56,
+      "top": 148,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "The connection is light.",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1104,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "North shows the code.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 30,
+      "vw": 3.9,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.033,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 1296,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "South reads and saves.",
+      "words": 4,
+      "chars": 22,
+      "lines": 2,
+      "size": 30,
+      "vw": 3.9,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.033,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 1296,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "→",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 60,
+      "vw": 7.8,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.06,
+      "top": 1376,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "↙",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 50,
+      "vw": 6.5,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 1508,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Find your next move.",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1823,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "A welcome, not a spreadsheet.",
+      "words": 5,
+      "chars": 29,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 3260,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready before the rush.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 4298,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Clear about the limits.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 5726,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Before the doors open.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 36.9,
+      "vw": 4.8,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 6716,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Keep the doors open.",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 53.8,
+      "vw": 7,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.61,
+      "top": 7999,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EntryLoop",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 161.3,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.06,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8458,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      16,
+      18,
+      20,
+      23,
+      24,
+      28,
+      30,
+      37,
+      50,
+      54,
+      60,
+      64,
+      161
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 18,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.2
+     },
+     "measureChars": 75,
+     "max": {
+      "size": 161.3,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "text": "EntryLoop"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f6f8f2",
+       "top": 0,
+       "hsl": {
+        "h": 80,
+        "s": 0.3,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#e9efe4",
+       "top": 1743,
+       "hsl": {
+        "h": 93,
+        "s": 0.26,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#c7eca8",
+       "top": 2497,
+       "hsl": {
+        "h": 93,
+        "s": 0.64,
+        "l": 0.79
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 2521,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#164f47",
+       "top": 4218,
+       "hsl": {
+        "h": 172,
+        "s": 0.56,
+        "l": 0.2
+       }
+      },
+      {
+       "color": "#081e18",
+       "top": 7744,
+       "hsl": {
+        "h": 164,
+        "s": 0.58,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#103e33",
+       "share": 0.73
+      },
+      {
+       "color": "#e1ece5",
+       "share": 0.09
+      },
+      {
+       "color": "#4c6258",
+       "share": 0.07
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.05
+      },
+      {
+       "color": "#081e18",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#164f47",
+      "hsl": {
+       "h": 172,
+       "s": 0.56,
+       "l": 0.2
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 3,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Open app ↗",
+      "Organize an event ↗"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 1,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.footer-aurora → radial-gradient(at 50% 60%, oklch(0.899941 0.0976564 131.313 / 0.14), oklch(0.817561 0.112387 48.3266 / 0.05) "
+     ],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 16,
+     "boxRadius": 8,
+     "squareMedia": 3,
+     "roundedMedia": 1,
+     "mediaRadius": 6,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 8768,
+    "margins": {
+     "left": 24,
+     "right": 24
+    },
+    "sections": [
+     {
+      "sel": "section.site-hero",
+      "tag": "section",
+      "top": 96,
+      "height": 928,
+      "words": 51,
+      "media": 1,
+      "middle": 28,
+      "heading": {
+       "text": "Doors open.",
+       "size": 64,
+       "tag": "h1"
+      },
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#how-it-works.optical-story.site-section",
+      "tag": "section",
+      "top": 1024,
+      "height": 719,
+      "words": 82,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "The connection is light.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 52,
+      "textLeft": 24,
+      "textRight": 52,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#start.journey-section.site-section",
+      "tag": "section",
+      "top": 1743,
+      "height": 1437,
+      "words": 66,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Find your next move.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 24,
+      "textLeft": 24,
+      "textRight": 65,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.proof-section.site-section",
+      "tag": "section",
+      "top": 3180,
+      "height": 1038,
+      "words": 66,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "A welcome, not a spreadsheet.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 48,
+      "textLeft": 24,
+      "textRight": 194,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#offline.offline-section.site-section",
+      "tag": "section",
+      "top": 4218,
+      "height": 1427,
+      "words": 134,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Ready before the rush.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 40,
+      "textLeft": 24,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#trust.trust-section.site-section",
+      "tag": "section",
+      "top": 5646,
+      "height": 991,
+      "words": 161,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Clear about the limits.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 38,
+      "textLeft": 24,
+      "textRight": 38,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#questions.questions-section.site-section",
+      "tag": "section",
+      "top": 6636,
+      "height": 1108,
+      "words": 360,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Before the doors open.",
+       "size": 37,
+       "tag": "h2"
+      },
+      "left": 24,
+      "right": 50,
+      "textLeft": 24,
+      "textRight": 50,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.cinematic-footer-wrapper",
+      "tag": "footer",
+      "top": 7744,
+      "height": 1024,
+      "words": 60,
+      "media": 0,
+      "middle": 496,
+      "heading": {
+       "text": "Keep the doors open.",
+       "size": 54,
+       "tag": "h2"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": -249,
+      "textRight": -689,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Doors open. Network off.",
+      "size": 64,
+      "top": 148,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 24,
+      "n": 20
+     },
+     {
+      "x": 48,
+      "n": 9
+     },
+     {
+      "x": 460,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 41,
+    "css": 6,
+    "transitions": 0,
+    "scripted": 35,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 9003,
+     "screens": 10.7,
+     "words": 649,
+     "img": 4,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 7,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 4,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 4,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 57.3,
+     "vw": 14.7,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.065,
+     "leading": 0.96,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.92,
+     "top": 108,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Doors open. Network off.",
+     "words": 4,
+     "lines": 2,
+     "size": 57.3,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "EntryLoop ↗",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.058,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.32,
+      "top": 19,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Doors open. Network off.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 57.3,
+      "vw": 14.7,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.065,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 108,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "The connection is light.",
+      "words": 4,
+      "chars": 24,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1130,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "North shows the code.",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 30,
+      "vw": 7.7,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.033,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 1333,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "→",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.12,
+      "top": 1584,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "South reads and saves.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 30,
+      "vw": 7.7,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.033,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 1692,
+      "tag": "strong",
+      "kind": "heading"
+     },
+     {
+      "text": "↙",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 50,
+      "vw": 12.8,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 1850,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Find your next move.",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2191,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Make it your event ↘ Set the name, date and place. Your event and its signing identity stay in this browser.",
+      "words": 21,
+      "chars": 108,
+      "lines": 3,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2423,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Bring your guest list ↗",
+      "words": 5,
+      "chars": 23,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2567,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Give guests their tickets ↗",
+      "words": 5,
+      "chars": 27,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2633,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Prepare the entrances ↗",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 2700,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "A welcome, not a spreadsheet.",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 3422,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready before the rush.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4375,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Offline confidence starts before the doors open.",
+      "words": 7,
+      "chars": 48,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4436,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Load and keep the app",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4538,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Prepare and approve each phone",
+      "words": 5,
+      "chars": 30,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4751,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Switch off and rehearse",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4964,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Clear about the limits.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5731,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Offline does not mean everything is known everywhere.",
+      "words": 8,
+      "chars": 53,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5792,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Local means local",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5910,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Duplicates stay visible",
+      "words": 3,
+      "chars": 23,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6160,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Approval has a boundary",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6381,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Before the doors open.",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7067,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What is EntryLoop? +",
+      "words": 4,
+      "chars": 20,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7220,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Does it need internet? +",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7317,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "How do records move? +",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7415,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Duplicate tickets? +",
+      "words": 3,
+      "chars": 20,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7512,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Interrupted exchange? +",
+      "words": 3,
+      "chars": 23,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7609,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "How are phones approved? +",
+      "words": 5,
+      "chars": 26,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7706,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Where is my data? +",
+      "words": 5,
+      "chars": 19,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7803,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Missing event or lost key? +",
+      "words": 6,
+      "chars": 28,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 7901,
+      "tag": "summary",
+      "kind": "heading"
+     },
+     {
+      "text": "Keep the doors open.",
+      "words": 4,
+      "chars": 20,
+      "lines": 2,
+      "size": 44,
+      "vw": 11.3,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.055,
+      "leading": 1.02,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8221,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EntryLoop",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 81.9,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.06,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8766,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "↑",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "right",
+      "widthRatio": 0.12,
+      "top": 8916,
+      "tag": "button",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 35,
+     "maxLines": 3,
+     "over2Lines": 0,
+     "statements": 6,
+     "centered": 4,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      30,
+      36,
+      44,
+      48,
+      50,
+      57,
+      82
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 18,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 11.2
+     },
+     "measureChars": 34,
+     "max": {
+      "size": 81.9,
+      "vw": 21,
+      "font": "IBM Plex Sans",
+      "text": "EntryLoop"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.05,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f6f8f2",
+       "top": 0,
+       "hsl": {
+        "h": 80,
+        "s": 0.3,
+        "l": 0.96
+       }
+      },
+      {
+       "color": "#c7eca8",
+       "top": 535,
+       "hsl": {
+        "h": 93,
+        "s": 0.64,
+        "l": 0.79
+       }
+      },
+      {
+       "color": "#e9efe4",
+       "top": 2127,
+       "hsl": {
+        "h": 93,
+        "s": 0.26,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 2883,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#164f47",
+       "top": 4311,
+       "hsl": {
+        "h": 172,
+        "s": 0.56,
+        "l": 0.2
+       }
+      },
+      {
+       "color": "#081e18",
+       "top": 8062,
+       "hsl": {
+        "h": 164,
+        "s": 0.58,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#103e33",
+       "share": 0.73
+      },
+      {
+       "color": "#e1ece5",
+       "share": 0.09
+      },
+      {
+       "color": "#4c6258",
+       "share": 0.07
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.05
+      },
+      {
+       "color": "#081e18",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#164f47",
+      "hsl": {
+       "h": 172,
+       "s": 0.56,
+       "l": 0.2
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 3,
+     "radius": "pill",
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 2,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Open app ↗",
+      "Organize an event ↗"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 1,
+     "scrims": 3,
+     "gradientSamples": [
+      "div.footer-aurora → radial-gradient(at 50% 60%, oklch(0.899941 0.0976564 131.313 / 0.14), oklch(0.817561 0.112387 48.3266 / 0.05) "
+     ],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 3,
+     "roundedBoxes": 16,
+     "boxRadius": 8,
+     "squareMedia": 3,
+     "roundedMedia": 1,
+     "mediaRadius": 6,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.25
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 76,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 9003,
+    "margins": {
+     "left": 16,
+     "right": 16
+    },
+    "sections": [
+     {
+      "sel": "section.site-hero",
+      "tag": "section",
+      "top": 76,
+      "height": 990,
+      "words": 49,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Doors open.",
+       "size": 57,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 16,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#how-it-works.optical-story.site-section",
+      "tag": "section",
+      "top": 1066,
+      "height": 1060,
+      "words": 82,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "The connection is light.",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 19,
+      "textLeft": 16,
+      "textRight": 19,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#start.journey-section.site-section",
+      "tag": "section",
+      "top": 2127,
+      "height": 1231,
+      "words": 66,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Find your next move.",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 16,
+      "textLeft": 16,
+      "textRight": 29,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.proof-section.site-section",
+      "tag": "section",
+      "top": 3358,
+      "height": 953,
+      "words": 66,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "A welcome, not a spreadsheet.",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 18,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div",
+      "tag": "div",
+      "top": 4375,
+      "height": 887,
+      "words": 124,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Load and keep the app",
+       "size": 24,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 24,
+      "textLeft": 16,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "figure.offline-picture",
+      "tag": "figure",
+      "top": 5294,
+      "height": 309,
+      "words": 6,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 121,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#trust.trust-section.site-section",
+      "tag": "section",
+      "top": 5667,
+      "height": 1336,
+      "words": 161,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Clear about the limits.",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 17,
+      "textLeft": 16,
+      "textRight": 17,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#questions.questions-section.site-section",
+      "tag": "section",
+      "top": 7003,
+      "height": 1059,
+      "words": 312,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Before the doors open.",
+       "size": 36,
+       "tag": "h2"
+      },
+      "left": 16,
+      "right": 39,
+      "textLeft": 16,
+      "textRight": 39,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.cinematic-footer-wrapper",
+      "tag": "footer",
+      "top": 8062,
+      "height": 941,
+      "words": 60,
+      "media": 0,
+      "middle": 819,
+      "heading": {
+       "text": "Keep the doors open.",
+       "size": 44,
+       "tag": "h2"
+      },
+      "left": 0,
+      "right": 0,
+      "textLeft": -305,
+      "textRight": -1011,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Doors open. Network off.",
+      "size": 57,
+      "top": 108,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 20
+     },
+     {
+      "x": 40,
+      "n": 10
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "17 different font sizes (13, 14, 15, 16, 18, 20, 21, 23, 24, 28, 36, 50, 69, 80, 101, 117, 302).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-real-pictures",
+   "width": 1440,
+   "message": "Only 0 real photograph(s) or clip(s); the rest are interface fragments.",
+   "fix": "Add two or more real pictures of the customer's world from scripts/assets.mjs, not stock of people at laptops."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 1440,
+   "message": "The margins differ: 32px on the left, 56px on the right, at 1440px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/desktop-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/desktop-page-01.jpg",
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/tablet-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/tablet-page-01.jpg",
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/mobile-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/mobile-page-01.jpg",
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/website/final/mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

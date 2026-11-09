@@ -39,3 +39,7 @@ Secure organizer recovery/rotation, encrypted storage/access control, reliable r
 After fresh authorization: conduct novice-user and physical acceptance of the implemented Stage 4 experience; resolve/accountably explain the original incident; independently review security; evaluate a reviewed/versioned pairing/provisioning workflow and receive-only role; measure event-scale optical throughput, retention and recovery. Keep all current trust/identity/quiet-zone protections. Do not claim usability or hardware success from desktop image tests.
 
 Stop after Stage 4. Cloud synchronization, payments, deployment, marketing and unrelated features remain outside current authorization. Competition rules/AI and third-party terms still require review before submission.
+
+## November 9 · current authorization supersedes earlier stop gates
+
+The user authorized the explanatory website/GSAP footer revision, followed by Stage 5A release-candidate and separate staging preparation. These local tasks are recorded in STAGE_5A_REPORT.md. Stop after Stage 5A; do not deploy, push, submit to Devpost or add unrelated features. Physical acceptance, resolution/accountable explanation of the original incident, independent security/novice usability review and separate staging authorization remain outstanding. No public-release readiness is inferred from local automated passes.

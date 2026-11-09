@@ -1,3 +1,5 @@
+import { StorageFailure } from './StorageFailure';
+import { LoadingState } from './ProductUI';
 import { ExchangeGuide } from './ExchangeGuide';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
@@ -73,6 +75,9 @@ export function SecureSyncPanel({
       setBusy(false);
     }
   }
+  if (storageError)
+    return <StorageFailure error={storageError} database={db.name} />;
+  if (!data) return <LoadingState>Opening saved exchanges…</LoadingState>;
   const session = data?.session;
   const queue = session ? outgoingFrames(session, resend) : [];
   const current = busy ? '' : special || queue[index]?.text || '';

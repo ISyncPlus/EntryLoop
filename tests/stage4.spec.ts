@@ -293,7 +293,7 @@ test('fresh browser leads with organizer or entrance choice without silently cre
       await page.goto('/?theme=' + (mode === 'organizer' ? 'light' : 'dark'));
       await expect(
         page.getByRole('heading', {
-          name: 'Bring your event together.',
+          name: 'Doors open. Network off.',
           exact: true,
         }),
       ).toBeVisible();

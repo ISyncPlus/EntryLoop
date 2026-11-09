@@ -204,7 +204,7 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
         </main>
       </div>
       <footer className="product-footer">
-        <span>EntryLoop · Your place in the room.</span>
+        <a href={href('/welcome')}>About EntryLoop</a>
         <span>Stored on this device. No cloud backup.</span>
         <details>
           <summary>Advanced tools</summary>

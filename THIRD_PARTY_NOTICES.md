@@ -72,3 +72,13 @@ Primary references: [WebCrypto ECDSA specification](https://www.w3.org/TR/webcry
 ## Phase 2B assistance and dependencies
 
 OpenAI Codex assisted with offline enrollment/security architecture, implementation, tests, debugging and documentation. No new runtime/development package was added for Phase 2B. ECDSA/SHA-256 use native WebCrypto; existing dependency/license attribution remains applicable. User-reported Phase 1 hardware evidence is separate from automated Phase 2B evidence; no physical verification or competition compliance approval was invented.
+
+## Website and Stage 5A additions · November 9, 2026
+
+Codex assisted with the requested explanatory website, component integration, release audit fixes, tests and staging documentation. The user supplied the GSAP footer reference and selected design-taste-frontend; EntryLoop-specific adaptation replaces unrelated sample branding and destinations. Stage 5A does not certify competition compliance or independent security review.
+
+New direct runtime dependencies: GSAP 3.15.1 (declared Standard “no charge” license, https://gsap.com/standard-license), clsx 2.1.1 (MIT), tailwind-merge 3.7.0 (MIT), class-variance-authority 0.7.1 (Apache-2.0), @radix-ui/react-slot 1.5.0 (MIT). Radix compose-refs 1.1.5 (MIT) is transitive. Retain their shipped terms; GSAP is not represented as MIT. No shadcn CLI scaffold or unrelated component suite was installed. components.json/aliases and a minimal Slot/cva Button support the requested ui structure.
+
+public/website/ PNG assets show actual EntryLoop UI/ticket export from a disposable fictional Harbor Makers rehearsal, captured during this task with native browser storage/crypto. They are project demonstration material, not customer proof or stock photography. No real attendee data, private signing material, remote font import, video or Unsplash asset was added. Existing IBM Plex Sans OFL notices remain. The full updated lockfile-derived package inventory is docs/THIRD_PARTY_PACKAGES.json.
+
+Technical motion reference: [GSAP matchMedia](<https://gsap.com/docs/v3/GSAP/gsap.matchMedia()/>) for media-scoped cleanup and reduced motion; [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) for local animation. Package integrity does not establish vulnerability absence; the recorded dependency audit is in STAGE_5A_REPORT.md.

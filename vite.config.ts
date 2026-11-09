@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -68,6 +69,7 @@ if (Boolean(certPath) !== Boolean(keyPath))
     'Set both ENTRYLOOP_TLS_CERT and ENTRYLOOP_TLS_KEY for local HTTPS.',
   );
 export default defineConfig({
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   define: {
     __ENTRYLOOP_BUILD_ID__: JSON.stringify(buildId),
     __ENTRYLOOP_REVISION__: JSON.stringify(revision),

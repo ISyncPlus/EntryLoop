@@ -89,3 +89,11 @@ Use a bounded lossless ELQ1 binary/Base45 wrapper, native keys/signatures unchan
 ## Stage 4 · Reuse native interaction and existing services
 
 November 9, 2026. Keep React/Vite/Tailwind, local IBM Plex fonts and the existing feature modules. Use shared native buttons, inputs, details/summary, progress and roving-tabindex tabs; no new framework, chart/animation kit, avatar data or UI dependency is needed to adapt the user's reference dashboard. Organizer/staff views are presentation scopes, not accounts or authorization. Full independent fingerprint verification and signed snapshot completion remain mandatory. QR evidence caught an occluding sticky header; remove the overlay instead of changing quiet zones/scaling or weakening tests. A stable desktop sidebar is allowed because it does not overlap the content canvas.
+
+## November 9 · website then Stage 5A
+
+- Keep operational app and domain/storage services; add an isolated lazy explanatory website with role/step guidance and native FAQ. Preserve current profile resolution rather than sending existing PWA launches to a new default namespace.
+- Adapt the user-supplied GSAP footer with correct EntryLoop links, cleanup, reduced motion/pause and normal flow. Keep local IBM fonts and real fictional-data screenshots. Requested footer effects override house-style bans only in that section; record visual warnings/self-review in .taste-skill/website/NOTES.md.
+- Use existing Tailwind v4/strict TS, aliases and components.json rather than replacing project config with a shadcn CLI scaffold. Minimal Slot/cva Button and cn support the supplied component structure. No extra icon package or remote asset is needed.
+- Unknown authorization/session storage is a loading/error state, not missing permission or an available exchange. Clear stale outgoing enrollment QR before any replacement action. Pass the actual outgoing message kind into EnrollmentGuide so a request is never described as a signed approval.
+- Freeze an allowlisted local staging snapshot before asking for any account/project/deployment action. Retain separate stable HTTPS origin, source revision/dirty flag and output hashes. No deployment permission is inferred. Original unexplained persistence gate stays FAILED.

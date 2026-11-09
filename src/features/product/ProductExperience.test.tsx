@@ -43,7 +43,7 @@ it('does not mistake preparation for authorization or shorten independent trust 
       organizer={false}
       authorized={false}
       revoked={false}
-      outgoing={false}
+      outgoing={null}
       reviewing={false}
     />,
   );
@@ -53,7 +53,7 @@ it('does not mistake preparation for authorization or shorten independent trust 
       organizer
       authorized={false}
       revoked={false}
-      outgoing={false}
+      outgoing={null}
       reviewing
     />,
   );
@@ -124,4 +124,48 @@ it('does not invent progress for an empty event, and gives a real next step afte
   } finally {
     await db.delete();
   }
+});
+
+it('distinguishes an organizer’s own request, a signed approval and a policy handoff', () => {
+  const view = render(
+    <EnrollmentGuide
+      organizer
+      authorized={false}
+      revoked={false}
+      outgoing="request"
+      reviewing={false}
+    />,
+  );
+  expect(screen.getByRole('heading')).toHaveTextContent(
+    'Show this enrollment request',
+  );
+  expect(screen.getByText(/not an approval for a phone/)).toBeVisible();
+  view.rerender(
+    <EnrollmentGuide
+      organizer
+      authorized={false}
+      revoked={false}
+      outgoing="approval"
+      reviewing
+    />,
+  );
+  expect(screen.getByRole('heading')).toHaveTextContent(
+    'Return approval to the phone',
+  );
+  expect(screen.getByText(/requesting phone nearby/)).toBeVisible();
+  view.rerender(
+    <EnrollmentGuide
+      organizer
+      authorized={false}
+      revoked={false}
+      outgoing="policy"
+      reviewing={false}
+    />,
+  );
+  expect(screen.getByRole('heading')).toHaveTextContent(
+    'Share the updated policy',
+  );
+  expect(
+    screen.getByText(/Every entrance needs this signed policy/),
+  ).toBeVisible();
 });

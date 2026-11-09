@@ -1,3 +1,5 @@
+import { StorageFailure } from './StorageFailure';
+import { LoadingState } from './ProductUI';
 import { EnrollmentGuide } from './EnrollmentGuide';
 import { unpackOptical } from '../sync/optical';
 import { useCallback, useState } from 'react';
@@ -52,6 +54,7 @@ export function ScannerAuthority({
     setBusy(true);
     setError('');
     setNotice('');
+    setOutgoing('');
     try {
       await work();
     } catch (failure) {
@@ -98,6 +101,10 @@ export function ScannerAuthority({
     },
     [db, event],
   );
+  if (storageError)
+    return <StorageFailure error={storageError} database={db.name} />;
+  if (!data)
+    return <LoadingState>Opening saved scanner authorization…</LoadingState>;
   const credential = data?.credentials.find((c) => c.d === data.own?.scannerId);
   const revoked =
     credential && data?.policy?.revokedScanners.includes(credential.d);
@@ -121,7 +128,7 @@ export function ScannerAuthority({
         organizer={event.role === 'organizer'}
         authorized={approved}
         revoked={Boolean(revoked)}
-        outgoing={Boolean(outgoing)}
+        outgoing={outgoing ? purpose : null}
         reviewing={Boolean(request)}
       />
       {data?.own && (

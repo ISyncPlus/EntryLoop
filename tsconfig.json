@@ -20,7 +20,10 @@
       "vitest/globals",
       "@testing-library/jest-dom",
       "node"
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src", "tests", "*.ts"]
 }

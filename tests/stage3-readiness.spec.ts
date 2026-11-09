@@ -124,6 +124,7 @@ test('staging snapshot excludes browser/credential stores and refuses sensitive 
     }),
   );
   const files = [
+    'components.json',
     'package.json',
     'package-lock.json',
     'index.html',

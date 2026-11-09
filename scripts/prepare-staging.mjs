@@ -20,6 +20,7 @@ const allowed = [
   'public',
   'tests',
   'scripts',
+  'components.json',
   'package.json',
   'package-lock.json',
   'index.html',

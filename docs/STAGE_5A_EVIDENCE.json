@@ -1,0 +1,451 @@
+{
+  "observedOn": "2026-11-09",
+  "build": {
+    "build": "b257c337b86f",
+    "revision": "46c948f8e065301bbd616ec895ed67c2baf25c98",
+    "dirty": true
+  },
+  "snapshot": "/Users/InhouseHQ/Desktop/EntryLoop/.cache/stage3/staging-b257c337b86f-1794243009179",
+  "sourceFiles": 128,
+  "sourceHashesVerified": true,
+  "outputFiles": 21,
+  "outputsIdentical": true,
+  "outputs": [
+    {
+      "path": "assets/esm-6nV-LJEB.js",
+      "bytes": 26867,
+      "sha256": "053d706f36f866b54c390520e0d9d49d9f7e38c4d428460c12d918ea0c5d3410"
+    },
+    {
+      "path": "assets/esm-BYPFX0se.js",
+      "bytes": 453908,
+      "sha256": "f8f1fed0b50f2b6807820b074f36c8b7b334b6e456c7affe0e4577bdad460716"
+    },
+    {
+      "path": "assets/index-DlD3od8B.js",
+      "bytes": 601324,
+      "sha256": "1ec15f6ea96c32a94f2d1332c3cd3053d21f4186146f2e3b4e80f8acb8a6c746"
+    },
+    {
+      "path": "assets/index-Dx30CiE_.css",
+      "bytes": 36723,
+      "sha256": "5f796defdf3f494f685b631d7dd97eb21f8bca29183e750a0ccdafa9915fdfca"
+    },
+    {
+      "path": "assets/LandingPage-BoPaXUmI.css",
+      "bytes": 15743,
+      "sha256": "de69409b3bae6fafe254104056b7860cc5540562f163f6c1a7054d6fe13477ee"
+    },
+    {
+      "path": "assets/LandingPage-DazYgP_g.js",
+      "bytes": 166557,
+      "sha256": "ff6c311d3ed946a533dc8db848bdd853a4a10acb61699f802542006a49c87f71"
+    },
+    {
+      "path": "build-info.json",
+      "bytes": 104,
+      "sha256": "ad1abfade6cb88516e9fe66b528ed23b167e3adbcd4e037a9f7a892fd15b0734"
+    },
+    {
+      "path": "fonts/IBMPlexSans-Regular.woff2",
+      "bytes": 63020,
+      "sha256": "ba711a3085ff9f27440b6b9c4550cfc47c97bf36591d5da958b975bb3add8c1a"
+    },
+    {
+      "path": "fonts/IBMPlexSans-SemiBold.woff2",
+      "bytes": 67060,
+      "sha256": "f78048030eab62e860efa39a0df79e2e5581bf122eb95b9bc42c0b8a4988d205"
+    },
+    {
+      "path": "fonts/OFL.txt",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "path": "icon-192.png",
+      "bytes": 722,
+      "sha256": "4db6313c7147b5ff67792a94362453b79721928c7b750ad9900c991743955b57"
+    },
+    {
+      "path": "icon-512.png",
+      "bytes": 3239,
+      "sha256": "e70bedcdacb2f4e2bfe6007a10e4eee9d4b71c830ba8dfe09736b9f3d3e36747"
+    },
+    {
+      "path": "index.html",
+      "bytes": 815,
+      "sha256": "c8cf7905ab461c48f11f7798c6b5b01f9969019513582980efaa231fbd356030"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 385,
+      "sha256": "3f641c55f790c2dc0640810d518db37e45b6762cf21fc7c65bb55305f39fd788"
+    },
+    {
+      "path": "registerSW.js",
+      "bytes": 134,
+      "sha256": "9742073ef7fc795e7673d98f272992843298426a0ffd8cb3507784df5143608b"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 2208,
+      "sha256": "561433cd2a6ac7dbb44427247c171d0d1f152562d50cd5b6d085de61956be6ff"
+    },
+    {
+      "path": "website/exchange.png",
+      "bytes": 140615,
+      "sha256": "5660e8143f7ac9eee04c85e1f0b8c06d47d27db510e833c3aefd3603896dbac2"
+    },
+    {
+      "path": "website/guests.png",
+      "bytes": 172840,
+      "sha256": "3e7ae2d4c03e24f0cfafce1fac8c6bd6d614f02b647aabcabad2a5cb99d5011a"
+    },
+    {
+      "path": "website/overview.png",
+      "bytes": 230196,
+      "sha256": "a80c714456c88e3112dc150ddb6f21322a5e817ef0efc3ab40563d95d786e9cc"
+    },
+    {
+      "path": "website/ticket.png",
+      "bytes": 54879,
+      "sha256": "af1ebce0acdbea010314827e9b2de5dbf0a67fd17b9e6ffe38ea664edff87ea9"
+    },
+    {
+      "path": "workbox-2fbc6a65.js",
+      "bytes": 15026,
+      "sha256": "39c2e6ae44c3f29666f6a328b6523bf13a053a1d95c74af8ddea82b1045b0b6e"
+    }
+  ],
+  "deploymentPerformed": false,
+  "tests": {
+    "typecheck": "passed",
+    "eslint": "passed, zero warnings",
+    "formatting": "passed",
+    "unitIntegration": {
+      "passed": 135,
+      "files": 21
+    },
+    "browser": {
+      "passed": 80,
+      "chromium": 40,
+      "webkit": 40,
+      "skipped": 0,
+      "failed": 0
+    },
+    "physicalDeviceTesting": "NOT RUN",
+    "originalPersistenceIncident": "FAILED, unexplained"
+  },
+  "startup": {
+    "build": {
+      "build": "b257c337b86f",
+      "revision": "46c948f8e065301bbd616ec895ed67c2baf25c98",
+      "dirty": true
+    },
+    "method": "3 fresh contexts per route/engine; local loopback, no throttling. Wall times include automation and concurrent local QA; observations, not physical-phone benchmarks.",
+    "observations": [
+      {
+        "engine": "chromium",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 323,
+        "domContentLoadedMs": 180.69999999552965,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 55.899999998509884
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 146,
+        "domContentLoadedMs": 74,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 35.400000005960464
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 138,
+        "domContentLoadedMs": 77.90000000596046,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 40.399999998509884
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "route": "/welcome",
+        "interactiveWallMs": 423,
+        "domContentLoadedMs": 67.5,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 33.79999999701977
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 13.700000002980232
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "route": "/welcome",
+        "interactiveWallMs": 876,
+        "domContentLoadedMs": 64.19999999552965,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 28.899999998509884
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 12
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "route": "/welcome",
+        "interactiveWallMs": 411,
+        "domContentLoadedMs": 65.40000000596046,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 31.600000001490116
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 13.299999997019768
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 346,
+        "domContentLoadedMs": 159,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 59
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 211,
+        "domContentLoadedMs": 78,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 31
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/?scanner=stage5-perf",
+        "interactiveWallMs": 198,
+        "domContentLoadedMs": 71,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 29
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/welcome",
+        "interactiveWallMs": 449,
+        "domContentLoadedMs": 65,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 27
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 10
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/welcome",
+        "interactiveWallMs": 413,
+        "domContentLoadedMs": 55,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 24
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 8
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "route": "/welcome",
+        "interactiveWallMs": 886,
+        "domContentLoadedMs": 71,
+        "scripts": [
+          {
+            "name": "index-DlD3od8B.js",
+            "bytes": 601324,
+            "durationMs": 31
+          },
+          {
+            "name": "LandingPage-DazYgP_g.js",
+            "bytes": 166557,
+            "durationMs": 11
+          }
+        ]
+      }
+    ]
+  },
+  "runtimeDependencyAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "allDependencyAudit": {
+    "info": 0,
+    "low": 2,
+    "moderate": 13,
+    "high": 0,
+    "critical": 0,
+    "total": 15
+  },
+  "qrPixelObservations": {
+    "chromium": {
+      "samples": 60,
+      "originals": 60,
+      "alignedScreenshots": 60,
+      "fractional240": 47,
+      "enrollmentM": [
+        {
+          "kind": "enrollment",
+          "format": "legacy",
+          "correction": "M",
+          "bytes": 409,
+          "version": 15,
+          "modules": 77,
+          "totalModules": 85,
+          "imageSize": 680,
+          "displaySize": 255,
+          "original": true,
+          "screenshot": true,
+          "fractional240": true,
+          "binaryBytes": 202,
+          "gzipJson": 349,
+          "deflateJson": 331,
+          "gzipBinary": 225,
+          "deflateBinary": 207,
+          "compressedBinaryWireBytes": 343
+        },
+        {
+          "kind": "enrollment",
+          "format": "compact",
+          "correction": "M",
+          "bytes": 308,
+          "version": 10,
+          "modules": 57,
+          "totalModules": 65,
+          "imageSize": 520,
+          "displaySize": 260,
+          "original": true,
+          "screenshot": true,
+          "fractional240": true,
+          "binaryBytes": 202,
+          "gzipJson": 349,
+          "deflateJson": 331,
+          "gzipBinary": 225,
+          "deflateBinary": 207,
+          "compressedBinaryWireBytes": 343
+        }
+      ]
+    },
+    "webkit": {
+      "samples": 60,
+      "originals": 60,
+      "alignedScreenshots": 60,
+      "fractional240": 45,
+      "enrollmentM": [
+        {
+          "kind": "enrollment",
+          "format": "legacy",
+          "correction": "M",
+          "bytes": 409,
+          "version": 15,
+          "modules": 77,
+          "totalModules": 85,
+          "imageSize": 680,
+          "displaySize": 255,
+          "original": true,
+          "screenshot": true,
+          "fractional240": true,
+          "binaryBytes": 202,
+          "gzipJson": 347,
+          "deflateJson": 329,
+          "gzipBinary": 225,
+          "deflateBinary": 207,
+          "compressedBinaryWireBytes": 343
+        },
+        {
+          "kind": "enrollment",
+          "format": "compact",
+          "correction": "M",
+          "bytes": 308,
+          "version": 10,
+          "modules": 57,
+          "totalModules": 65,
+          "imageSize": 520,
+          "displaySize": 260,
+          "original": true,
+          "screenshot": true,
+          "fractional240": true,
+          "binaryBytes": 202,
+          "gzipJson": 347,
+          "deflateJson": 329,
+          "gzipBinary": 225,
+          "deflateBinary": 207,
+          "compressedBinaryWireBytes": 343
+        }
+      ]
+    }
+  },
+  "sourceManifestSha256": "123af18c65385358b0e1aa32193c914bb126381fe0e9db186e6d11706de56c34",
+  "reconciliationSha256": "db7489cba82d6c25b0d6a1f46986645d2cfa884ce821d7a2a6b1c3d5209bb86a"
+}

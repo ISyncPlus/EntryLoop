@@ -63,13 +63,20 @@ test('normal navigation, reloads and concurrent tabs preserve the same organizer
   ).toBeVisible();
 });
 
-test('profile changes are explicit, bare installed-app launch chooses existing storage, and browser contexts stay isolated', async ({
+test('the public root is the landing page, explicit profiles open storage, and browser contexts stay isolated', async ({
   browser,
   page,
 }) => {
   await cacheApp(page, base + '/?scanner=main');
   await createIssued(page, 'main');
   await page.goto(base + '/');
+  await expect(
+    page.getByRole('heading', {
+      name: 'Doors open. Network off.',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.goto(base + '/?scanner=main');
   await expect(page).toHaveURL(/scanner=main/);
   await expect(
     page.getByRole('heading', { name: 'Persistence acceptance', exact: true }),
@@ -87,11 +94,19 @@ test('profile changes are explicit, bare installed-app launch chooses existing s
   expect((await nativeSnapshot(page)).counts.events).toBe(0);
   await page.goto(base + '/');
   await expect(
+    page.getByRole('heading', {
+      name: 'Doors open. Network off.',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.getByRole('link', { name: 'Open app', exact: false }).click();
+  await expect(
     page.getByRole('heading', { name: 'Choose this browser’s workspace' }),
   ).toBeVisible();
   await page
     .getByRole('link', { name: 'Open workspace main', exact: true })
     .click();
+  await expect(page).toHaveURL(/scanner=main/);
   await expect(
     page.getByRole('heading', { name: 'Persistence acceptance', exact: true }),
   ).toBeVisible();
@@ -166,7 +181,7 @@ for (const version of [10, 20] as const)
   }) => {
     await page.goto(base + '/');
     await expect(
-      page.getByRole('heading', { name: 'Bring your event together.' }),
+      page.getByRole('heading', { name: 'Doors open. Network off.' }),
     ).toBeVisible();
     const profile = 'migration',
       fixture = await seedHistorical(page, profile, version),
@@ -203,7 +218,7 @@ for (const kind of ['future', 'missing-index'] as const)
   }) => {
     await page.goto(base + '/');
     await expect(
-      page.getByRole('heading', { name: 'Bring your event together.' }),
+      page.getByRole('heading', { name: 'Doors open. Network off.' }),
     ).toBeVisible();
     await seedHistorical(
       page,

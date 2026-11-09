@@ -46,3 +46,22 @@ it('hides the prior QR while a new receiving request is pending', async () => {
     .click(screen.getByRole('button', { name: 'Start receiving' }));
   expect(screen.queryByTestId('unit-qr')).not.toBeInTheDocument();
 });
+it('blocks exchange actions and codes when saved-session storage cannot be read', () => {
+  vi.mocked(useLiveData).mockReturnValue({
+    data: undefined,
+    error: 'Injected session read failure',
+  });
+  render(
+    <SecureSyncPanel
+      db={{ name: 'entryloop-v1-test' } as EntryLoopDB}
+      eventId={crypto.randomUUID()}
+    />,
+  );
+  expect(screen.getByRole('alert')).toHaveTextContent(
+    'Injected session read failure',
+  );
+  expect(
+    screen.queryByRole('button', { name: 'Start receiving' }),
+  ).not.toBeInTheDocument();
+  expect(screen.queryByTestId('unit-qr')).not.toBeInTheDocument();
+});
