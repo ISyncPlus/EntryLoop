@@ -24,7 +24,6 @@ export function WorkspaceStorage({
     return <p role="status">Checking stored events and signing identities…</p>;
   return (
     <>
-      <StorageTools db={db} health={data} />
       {data.issues.length ? (
         <section className="notice-strip" data-testid="recovery-required">
           <h1>Stored records need recovery review</h1>
@@ -42,6 +41,7 @@ export function WorkspaceStorage({
       ) : (
         children
       )}
+      <StorageTools db={db} health={data} />
     </>
   );
 }
@@ -92,7 +92,7 @@ function StorageTools({
     <details
       id="workspace-storage"
       className="workspace-storage"
-      open={health.eventIds.length === 0 || health.issues.length > 0}
+      open={health.issues.length > 0}
     >
       <summary>Storage context and recovery</summary>
       <dl>

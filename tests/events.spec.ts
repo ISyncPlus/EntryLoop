@@ -40,6 +40,7 @@ async function create(
     .fill('A gathering for people who make things.');
   await page.getByRole('button', { name: 'Create event', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
+  await page.getByRole('tab', { name: 'Guest list', exact: true }).click();
   return page.url().match(/\/events\/([a-f0-9-]{36})/)![1]!;
 }
 async function manual(
@@ -60,6 +61,7 @@ async function manual(
   await expect(page.getByRole('status')).toContainText('1 attendee added');
 }
 async function issue(page: Page) {
+  await page.getByRole('tab', { name: 'Guest list', exact: true }).click();
   await page
     .getByRole('button', { name: 'Issue all unissued tickets' })
     .click();
@@ -113,9 +115,9 @@ async function provision(
 async function securityPayload(root: Page | Locator, text: string) {
   const details = root
     .locator('details')
-    .filter({ hasText: 'Security payload fallback' });
+    .filter({ hasText: 'Advanced text import' });
   if ((await details.getAttribute('open')) === null)
-    await root.getByText('Security payload fallback', { exact: true }).click();
+    await root.getByText('Advanced text import', { exact: true }).click();
   await root
     .getByLabel('Incoming security payload', { exact: true })
     .fill(text);
@@ -251,6 +253,10 @@ test('organizer creates, imports guests, issues and exports signed tickets; prep
       page.getByRole('tab', { name: 'Scanner devices' }),
     ).toHaveAttribute('aria-selected', 'true');
     await page.keyboard.press('Home');
+    await expect(
+      page.getByRole('tab', { name: 'Overview', exact: true }),
+    ).toHaveAttribute('aria-selected', 'true');
+    await page.keyboard.press('ArrowRight');
     await expect(page.getByRole('tab', { name: 'Guest list' })).toHaveAttribute(
       'aria-selected',
       'true',
@@ -423,7 +429,7 @@ test('two provisioned devices keep real ticket conflicts and reconcile actual QR
       // Decode actual generated pixels, never a mocked scanner callback.
       const pixels = await image.screenshot();
       await sync(receiver)
-        .getByLabel('Read security QR or JSON file')
+        .getByLabel('Choose a code image or approval file')
         .setInputFiles({
           name: 'sync.png',
           mimeType: 'image/png',
@@ -479,7 +485,9 @@ test('two provisioned devices keep real ticket conflicts and reconcile actual QR
     expect((await ids(pa)).sort()).toEqual((await ids(pb)).sort());
     for (const page of [pa, pb]) {
       await expect(
-        page.getByText('Admission conflicts', { exact: true }),
+        page
+          .getByRole('region', { name: 'Attendance review', exact: true })
+          .getByText('1 ticket needs review', { exact: true }),
       ).toBeVisible();
       await page.getByRole('tab', { name: 'Check-in', exact: true }).click();
       await expect(page.getByTestId('real-operations')).toHaveText('2');

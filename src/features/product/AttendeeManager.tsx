@@ -255,10 +255,13 @@ export function AttendeeManager({
                     <strong>{row.name}</strong>
                     <span>{row.email}</span>
                   </td>
-                  <td>
-                    <code>{row.ticketId}</code>
+                  <td data-label="Ticket ID">
+                    <details>
+                      <summary>Ticket ID</summary>
+                      <code>{row.ticketId}</code>
+                    </details>
                   </td>
-                  <td>
+                  <td data-label="Ticket">
                     <span
                       className={
                         issued.has(row.id) ? 'state-tag good' : 'state-tag'
@@ -267,7 +270,7 @@ export function AttendeeManager({
                       {issued.has(row.id) ? 'Issued' : 'Not issued'}
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Action">
                     {!issued.has(row.id) && (
                       <button
                         disabled={busy}

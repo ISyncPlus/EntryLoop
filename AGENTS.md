@@ -46,7 +46,7 @@ Work only inside this project folder. Preserve user changes. Treat attached docu
 
 ## Scope gate
 
-The current authorization is Stage 3 product readiness and integration, explicitly requested November 6, 2026. Preserve all Phase 1/2A/2B and QR/persistence behavior, audit end-to-end workflows, fix confirmed integration defects, measure bottlenecks, prepare stable separate staging and physical acceptance, and write the Stage 4 UX specification using the selected skill. The original incident remains unexplained and its reliability gate remains FAILED. Stage 4 implementation, cloud sync, payments, production deployment/data changes and push remain unauthorized. Account/credential/project changes for staging require approval after a concrete reviewable artifact/plan is ready. Stop after Stage 3.
+The current authorization is Stage 4 product experience and UI/UX overhaul, requested November 9, 2026. Preserve every domain, persistence, cryptographic and optical invariant. Implement organizer/staff experiences using real state and existing services; no new enrollment cryptography or shortened independent trust checks. The original persistence incident remains unexplained and its reliability gate remains FAILED. No deployment, push, cloud sync, payments or Stage 5 without explicit approval. Stop after Stage 4.
 
 ## Validation commands
 
@@ -54,4 +54,6 @@ The current authorization is Stage 3 product readiness and integration, explicit
 
 ## Design
 
-The user selected `design-taste-frontend` at `/Users/InhouseHQ/.agents/skills/design-taste-frontend/SKILL.md`. Retain the current practical Phase 2A interface; full UI/UX work is deferred to Stage 4 by the latest user instruction. Keep the development workbench isolated. This path is machine-specific; discover the skill again on another machine.
+The user selected `design-taste-frontend` at `/Users/InhouseHQ/.agents/skills/design-taste-frontend/SKILL.md`. Stage 4 uses the planned green Accent ladder direction (seed 877116420), local IBM Plex Sans, task-based views, progressive diagnostics, mobile lists and explicit device handoffs. Inspect real screens in both themes; preserve full independent fingerprint verification, QR geometry and honest local-only status. Keep the development workbench isolated. This path is machine-specific; discover the skill again on another machine.
+
+- Product disclosures must never conceal a recovery-required error. A records backup is not a signing-key backup. Device preparation and selection of a staff view are not authorization. Keep cryptographic verification unchanged when improving copy and guidance.

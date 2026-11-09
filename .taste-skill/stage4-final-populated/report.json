@@ -1,0 +1,315 @@
+{
+  "scope": "Actual local application populated through UI with fictional guests; no private-key inspection",
+  "screens": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Overview",
+      "screenshot": "light-1440-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Guest list",
+      "screenshot": "light-1440-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Tickets",
+      "screenshot": "light-1440-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Scanner devices",
+      "screenshot": "light-1440-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Attendance & sync",
+      "screenshot": "light-1440-attendance---sync.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Check-in",
+      "screenshot": "light-1440-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screen": "Sync & conflicts",
+      "screenshot": "light-1440-sync---conflicts.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Overview",
+      "screenshot": "light-768-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Guest list",
+      "screenshot": "light-768-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Tickets",
+      "screenshot": "light-768-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Scanner devices",
+      "screenshot": "light-768-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Attendance & sync",
+      "screenshot": "light-768-attendance---sync.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Check-in",
+      "screenshot": "light-768-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screen": "Sync & conflicts",
+      "screenshot": "light-768-sync---conflicts.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Overview",
+      "screenshot": "light-390-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Guest list",
+      "screenshot": "light-390-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Tickets",
+      "screenshot": "light-390-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Scanner devices",
+      "screenshot": "light-390-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Attendance & sync",
+      "screenshot": "light-390-attendance---sync.png",
+      "findings": [
+        {
+          "level": "WARN",
+          "id": "edge-text",
+          "width": 390,
+          "message": "1 text block(s) sit 12–15px from the phone's edge: \"Event details\" (15px)",
+          "fix": "The page margin is 16–20px on a phone; the header and the corner labels sit on it too."
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Check-in",
+      "screenshot": "light-390-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "screen": "Sync & conflicts",
+      "screenshot": "light-390-sync---conflicts.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Overview",
+      "screenshot": "dark-1440-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Guest list",
+      "screenshot": "dark-1440-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Tickets",
+      "screenshot": "dark-1440-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Scanner devices",
+      "screenshot": "dark-1440-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Attendance & sync",
+      "screenshot": "dark-1440-attendance---sync.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Check-in",
+      "screenshot": "dark-1440-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screen": "Sync & conflicts",
+      "screenshot": "dark-1440-sync---conflicts.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Overview",
+      "screenshot": "dark-768-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Guest list",
+      "screenshot": "dark-768-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Tickets",
+      "screenshot": "dark-768-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Scanner devices",
+      "screenshot": "dark-768-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Attendance & sync",
+      "screenshot": "dark-768-attendance---sync.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Check-in",
+      "screenshot": "dark-768-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screen": "Sync & conflicts",
+      "screenshot": "dark-768-sync---conflicts.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Overview",
+      "screenshot": "dark-390-overview.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Guest list",
+      "screenshot": "dark-390-guest-list.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Tickets",
+      "screenshot": "dark-390-tickets.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Scanner devices",
+      "screenshot": "dark-390-scanner-devices.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Attendance & sync",
+      "screenshot": "dark-390-attendance---sync.png",
+      "findings": [
+        {
+          "level": "WARN",
+          "id": "edge-text",
+          "width": 390,
+          "message": "1 text block(s) sit 12–15px from the phone's edge: \"Event details\" (15px)",
+          "fix": "The page margin is 16–20px on a phone; the header and the corner labels sit on it too."
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Check-in",
+      "screenshot": "dark-390-check-in.png",
+      "findings": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screen": "Sync & conflicts",
+      "screenshot": "dark-390-sync---conflicts.png",
+      "findings": []
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import { href, message } from './shared';
 import { StorageFailure } from './StorageFailure';
 import { WorkspaceStorage } from './WorkspaceStorage';
 import { BUILD_ID } from '../storage/build';
+import { Icon } from './ProductUI';
 import { AppUpdateNotice } from './AppUpdateNotice';
 import './product.css';
 export function ProductApp({ db }: { db: EntryLoopDB }) {
@@ -90,7 +91,7 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
         </a>
         <div className="workspace-heading">
           <div>
-            <h1>Set the scene.</h1>
+            <h1>Create your event</h1>
             <p>The details guests will carry to your door.</p>
           </div>
         </div>
@@ -110,7 +111,11 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
       </>
     );
   return (
-    <div className="product-app" data-theme={dark ? 'dark' : 'light'}>
+    <div
+      className="product-app"
+      data-experience={scan ? 'staff' : 'organizer'}
+      data-theme={dark ? 'dark' : 'light'}
+    >
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
@@ -133,19 +138,20 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
               setDark((value) => !value);
             }}
           >
-            {dark ? 'Light' : 'Dark'}
+            <Icon name={dark ? 'sun' : 'moon'} />{' '}
+            <span>{dark ? 'Light' : 'Dark'}</span>
           </button>
         </div>
       </header>
       <div className="app-frame">
         <nav className="app-nav" aria-label="Main navigation">
           <div>
-            <span className="workspace-label">On this device</span>
+            <span className="workspace-label">Event operations</span>
             <a href={href('/')} aria-current={!scan ? 'page' : undefined}>
-              Organizer workspace
+              <Icon name="events" /> Organizer workspace
             </a>
             <a href={href('/scan')} aria-current={scan ? 'page' : undefined}>
-              Event check-in
+              <Icon name="scan" /> Event check-in
             </a>
           </div>
           <div className="nav-bottom">
@@ -160,15 +166,31 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
                   : 'Use the production build and wait for service-worker control.'}
               </p>
             </div>
-            <span>Profile: {db.name.replace('entryloop-v1-', '')}</span>
-            <a href={href('/dev/workbench')}>Development workbench</a>
+            <a
+              href="#workspace-storage"
+              onClick={() => {
+                const tools = document.getElementById(
+                  'workspace-storage',
+                ) as HTMLDetailsElement | null;
+                if (tools) tools.open = true;
+              }}
+            >
+              <Icon name="help" /> Device & recovery help
+            </a>
+            <details className="advanced-nav">
+              <summary>Advanced tools</summary>
+              <a href={href('/dev/workbench')}>Development workbench</a>
+            </details>
           </div>
         </nav>
         <main id="main-content" className="product-main">
           <AppUpdateNotice />
           <p className="workspace-context" data-testid="workspace-context">
-            Workspace: <strong>{db.name.replace('entryloop-v1-', '')}</strong> ·
-            this browser only · build <code>{BUILD_ID}</code>
+            Saved in this browser · Workspace:{' '}
+            <strong>{db.name.replace('entryloop-v1-', '')}</strong>{' '}
+            <span className="context-build">
+              · build <code>{BUILD_ID}</code>
+            </span>
           </p>
           {error ? (
             <StorageFailure error={error} database={db.name} />
@@ -184,7 +206,10 @@ export function ProductApp({ db }: { db: EntryLoopDB }) {
       <footer className="product-footer">
         <span>EntryLoop · Your place in the room.</span>
         <span>Stored on this device. No cloud backup.</span>
-        <a href={href('/dev/workbench')}>Development workbench</a>
+        <details>
+          <summary>Advanced tools</summary>
+          <a href={href('/dev/workbench')}>Development workbench</a>
+        </details>
       </footer>
     </div>
   );

@@ -1,8 +1,8 @@
-# EntryLoop · Stage 3 integration
+# EntryLoop · Stage 4 product experience
 
 EntryLoop manages local events, issues signed QR tickets and reconciles check-ins between disconnected entrances through QR codes. Phase 2B adds event-scoped scanner authorization, signed admissions, revocation policies and resumable authenticated optical exchange. No backend, Wi-Fi, Bluetooth or internet is needed for the prepared core workflow.
 
-This is a working MVP prototype with explicit limits, not an independent security certification. The owner observed Phase 1 reconciliation on two physical devices. New Phase 2B behavior has automated browser/QR-image evidence; **physical phone camera acceptance remains unverified**. UI/UX redesign is deferred to Stage 4; the existing interface is retained.
+This is a working MVP prototype with explicit limits, not an independent security certification. The owner observed Phase 1 reconciliation on two physical devices. New Phase 2B behavior has automated browser/QR-image evidence; **physical phone camera acceptance remains unverified**. The Stage 4 organizer/staff experience is implemented locally, with real-state event preparation, guided entrance approval/exchange, responsive guest lists and light/dark presentation.
 
 ## Reliability hold · October 28, 2026
 
@@ -11,7 +11,7 @@ This is a working MVP prototype with explicit limits, not an independent securit
 - [Evidence and confirmed defects](docs/PERSISTENCE_AUDIT.md)
 - [Safe recovery limits and exact MacBook/two-phone verification](docs/PERSISTENCE_RECOVERY.md)
 - [Executed reliability tests and disk-space blocker](docs/RELIABILITY_TEST_RESULTS.md)
-- [Actual usability findings; full redesign deferred](docs/UX_AUDIT.md)
+- [Original observed usability findings](docs/UX_AUDIT.md)
 
 Do not clear site data, delete databases or replace keys as a recovery step. Production deep links returned 404 on October 28; a November 6 read-only recheck returns 200. The currently published bundle differs from the final local build. This audit performed no deployment/push or production-storage changes. The October full-browser attempt encountered disk exhaustion. On November 6 the unchanged persistence suite passed all 52 browser tests after space became available; this clears that environment blocker, not the original incident. Current final results are in RELIABILITY_TEST_RESULTS.md.
 
@@ -25,7 +25,17 @@ Stage 3 audits/integrates organizer and staff workflows while keeping the origin
 - [Seven-person physical acceptance](docs/PHYSICAL_ACCEPTANCE.md)
 - [Stage 4 UX specification — planning only](docs/STAGE_4_UX_SPEC.md)
 
-`npm run staging:prepare` builds and writes a local source snapshot/manifests under ignored `.cache/stage3/`; it never logs in, deploys or pushes. Staging account/project/domain setup needs approval. A different origin does not migrate existing events/keys. No Stage 4 redesign was implemented.
+`npm run staging:prepare` builds and writes a local source snapshot/manifests under ignored `.cache/stage3/`; it never logs in, deploys or pushes. Staging account/project/domain setup needs approval. A different origin does not migrate existing events/keys. Stage 4 subsequently implemented the product experience locally; this staging command still performs no deployment.
+
+## Stage 4 review
+
+- [Implemented experience, files, local review and remaining limits](docs/STAGE_4_REPORT.md)
+- [Design system](docs/DESIGN_SYSTEM.md)
+- [Before/after and inspection cycle](docs/UX_BEFORE_AFTER.md)
+- [Executed Stage 4 validation](docs/STAGE_4_TEST_RESULTS.md)
+- [Unperformed novice/physical usability plan](docs/USABILITY_TEST_PLAN.md)
+
+Event management opens Overview; use Guest list to add/import/issue. Optional authorization of the organizer computer is under **Use this organizer device for check-in or receiving**; this also grants admission authority. Advanced text/compatibility/evidence controls use native disclosures. The historical incident gate remains FAILED. No Stage 5, deployment or push has been performed.
 
 ## Local setup
 

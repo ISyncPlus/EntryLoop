@@ -32,11 +32,11 @@ export function EventList({
     <>
       <div className="workspace-heading">
         <div>
-          <h1>{scanner ? 'Choose your entrance.' : 'Your next gathering.'}</h1>
+          <h1>{scanner ? 'Event check-in' : 'Your events'}</h1>
           <p>
             {scanner
-              ? 'Choose a prepared event to start checking tickets.'
-              : 'A guest list, a signed ticket, a confident welcome.'}
+              ? 'Prepare your phone, then welcome guests — even without internet.'
+              : 'Bring people together. Keep the doors moving.'}
           </p>
         </div>
         {!scanner && (
@@ -79,7 +79,7 @@ export function EventList({
                     <time dateTime={event.date}>{eventDate(event.date)}</time>
                     <div className="event-card-counts">
                       <span>{issued} issued tickets</span>
-                      <span>{attendance} trusted check-ins</span>
+                      <span>{attendance} check-ins received here</span>
                     </div>
                     <span className="event-card-action">
                       {scanner ? 'Open check-in' : 'Manage event'}{' '}
@@ -106,12 +106,12 @@ export function EventList({
                 <h2>
                   {scanner
                     ? 'Prepare once. Check in offline.'
-                    : 'No organizer events in this workspace.'}
+                    : 'No events saved here yet.'}
                 </h2>
                 <p>
                   {scanner
                     ? 'Import an event package from the organizer, confirm their key, then check signed tickets without a server.'
-                    : 'No organizer events were found by a successful read of this workspace. If an event is missing, check Storage context and recovery above before creating a replacement. Scanner-only events appear under Event check-in.'}
+                    : 'Nothing is saved in this browser workspace yet. If you created an event before, open Storage context and recovery below before making another. Your event may be in a different browser or workspace.'}
                 </p>
                 {!scanner && (
                   <a className="button primary" href={href('/events/new')}>

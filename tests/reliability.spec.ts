@@ -76,8 +76,9 @@ test('profile changes are explicit, bare installed-app launch chooses existing s
   ).toBeVisible();
   await page.goto(base + '/?scanner=organizer');
   await expect(
-    page.getByText('No organizer events in this workspace.', { exact: true }),
+    page.getByText('No events saved here yet.', { exact: true }),
   ).toBeVisible();
+  await page.getByText('Storage context and recovery', { exact: true }).click();
   await page
     .getByRole('button', { name: 'Find other workspaces in this browser' })
     .click();
@@ -99,7 +100,7 @@ test('profile changes are explicit, bare installed-app launch chooses existing s
     const isolated = await separate.newPage();
     await isolated.goto(base + '/?scanner=main');
     await expect(
-      isolated.getByText('No organizer events in this workspace.', {
+      isolated.getByText('No events saved here yet.', {
         exact: true,
       }),
     ).toBeVisible();
@@ -165,7 +166,7 @@ for (const version of [10, 20] as const)
   }) => {
     await page.goto(base + '/');
     await expect(
-      page.getByRole('heading', { name: 'Choose this browser’s workspace' }),
+      page.getByRole('heading', { name: 'Bring your event together.' }),
     ).toBeVisible();
     const profile = 'migration',
       fixture = await seedHistorical(page, profile, version),
@@ -181,7 +182,7 @@ for (const version of [10, 20] as const)
       ).toBeVisible();
     else
       await expect(
-        page.getByText('No organizer events in this workspace.', {
+        page.getByText('No events saved here yet.', {
           exact: true,
         }),
       ).toBeVisible();
@@ -202,7 +203,7 @@ for (const kind of ['future', 'missing-index'] as const)
   }) => {
     await page.goto(base + '/');
     await expect(
-      page.getByRole('heading', { name: 'Choose this browser’s workspace' }),
+      page.getByRole('heading', { name: 'Bring your event together.' }),
     ).toBeVisible();
     await seedHistorical(
       page,
@@ -251,7 +252,7 @@ test('unexpected storage read failure is actionable and never an empty organizer
     'Synthetic storage read failure',
   );
   await expect(
-    broken.getByText('No organizer events in this workspace.', { exact: true }),
+    broken.getByText('No events saved here yet.', { exact: true }),
   ).toHaveCount(0);
   await expect(
     broken.getByRole('link', { name: 'Create an event in this workspace' }),
@@ -308,7 +309,7 @@ test('orphaned data triggers recovery review and key-free backup instead of firs
   await page.reload();
   await expect(page.getByTestId('recovery-required')).toBeVisible();
   await expect(
-    page.getByText('No organizer events in this workspace.', { exact: true }),
+    page.getByText('No events saved here yet.', { exact: true }),
   ).toHaveCount(0);
   const waiting = page.waitForEvent('download');
   await page
@@ -355,7 +356,7 @@ test('a concurrent database version change reports recovery instead of quietly r
   });
   await expect(page.getByTestId('storage-error')).toBeVisible();
   await expect(
-    page.getByText('No organizer events in this workspace.', { exact: true }),
+    page.getByText('No events saved here yet.', { exact: true }),
   ).toHaveCount(0);
   const after = await nativeSnapshot(other);
   expect(after.events).toEqual(before.events);
@@ -441,7 +442,7 @@ test('scanner-only packages are explained without hiding the stored event or gra
   ).toBeVisible();
   await page.goto(base + '/?scanner=gate');
   await expect(
-    page.getByText('No organizer events in this workspace.', { exact: true }),
+    page.getByText('No events saved here yet.', { exact: true }),
   ).toBeVisible();
   const snapshot = await nativeSnapshot(page, 'gate');
   expect(snapshot.counts.events).toBe(1);

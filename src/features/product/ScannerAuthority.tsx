@@ -1,3 +1,4 @@
+import { EnrollmentGuide } from './EnrollmentGuide';
 import { unpackOptical } from '../sync/optical';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
@@ -35,6 +36,9 @@ export function ScannerAuthority({
   const { data, error: storageError } = useLiveData(query);
   const [label, setLabel] = useState('Entrance scanner');
   const [outgoing, setOutgoing] = useState('');
+  const [purpose, setPurpose] = useState<'request' | 'approval' | 'policy'>(
+    'request',
+  );
   const [request, setRequest] = useState<{
     request: Enrollment;
     fingerprint: string;
@@ -61,6 +65,8 @@ export function ScannerAuthority({
       setBusy(true);
       setError('');
       setNotice('');
+      setOutgoing('');
+      setRequest(null);
       try {
         text = unpackOptical(text);
         if (new TextEncoder().encode(text).length > 1024 * 1024)
@@ -95,26 +101,36 @@ export function ScannerAuthority({
   const credential = data?.credentials.find((c) => c.d === data.own?.scannerId);
   const revoked =
     credential && data?.policy?.revokedScanners.includes(credential.d);
+  const approved = Boolean(
+    credential &&
+    data?.policy &&
+    credential.at <= data.policy.epoch &&
+    !revoked,
+  );
   return (
     <section className="panel" aria-labelledby="scanner-authorization-title">
       <h2 id="scanner-authorization-title">Scanner authorization</h2>
       <p data-testid="authorization-status">
-        {credential && !revoked
+        {approved
           ? 'Authorized for this event'
           : revoked
             ? 'Scanner revoked'
             : 'Not authorized for admissions'}
       </p>
-      <p>
-        Profiles separate browser databases; they do not grant authorization.
-        Prepare the event package, show this scanner’s request to the organizer,
-        compare its fingerprint, then scan the organizer’s authorization
-        response.
-      </p>
+      <EnrollmentGuide
+        organizer={event.role === 'organizer'}
+        authorized={approved}
+        revoked={Boolean(revoked)}
+        outgoing={Boolean(outgoing)}
+        reviewing={Boolean(request)}
+      />
       {data?.own && (
         <div className="scanner-id">
-          <span>Cryptographic scanner identity</span>
-          <code data-testid="scanner-crypto-id">{data.own.scannerId}</code>
+          <details>
+            <summary>Device identity details</summary>
+            <span>Cryptographic scanner identity</span>
+            <code data-testid="scanner-crypto-id">{data.own.scannerId}</code>
+          </details>
           <span>Scanner fingerprint — compare all 64 characters</span>
           <code data-testid="scanner-fingerprint">{data.own.fingerprint}</code>
         </div>
@@ -124,48 +140,76 @@ export function ScannerAuthority({
         Disconnected scanners cannot know about newer revocations. Confirm the
         latest policy with the organizer before each shift.
       </p>
-      <label>
-        Scanner name
-        <input
-          maxLength={24}
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-        />
-      </label>
-      <button
-        disabled={busy || !label.trim()}
-        onClick={() =>
-          void action(async () => {
-            setOutgoing(
-              JSON.stringify(await enrollmentRequest(db, event.id, label)),
-            );
-          })
-        }
+      <details
+        className="local-device-enrollment"
+        open={event.role !== 'organizer'}
       >
-        Create enrollment request
-      </button>
-      {event.role === 'organizer' && (
-        <button
-          disabled={busy || !label.trim()}
-          onClick={() =>
-            void action(async () => {
-              const own = await identity(db);
-              await authorize(
-                db,
-                event.id,
-                await enrollmentRequest(db, event.id, label),
-                own.fingerprint,
-              );
-              setNotice(
-                'This organizer device was explicitly authorized as a scanner.',
-              );
-            })
-          }
-        >
-          Authorize this device
-        </button>
-      )}
-      <SecurityInput onPayload={receive} busy={busy} />
+        <summary>
+          {event.role === 'organizer'
+            ? 'Use this organizer device for check-in or receiving'
+            : 'Name this entrance and create its request'}
+        </summary>
+        {event.role === 'organizer' && (
+          <p>
+            Optional: authorize this computer only if it needs to admit guests
+            or receive signed records. This grants admission authority, not a
+            read-only reporting role. To approve a phone, scan its request below
+            instead.
+          </p>
+        )}
+        <div className="enrollment-actions">
+          <label>
+            Scanner name
+            <input
+              maxLength={24}
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+            />
+          </label>
+          <button
+            disabled={busy || !label.trim()}
+            onClick={() =>
+              void action(async () => {
+                setPurpose('request');
+                setOutgoing(
+                  JSON.stringify(await enrollmentRequest(db, event.id, label)),
+                );
+              })
+            }
+          >
+            Create enrollment request
+          </button>
+          {event.role === 'organizer' && (
+            <button
+              disabled={busy || !label.trim()}
+              onClick={() =>
+                void action(async () => {
+                  const own = await identity(db);
+                  await authorize(
+                    db,
+                    event.id,
+                    await enrollmentRequest(db, event.id, label),
+                    own.fingerprint,
+                  );
+                  setNotice(
+                    'This organizer device was explicitly authorized as a scanner.',
+                  );
+                })
+              }
+            >
+              Authorize this device
+            </button>
+          )}
+        </div>
+      </details>
+      <div className="handoff-input">
+        <h3>
+          {event.role === 'organizer'
+            ? 'Read the phone’s request'
+            : 'Read the organizer’s approval'}
+        </h3>
+        <SecurityInput onPayload={receive} busy={busy} />
+      </div>
       {request && (
         <div className="package-review">
           <h3>Authorize {request.request.l}?</h3>
@@ -186,6 +230,7 @@ export function ScannerAuthority({
             disabled={busy || confirmed !== request.fingerprint}
             onClick={() =>
               void action(async () => {
+                setPurpose('approval');
                 setOutgoing(
                   JSON.stringify(
                     await authorize(db, event.id, request.request, confirmed),
@@ -202,7 +247,54 @@ export function ScannerAuthority({
           </button>
         </div>
       )}
-      {outgoing && <SecurityQr key={outgoing} text={outgoing} />}
+      {outgoing && !busy && (
+        <div className="handoff-output">
+          <h3>
+            {purpose === 'approval'
+              ? 'Show this code to the requesting phone'
+              : purpose === 'policy'
+                ? 'Distribute this policy to every entrance'
+                : 'Show this request to the organizer'}
+          </h3>
+          <SecurityQr key={outgoing} text={outgoing} />
+        </div>
+      )}
+      {event.role === 'organizer' && (
+        <section
+          className="device-roster"
+          aria-label="Known entrance approvals"
+        >
+          <h3>Approvals known on this device</h3>
+          <p>
+            These are saved permissions, not live device connections. Ask staff
+            to confirm their latest package and policy before every shift.
+          </p>
+          {data?.credentials.length ? (
+            <ul>
+              {data.credentials.map((c) => (
+                <li key={c.d}>
+                  <strong>{c.l}</strong>
+                  <span
+                    className={
+                      data.policy?.revokedScanners.includes(c.d)
+                        ? 'state-tag'
+                        : 'state-tag good'
+                    }
+                  >
+                    {data.policy?.revokedScanners.includes(c.d)
+                      ? 'Revoked'
+                      : data.policy && c.at <= data.policy.epoch
+                        ? 'Authorized here'
+                        : 'Policy update required'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No entrance approvals saved here yet.</p>
+          )}
+        </section>
+      )}
       {event.role === 'organizer' && (
         <details>
           <summary>Revocation and recovery</summary>
@@ -285,7 +377,10 @@ export function ScannerAuthority({
                   new TextEncoder().encode(JSON.stringify(data.policy)).length >
                     900
                 }
-                onClick={() => setOutgoing(JSON.stringify(data.policy))}
+                onClick={() => {
+                  setPurpose('policy');
+                  setOutgoing(JSON.stringify(data.policy));
+                }}
               >
                 Show policy QR (up to 900 bytes)
               </button>

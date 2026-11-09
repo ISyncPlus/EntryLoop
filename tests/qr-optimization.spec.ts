@@ -188,6 +188,11 @@ test('enrollment images downloaded by the app and actual responsive screenshots 
         .getByRole('tab', { name: 'Scanner devices', exact: true })
         .click();
       await page
+        .getByText('Use this organizer device for check-in or receiving', {
+          exact: true,
+        })
+        .click();
+      await page
         .getByRole('button', { name: 'Create enrollment request', exact: true })
         .click();
       const qr = page.getByRole('img', {
@@ -301,6 +306,9 @@ test('enrollment images downloaded by the app and actual responsive screenshots 
         ).toBe(true);
       }
       await page
+        .getByText('Compatibility & QR details', { exact: true })
+        .click();
+      await page
         .getByLabel('Compatibility QR (JSON for older EntryLoop)', {
           exact: true,
         })
@@ -316,9 +324,7 @@ test('enrollment images downloaded by the app and actual responsive screenshots 
         await page.evaluate((image) => window.qrAudit.decode(image!), legacy),
       ).toBe(original);
       if (ratio === 1) {
-        await page
-          .getByText('Security payload fallback', { exact: true })
-          .click();
+        await page.getByText('Advanced text import', { exact: true }).click();
         const incoming = page.getByLabel('Incoming security payload', {
           exact: true,
         });

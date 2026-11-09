@@ -41,10 +41,12 @@ export function DeviceExport({
   return (
     <section className="provision-workspace">
       <div>
-        <h2>Ready before the doors open.</h2>
+        <h2>Prepare your entrance phones</h2>
         <p>
-          Prepare each scanner while you can still transfer files. Once cached
-          and provisioned, ticket verification and check-in work offline.
+          Prepare each scanner while you can still transfer files. Download this
+          event file, open EntryLoop on each phone and choose Prepare this
+          scanner. Approve each phone afterward; the file alone does not
+          authorize admissions.
         </p>
         <ol className="prepare-steps">
           <li>Issue the tickets you want scanners to accept.</li>
@@ -77,7 +79,7 @@ export function DeviceExport({
         <code data-testid="organizer-fingerprint">{event.fingerprint}</code>
         <dl>
           <div>
-            <dt>Algorithm</dt>
+            <dt>Signing method</dt>
             <dd>ECDSA P-256 / SHA-256</dd>
           </div>
           <div>
@@ -171,9 +173,11 @@ export function PackageImport({ db }: { db: EntryLoopDB }) {
             {preview.package.ticketIds.length} issued ticket IDs · revision{' '}
             {preview.package.event.revision}
           </p>
-          <p className="fine-print">
-            Package signature matches its included public key. Before trusting
-            it, obtain the full fingerprint from the organizer independently.
+          <p className="notice-strip">
+            Get the organizer’s fingerprint from their own screen or a trusted
+            channel. Never copy it from the file you are approving. Package
+            signature matches its included public key. Before trusting it,
+            obtain the full fingerprint from the organizer independently.
           </p>
           <label>
             Organizer fingerprint

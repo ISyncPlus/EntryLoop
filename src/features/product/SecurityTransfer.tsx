@@ -41,7 +41,7 @@ export function SecurityInput({
         HTTPS or localhost.
       </p>
       <label>
-        Read security QR or JSON file
+        Choose a code image or approval file
         <input
           type="file"
           accept="image/*,.json,application/json"
@@ -57,7 +57,7 @@ export function SecurityInput({
         />
       </label>
       <details>
-        <summary>Security payload fallback</summary>
+        <summary>Advanced text import</summary>
         <label htmlFor={inputId}>Incoming security payload</label>
         <textarea
           id={inputId}
@@ -123,25 +123,28 @@ export function SecurityQr({ text }: { text: string }) {
           </a>
         </>
       )}
-      <label>
-        <input
-          type="checkbox"
-          checked={legacy}
-          onChange={(event) => setLegacy(event.target.checked)}
-        />
-        Compatibility QR (JSON for older EntryLoop)
-      </label>
-      <p data-testid="security-qr-statistics">
-        {qr
-          ? `${qr.bytes} QR bytes · version ${qr.version} · ${qr.modules} × ${qr.modules} modules · ${qr.correction} correction · ${qr.imageSize} × ${qr.imageSize} image pixels`
-          : 'QR unavailable'}{' '}
-        · {new TextEncoder().encode(text).length} signed JSON bytes
-      </p>
-      <p>
-        Compact codes require the updated app on both devices. Choose
-        compatibility for older apps. Signatures and authorization checks are
-        identical.
-      </p>
+      <details className="qr-diagnostics">
+        <summary>Compatibility & QR details</summary>
+        <label>
+          <input
+            type="checkbox"
+            checked={legacy}
+            onChange={(event) => setLegacy(event.target.checked)}
+          />
+          Compatibility QR (JSON for older EntryLoop)
+        </label>
+        <p data-testid="security-qr-statistics">
+          {qr
+            ? `${qr.bytes} QR bytes · version ${qr.version} · ${qr.modules} × ${qr.modules} modules · ${qr.correction} correction · ${qr.imageSize} × ${qr.imageSize} image pixels`
+            : 'QR unavailable'}{' '}
+          · {new TextEncoder().encode(text).length} signed JSON bytes
+        </p>
+        <p>
+          Compact codes require the updated app on both devices. Choose
+          compatibility for older apps. Signatures and authorization checks are
+          identical.
+        </p>
+      </details>
       <details>
         <summary>Signed message JSON / manual fallback</summary>
         <textarea

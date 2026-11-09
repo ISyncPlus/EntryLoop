@@ -1,0 +1,1496 @@
+{
+ "url": "http://127.0.0.1:4173/?scanner=stage4-final-empty&theme=dark",
+ "at": "2026-11-09T15:57:53.146Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 984,
+     "screens": 1.1,
+     "words": 157,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 4,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 30,
+     "vw": 2.1,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 160,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Your events",
+     "words": 2,
+     "lines": 1,
+     "size": 30,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "Your events",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.027,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.22,
+      "top": 160,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.97,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      27,
+      30
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 149,
+     "max": {
+      "size": 30,
+      "vw": 2.1,
+      "font": "IBM Plex Sans",
+      "text": "Your events"
+     },
+     "monoShare": 0.03,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.06,
+     "smallText": 9
+    },
+    "eyebrows": [
+     {
+      "text": "Saved in this browser · Workspace:",
+      "above": "Your events",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 118
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#101412",
+       "top": 0,
+       "hsl": {
+        "h": 150,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#171d19",
+       "top": 80,
+       "hsl": {
+        "h": 140,
+        "s": 0.12,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b2c0b6",
+       "share": 0.7
+      },
+      {
+       "color": "#eef4f0",
+       "share": 0.25
+      },
+      {
+       "color": "#8dd6b8",
+       "share": 0.04
+      },
+      {
+       "color": "#0a2115",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#171d19",
+      "hsl": {
+       "h": 140,
+       "s": 0.12,
+       "l": 0.1
+      },
+      "fg": "#eef4f0"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 5,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Light",
+      "Organizer workspace",
+      "Create event",
+      "Create an event in this workspace"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "details#workspace-storage.workspace-storage 1116px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 3,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 984,
+    "margins": {
+     "left": 28,
+     "right": 28
+    },
+    "sections": [
+     {
+      "sel": "div.empty-state",
+      "tag": "div",
+      "top": 255,
+      "height": 243,
+      "words": 54,
+      "media": 0,
+      "middle": 223,
+      "heading": {
+       "text": "The room is yours.",
+       "size": 24,
+       "tag": "strong"
+      },
+      "left": 320,
+      "right": 155,
+      "textLeft": 320,
+      "textRight": 155,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "aside.local-note",
+      "tag": "aside",
+      "top": 529,
+      "height": 125,
+      "words": 36,
+      "media": 0,
+      "middle": 213,
+      "heading": {
+       "text": "Built for the moment the network isn’t.",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 264,
+      "right": 82,
+      "textLeft": 264,
+      "textRight": 82,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Your events",
+      "size": 30,
+      "top": 160,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 264,
+      "n": 6
+     },
+     {
+      "x": 741,
+      "n": 2
+     },
+     {
+      "x": 789,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 9,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.08,
+    "voidBox": {
+     "x": 0,
+     "y": 240,
+     "w": 240,
+     "h": 420
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f4f6f5",
+    "sidebar": {
+     "w": 224,
+     "tag": "nav",
+     "links": 4,
+     "share": 0.16
+    },
+    "topbar": {
+     "h": 80
+    },
+    "canvas": {
+     "left": 40,
+     "right": 28
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 30,
+     "vw": 2.1,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 160,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 3,
+     "radii": [
+      [
+       8,
+       2
+      ],
+      [
+       12,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.15,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      27,
+      30
+     ]
+    },
+    "title": {
+     "text": "Your events",
+     "size": 30,
+     "top": 160
+    },
+    "colourShare": 0.007
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1038,
+     "screens": 1,
+     "words": 140,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 4,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 30,
+     "vw": 3.9,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 238,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Your events",
+     "words": 2,
+     "lines": 1,
+     "size": 30,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "EntryLoop",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 27,
+      "vw": 3.5,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.044,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 14,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Your events",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 3.9,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.027,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 238,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 2,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.97,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      27,
+      30
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 92,
+     "max": {
+      "size": 30,
+      "vw": 3.9,
+      "font": "IBM Plex Sans",
+      "text": "Your events"
+     },
+     "monoShare": 0.03,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.07,
+     "smallText": 7
+    },
+    "eyebrows": [
+     {
+      "text": "Saved in this browser · Workspace:",
+      "above": "Your events",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 196
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#101412",
+       "top": 0,
+       "hsl": {
+        "h": 150,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#171d19",
+       "top": 162,
+       "hsl": {
+        "h": 140,
+        "s": 0.12,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b2c0b6",
+       "share": 0.7
+      },
+      {
+       "color": "#eef4f0",
+       "share": 0.23
+      },
+      {
+       "color": "#8dd6b8",
+       "share": 0.04
+      },
+      {
+       "color": "#0a2115",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#171d19",
+      "hsl": {
+       "h": 140,
+       "s": 0.12,
+       "l": 0.1
+      },
+      "fg": "#eef4f0"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 5,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Light",
+      "Organizer workspace",
+      "Create event",
+      "Create an event in this workspace"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "details#workspace-storage.workspace-storage 688px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 3,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1038,
+    "margins": {
+     "left": 28,
+     "right": 28
+    },
+    "sections": [
+     {
+      "sel": "div.empty-state",
+      "tag": "div",
+      "top": 333,
+      "height": 273,
+      "words": 54,
+      "media": 0,
+      "middle": 124,
+      "heading": {
+       "text": "The room is yours.",
+       "size": 24,
+       "tag": "strong"
+      },
+      "left": 96,
+      "right": 84,
+      "textLeft": 96,
+      "textRight": 84,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "aside.local-note",
+      "tag": "aside",
+      "top": 637,
+      "height": 148,
+      "words": 36,
+      "media": 0,
+      "middle": 62,
+      "heading": {
+       "text": "Built for the moment the network isn’t.",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 40,
+      "right": 48,
+      "textLeft": 40,
+      "textRight": 48,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Your events",
+      "size": 30,
+      "top": 238,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 40,
+      "n": 6
+     },
+     {
+      "x": 346,
+      "n": 2
+     },
+     {
+      "x": 370,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 9,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f4f6f5",
+    "sidebar": null,
+    "topbar": {
+     "h": 72
+    },
+    "canvas": {
+     "left": 28,
+     "right": 28
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 30,
+     "vw": 3.9,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 238,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 3,
+     "radii": [
+      [
+       8,
+       2
+      ],
+      [
+       12,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.12,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      27,
+      30
+     ]
+    },
+    "title": {
+     "text": "Your events",
+     "size": 30,
+     "top": 238
+    },
+    "colourShare": 0.016
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1100,
+     "screens": 1.3,
+     "words": 130,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 4,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 25,
+     "vw": 6.4,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 214,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Your events",
+     "words": 2,
+     "lines": 1,
+     "size": 25,
+     "font": "IBM Plex Sans"
+    },
+    "headings": [
+     {
+      "text": "EntryLoop",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.05,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 12,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Your events",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 25,
+      "vw": 6.4,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.032,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.74,
+      "top": 214,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "No events saved here yet.",
+      "words": 5,
+      "chars": 25,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "IBM Plex Sans",
+      "weight": 600,
+      "tracking": -0.014,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 381,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 5,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Sans",
+       "share": 0.97,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.03,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      25
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Sans",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.7
+     },
+     "measureChars": 48,
+     "max": {
+      "size": 25,
+      "vw": 6.4,
+      "font": "IBM Plex Sans",
+      "text": "Your events"
+     },
+     "monoShare": 0.03,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.07,
+     "smallText": 8
+    },
+    "eyebrows": [
+     {
+      "text": "Saved in this browser · Workspace:",
+      "above": "Your events",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 184
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f6f5",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.1,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#101412",
+       "top": 0,
+       "hsl": {
+        "h": 150,
+        "s": 0.11,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#171d19",
+       "top": 154,
+       "hsl": {
+        "h": 140,
+        "s": 0.12,
+        "l": 0.1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#b2c0b6",
+       "share": 0.71
+      },
+      {
+       "color": "#eef4f0",
+       "share": 0.23
+      },
+      {
+       "color": "#8dd6b8",
+       "share": 0.04
+      },
+      {
+       "color": "#0a2115",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#171d19",
+      "hsl": {
+       "h": 140,
+       "s": 0.12,
+       "l": 0.1
+      },
+      "fg": "#eef4f0"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 4,
+     "radius": 6,
+     "height": 44,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Organizer workspace",
+      "Create event",
+      "Create an event in this workspace"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "details#workspace-storage.workspace-storage 358px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "ibm plex sans"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1100,
+    "margins": {
+     "left": 16,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "div.app-frame",
+      "tag": "div",
+      "top": 68,
+      "height": 896,
+      "words": 111,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Your events",
+       "size": 25,
+       "tag": "h1"
+      },
+      "left": 16,
+      "right": 25,
+      "textLeft": 16,
+      "textRight": 25,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.product-footer",
+      "tag": "footer",
+      "top": 964,
+      "height": 136,
+      "words": 16,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 163,
+      "textLeft": 16,
+      "textRight": 163,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Your events",
+      "size": 25,
+      "top": 214,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 16,
+      "n": 7
+     },
+     {
+      "x": 40,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 9,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#f4f6f5",
+    "sidebar": null,
+    "topbar": {
+     "h": 68
+    },
+    "canvas": {
+     "left": 16,
+     "right": 20
+    },
+    "hero": {
+     "text": "Your events",
+     "words": 2,
+     "chars": 11,
+     "lines": 1,
+     "size": 25,
+     "vw": 6.4,
+     "font": "IBM Plex Sans",
+     "weight": 600,
+     "tracking": -0.03,
+     "leading": 1.2,
+     "top": 214,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       8,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.13,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      18,
+      22,
+      24,
+      25
+     ]
+    },
+    "title": {
+     "text": "Your events",
+     "size": 25,
+     "top": 214
+    },
+    "colourShare": 0.04
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/desktop-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/tablet-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/mobile-fold.jpg",
+   "pages": [
+    "/Users/InhouseHQ/Desktop/EntryLoop/.taste-skill/stage4-final-dark/mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

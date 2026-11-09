@@ -32,6 +32,7 @@ export async function createIssued(
     page.getByRole('heading', { name: 'Persistence acceptance', exact: true }),
   ).toBeVisible();
   const id = page.url().match(/\/events\/([a-f0-9-]{36})/)![1]!;
+  await page.getByRole('tab', { name: 'Guest list', exact: true }).click();
   await page.getByText('Import from CSV', { exact: true }).click();
   await page.getByLabel('Choose attendee CSV').setInputFiles({
     name: 'test.csv',
@@ -52,6 +53,11 @@ export async function createIssued(
 }
 export async function authorizeOwn(page: Page) {
   await page.getByRole('tab', { name: 'Scanner devices', exact: true }).click();
+  await page
+    .getByText('Use this organizer device for check-in or receiving', {
+      exact: true,
+    })
+    .click();
   await page
     .getByRole('button', { name: 'Authorize this device', exact: true })
     .click();

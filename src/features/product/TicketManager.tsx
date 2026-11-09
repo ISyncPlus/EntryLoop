@@ -126,10 +126,7 @@ export function TicketManager({
       <div className="section-heading">
         <div>
           <h2>Signed admission tickets</h2>
-          <p>
-            Each QR contains only an event ID, an opaque ticket ID and its
-            signature.
-          </p>
+          <p>Preview and share each guest’s signed admission ticket.</p>
         </div>
         <button
           disabled={busy || !tickets.length}
@@ -138,19 +135,22 @@ export function TicketManager({
           Download ticket sheet
         </button>
       </div>
-      <label>
-        <input
-          type="checkbox"
-          checked={legacy}
-          onChange={(e) => setLegacy(e.target.checked)}
-        />
-        Compatibility tickets (JSON QR for older EntryLoop)
-      </label>
-      <p className="fine-print">
-        Compact tickets require updated scanners. Existing ticket IDs/signatures
-        are retained. Select compatibility before export when any scanner uses
-        an older app.
-      </p>
+      <details className="ticket-compatibility">
+        <summary>Older scanner compatibility</summary>
+        <label>
+          <input
+            type="checkbox"
+            checked={legacy}
+            onChange={(e) => setLegacy(e.target.checked)}
+          />
+          Compatibility tickets (JSON QR for older EntryLoop)
+        </label>
+        <p className="fine-print">
+          Compact tickets require updated scanners. Existing ticket
+          IDs/signatures are retained. Select compatibility before export when
+          any scanner uses an older app.
+        </p>
+      </details>
       <Feedback error={error} />
       {!ticket || !attendee ? (
         <div className="empty-state compact">
@@ -178,8 +178,8 @@ export function TicketManager({
               </select>
             </label>
             <p>
-              {tickets.length} signed tickets issued. Ticket IDs and signatures
-              are retained across repeated exports.
+              {tickets.length} signed tickets. Repeated downloads keep the same
+              ticket.
             </p>
             <button
               className="primary"
@@ -188,11 +188,14 @@ export function TicketManager({
             >
               Download digital ticket
             </button>
-            <p className="fine-print">
-              Individual download: SVG. Ticket sheet: offline HTML, printable
-              through your browser. These layouts contain attendee names; share
-              each ticket only with its intended attendee.
-            </p>
+            <details>
+              <summary>Formats & privacy</summary>
+              <p className="fine-print">
+                Individual download: SVG. Ticket sheet: offline HTML, printable
+                through your browser. These layouts contain attendee names;
+                share each ticket only with its intended attendee.
+              </p>
+            </details>
             <a href={href(`/scan/${event.id}`)}>Open event check-in</a>
           </div>
           <TicketPreview

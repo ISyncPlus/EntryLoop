@@ -36,7 +36,7 @@ describe('read failure and query lifecycle boundaries', () => {
       return original(index);
     });
     render(<EventList db={db} />);
-    await screen.findByText('No organizer events in this workspace.');
+    await screen.findByText('No events saved here yet.');
     fail = true;
     await act(async () => {
       await createEvent(db, {
@@ -50,7 +50,7 @@ describe('read failure and query lifecycle boundaries', () => {
       'Later storage read failed',
     );
     expect(
-      screen.queryByText('No organizer events in this workspace.'),
+      screen.queryByText('No events saved here yet.'),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByText('Create an event in this workspace'),
@@ -73,7 +73,7 @@ describe('read failure and query lifecycle boundaries', () => {
       screen.queryByText('Create an event in this workspace'),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText('No organizer events in this workspace.'),
+      screen.queryByText('No events saved here yet.'),
     ).not.toBeInTheDocument();
   });
   it('clears a previous empty result when changing to a failed query', async () => {

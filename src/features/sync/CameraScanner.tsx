@@ -100,7 +100,15 @@ export function CameraScanner({ onPayload, disabled }: Props) {
           aria-label="QR camera preview"
         />
       )}
-      {error && <p role="alert">{error}</p>}
+      {error && (
+        <div className="camera-error">
+          <p role="alert">{error}</p>
+          <p>
+            Check camera permission in this browser’s site settings, then retry.
+            You can also read an original QR image using the file option below.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

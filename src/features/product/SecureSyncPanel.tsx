@@ -1,3 +1,4 @@
+import { ExchangeGuide } from './ExchangeGuide';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import {
@@ -20,6 +21,7 @@ export function SecureSyncPanel({
   eventId: string;
 }) {
   const [id, setId] = useState('');
+  const [sending, setSending] = useState(false);
   const [index, setIndex] = useState(0);
   const [resend, setResend] = useState<number[] | null>(null);
   const [special, setSpecial] = useState('');
@@ -77,22 +79,42 @@ export function SecureSyncPanel({
   const missing =
     session?.direction === 'incoming' ? missingIndices(session) : [];
   return (
-    <section className="panel transfer" aria-labelledby="secure-sync-title">
-      <h2 id="secure-sync-title">Authenticated offline exchange</h2>
+    <section
+      className="panel transfer"
+      aria-label="Authenticated offline exchange"
+    >
+      <h2 id="secure-sync-title">Exchange records</h2>
       <p>
-        Receiver: create a request. Sender: scan it, then show the offer and
-        every prepared batch. Receiver: scan those codes and return the
-        acknowledgment. Exchange in both directions until operation identities
-        and integrity match. No network is used.
+        Bring attendance from one entrance to another. No internet, Wi-Fi or
+        Bluetooth needed.
       </p>
-      <p>
-        900 UTF-8 bytes per QR · 2 admissions per data batch · up to 10,000
-        operations per snapshot. Advance codes manually after successful reads;
-        no timed animation.
-      </p>
-      <button disabled={busy} onClick={() => void begin()}>
-        Start receiving
-      </button>
+      <ExchangeGuide
+        session={session}
+        sending={sending}
+        missing={missing.length}
+        index={index}
+        total={queue.length}
+      />
+      <div className="exchange-actions">
+        <button
+          disabled={busy}
+          onClick={() => {
+            setSending(true);
+            setId('');
+            setSpecial('');
+            setResend(null);
+            setIndex(0);
+            document
+              .getElementById('exchange-reader')
+              ?.scrollIntoView({ block: 'nearest' });
+          }}
+        >
+          Send records
+        </button>
+        <button disabled={busy} onClick={() => void begin()}>
+          Start receiving
+        </button>
+      </div>
       <label>
         Resume saved exchange
         <select
@@ -116,9 +138,10 @@ export function SecureSyncPanel({
       </label>
       {session && (
         <>
-          <p>
-            Exchange <code data-testid="sync-session-id">{session.id}</code>
-          </p>
+          <details>
+            <summary>Exchange identity</summary>
+            <code data-testid="sync-session-id">{session.id}</code>
+          </details>
           {session.offer && (
             <p>{session.offer.n} operations in the offered snapshot.</p>
           )}
@@ -224,11 +247,21 @@ export function SecureSyncPanel({
             <button onClick={() => setSpecial('')}>Return to exchange</button>
           )}
         </div>
-        <div>
+        <div id="exchange-reader">
           <h3>Read the other device’s code</h3>
           <SecurityInput onPayload={receive} busy={busy} />
         </div>
       </div>
+      <details className="protocol-details">
+        <summary>Advanced exchange details</summary>
+        <p>
+          900 UTF-8 bytes per QR · 2 admissions per data batch · up to 10,000
+          operations per snapshot. Completion compares signed operation
+          identities and content roots, not counts. A receipt describes a
+          historical snapshot; it does not establish continuous global
+          agreement.
+        </p>
+      </details>
       <Feedback error={error || storageError} />
       {error && (
         <p>

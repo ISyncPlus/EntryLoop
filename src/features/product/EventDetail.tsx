@@ -1,35 +1,66 @@
 import { SecureSyncPanel } from './SecureSyncPanel';
-import { OperationsLedger } from '../workbench/OperationsLedger';
+import { AttendanceReview } from './AttendanceReview';
 import { useCallback, useState } from 'react';
 import type { EntryLoopDB } from '../check-in/persistence/database';
 import { trustedSnapshot } from '../security/operations';
 import { ScannerAuthority } from './ScannerAuthority';
-import { useLiveData, eventDate, href, navigateTabs } from './shared';
-import { Feedback } from './Feedback';
+import { useLiveData, eventDate, href } from './shared';
+import { StorageFailure } from './StorageFailure';
 import { EventForm } from './EventForm';
 import { AttendeeManager } from './AttendeeManager';
 import { TicketManager } from './TicketManager';
+import { EventOverview } from './EventOverview';
+import { LoadingState, ViewTabs } from './ProductUI';
 import { DeviceExport } from './Provisioning';
 export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
-  const [view, setView] = useState('Guest list');
+  const tabs = [
+    'Overview',
+    'Guest list',
+    'Tickets',
+    'Scanner devices',
+    'Attendance & sync',
+    'Event details',
+  ];
+  const [view, setViewState] = useState(
+    () =>
+      tabs.find(
+        (tab) => encodeURIComponent(tab) === window.location.hash.slice(1),
+      ) ?? 'Overview',
+  );
+  function setView(tab: string) {
+    setViewState(tab);
+    window.history.replaceState(
+      null,
+      '',
+      window.location.pathname +
+        window.location.search +
+        '#' +
+        encodeURIComponent(tab),
+    );
+  }
   const query = useCallback(
     async () => ({
       event: await db.events.get(id),
       attendees: await db.attendees.where('eventId').equals(id).toArray(),
       tickets: await db.issuedTickets.where('eventId').equals(id).toArray(),
       snapshot: await trustedSnapshot(db, id),
+      credentials: await db.credentials.where('e').equals(id).toArray(),
     }),
     [db, id],
   );
   const { data, error } = useLiveData(query);
-  if (error) return <Feedback error={error} />;
-  if (!data) return <p role="status">Opening event…</p>;
+  if (error) return <StorageFailure error={error} database={db.name} />;
+  if (!data) return <LoadingState>Opening event…</LoadingState>;
   const { event, attendees, tickets, snapshot } = data;
   if (!event)
     return (
       <div className="empty-state">
         <h1>Event not found</h1>
-        <p>This event is not stored in this device’s current profile.</p>
+        <p>
+          This event is not stored in this device’s current workspace. Keep the
+          original browser and address; do not clear storage or create a
+          replacement to recover it. See recovery help below.
+        </p>
         <a href={href('/')}>Back to events</a>
       </div>
     );
@@ -47,6 +78,28 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
       </div>
     );
   const attendance = snapshot.state;
+  const eventMetrics = (
+    <div className="event-metrics">
+      <div>
+        <span>On the guest list</span>
+        <strong data-testid="attendee-count">{attendees.length}</strong>
+      </div>
+      <div>
+        <span>Tickets issued</span>
+        <strong data-testid="issued-count">{tickets.length}</strong>
+      </div>
+      <div>
+        <span>Trusted check-ins locally</span>
+        <strong>{attendance.attendance}</strong>
+      </div>
+      <div>
+        <span>Admission conflicts</span>
+        <strong className={attendance.conflicts.length ? 'danger-text' : ''}>
+          {attendance.conflicts.length}
+        </strong>
+      </div>
+    </div>
+  );
   return (
     <>
       <a className="back-link" href={href('/')}>
@@ -63,58 +116,42 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
           Open check-in
         </a>
       </div>
-      <div className="event-metrics">
-        <div>
-          <span>On the guest list</span>
-          <strong data-testid="attendee-count">{attendees.length}</strong>
-        </div>
-        <div>
-          <span>Tickets issued</span>
-          <strong data-testid="issued-count">{tickets.length}</strong>
-        </div>
-        <div>
-          <span>Trusted check-ins locally</span>
-          <strong>{attendance.attendance}</strong>
-        </div>
-        <div>
-          <span>Admission conflicts</span>
-          <strong className={attendance.conflicts.length ? 'danger-text' : ''}>
-            {attendance.conflicts.length}
-          </strong>
-        </div>
-      </div>
-      <div
-        className="view-tabs"
-        role="tablist"
-        aria-label="Event workspace"
-        onKeyDown={navigateTabs}
-      >
-        {[
-          'Guest list',
-          'Tickets',
-          'Scanner devices',
-          'Attendance & sync',
-          'Event details',
-        ].map((tab) => (
-          <button
-            key={tab}
-            role="tab"
-            aria-selected={view === tab}
-            tabIndex={view === tab ? 0 : -1}
-            aria-controls="event-tab-panel"
-            id={`tab-${tab.replaceAll(' ', '-')}`}
-            onClick={() => setView(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+      {view === 'Overview' ? (
+        eventMetrics
+      ) : (
+        <details className="compact-event-totals">
+          <summary>
+            {attendees.length} guests · {tickets.length} tickets ·{' '}
+            {attendance.attendance} admissions received here
+          </summary>
+          {eventMetrics}
+        </details>
+      )}
+      <ViewTabs
+        label="Event workspace"
+        items={tabs}
+        value={view}
+        onChange={setView}
+        prefix="event-tab"
+      />
       <div
         id="event-tab-panel"
         role="tabpanel"
-        aria-labelledby={`tab-${view.replaceAll(' ', '-')}`}
+        aria-labelledby={`event-tab-${tabs.indexOf(view)}`}
         className="event-tab-panel"
       >
+        {view === 'Overview' && (
+          <EventOverview
+            event={event}
+            guests={attendees.length}
+            issued={tickets.length}
+            credentials={data.credentials}
+            policy={snapshot.policy}
+            conflicts={attendance.conflicts.length}
+            operations={attendance.operations}
+            onView={setView}
+          />
+        )}
         {view === 'Guest list' && (
           <AttendeeManager
             db={db}
@@ -158,11 +195,11 @@ export function EventDetail({ db, id }: { db: EntryLoopDB; id: string }) {
               {attendance.conflicts.length} conflicts
             </p>
             <SecureSyncPanel db={db} eventId={id} />
-            <OperationsLedger
+            <AttendanceReview
               records={attendance.operations}
               scannerId=""
-              selected={[]}
               conflicts={attendance.conflicts}
+              attendees={attendees}
             />
           </section>
         )}

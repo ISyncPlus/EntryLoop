@@ -22,7 +22,7 @@ async function qr(area: Locator) {
 }
 async function incoming(area: Locator, image: Buffer) {
   await area
-    .getByLabel('Read security QR or JSON file', { exact: true })
+    .getByLabel('Choose a code image or approval file', { exact: true })
     .setInputFiles({
       name: 'exchange.png',
       mimeType: 'image/png',
@@ -155,6 +155,9 @@ test('seven fictional attendees: two offline entrances enroll, interrupt/resume,
       .click();
     await expect(organizer.getByTestId('attendee-count')).toHaveText('0');
     const id = organizer.url().match(/\/events\/([a-f0-9-]{36})/)![1]!;
+    await organizer
+      .getByRole('tab', { name: 'Guest list', exact: true })
+      .click();
     await organizer.getByText('Add an attendee', { exact: true }).click();
     await organizer
       .getByLabel('Full name', { exact: true })
@@ -349,6 +352,11 @@ test('seven fictional attendees: two offline entrances enroll, interrupt/resume,
     ).toBe(0);
     await organizer
       .getByRole('button', { name: 'Open scanner authorization', exact: true })
+      .click();
+    await organizer
+      .getByText('Use this organizer device for check-in or receiving', {
+        exact: true,
+      })
       .click();
     await organizer
       .getByRole('button', { name: 'Authorize this device', exact: true })

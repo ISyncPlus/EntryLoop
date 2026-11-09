@@ -38,6 +38,9 @@ it('hides the previous format immediately while a compatibility QR is being prep
   ).toHaveAttribute('src', 'first.png');
   await userEvent
     .setup()
+    .click(screen.getByText('Compatibility & QR details', { exact: true }));
+  await userEvent
+    .setup()
     .click(
       screen.getByLabelText('Compatibility QR (JSON for older EntryLoop)'),
     );

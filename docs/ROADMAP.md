@@ -1,10 +1,14 @@
 # Roadmap
 
-## Stage 3 · Current authorization
+## Stage 4 · Current local product experience
 
-Product-readiness integration, workflow/storage audit, measured decoder loading, local staging artifact/provenance, seven-person offline acceptance and Stage 4 planning. See STAGE_3_REPORT.md for current executed gates, external deployment blocks and performance evidence. No full redesign, cloud feature, payments, push or production deployment is authorized.
+Authorized November 9, 2026: implement the organizer/staff experience and design overhaul using the selected app design skill, preserving all security, storage and QR behavior. See STAGE_4_REPORT.md, DESIGN_SYSTEM.md, UX_BEFORE_AFTER.md, USABILITY_TEST_PLAN.md and STAGE_4_TEST_RESULTS.md. No deployment/push/Stage 5 is authorized.
 
-The original organizer disappearance is still unexplained: its incident/release reliability gate remains **FAILED**, independently of passing new scenarios. The owner explicitly authorized Stage 3 despite that unresolved evidence. No absent event/key is claimed restored.
+The original organizer disappearance is still unexplained: its incident/release reliability gate remains **FAILED**, independently of passing new scenarios. No absent event/key is claimed restored.
+
+## Stage 3 · Completed locally
+
+Product-readiness integration, workflow/storage audit, measured decoder loading, local staging artifact/provenance, seven-person offline acceptance and Stage 4 planning. STAGE_3_REPORT.md preserves that phase's executed gates. Separate staging account/project deployment still requires approval; physical acceptance remains unperformed.
 
 ## Phase 1 · Completed, owner-confirmed physical reconciliation
 
@@ -30,8 +34,8 @@ After reliability clearance, run the new two-phone camera procedure with all rad
 
 Secure organizer recovery/rotation, encrypted storage/access control, reliable retention/quotas, session cleanup, privacy policies, cancellation/reissue and larger-event transport are unresolved engineering work requiring explicit later scope. No insecure key backup was added.
 
-## Stage 4 · Deferred UI/UX
+## Stage 5 · Proposed validation and review (not authorized)
 
-When explicitly authorized, improve enrollment guidance, full-fingerprint comparison ergonomics, synchronization handoff/resume/receipt clarity, conflict investigation, revocation impact feedback, camera operation on phones, accessibility and light/dark presentation. Preserve cryptographic semantics and actual metrics. The selected design-taste-frontend skill remains available; do not reintroduce the canceled agency/video/animation experiment automatically.
+After fresh authorization: conduct novice-user and physical acceptance of the implemented Stage 4 experience; resolve/accountably explain the original incident; independently review security; evaluate a reviewed/versioned pairing/provisioning workflow and receive-only role; measure event-scale optical throughput, retention and recovery. Keep all current trust/identity/quiet-zone protections. Do not claim usability or hardware success from desktop image tests.
 
-Stop after the current reliability hardening task. Cloud synchronization, payments, deployment, marketing and unrelated features remain outside current authorization. Competition rules/AI and third-party terms still require review before submission.
+Stop after Stage 4. Cloud synchronization, payments, deployment, marketing and unrelated features remain outside current authorization. Competition rules/AI and third-party terms still require review before submission.

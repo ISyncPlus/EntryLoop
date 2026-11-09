@@ -5,8 +5,11 @@ import { ScannerAuthority } from './ScannerAuthority';
 import { SecureSyncPanel } from './SecureSyncPanel';
 import { admitSignedTicket } from '../events/repository';
 import { ScanInput } from './ScanInput';
-import { useLiveData, href, message, eventDate, navigateTabs } from './shared';
-import { Feedback } from './Feedback';
+import { useLiveData, href, message, eventDate } from './shared';
+import { ViewTabs } from './ProductUI';
+import { AdmissionFeedback } from './AdmissionFeedback';
+import { StorageFailure } from './StorageFailure';
+import { AttendanceReview } from './AttendanceReview';
 import { OperationsLedger } from '../workbench/OperationsLedger';
 import type { CheckInRecord } from '../check-in/domain/models';
 export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
@@ -43,7 +46,8 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
     },
     [db, id],
   );
-  if (storageError) return <Feedback error={storageError} />;
+  if (storageError)
+    return <StorageFailure error={storageError} database={db.name} />;
   if (!data) return <p role="status">Opening local scanner…</p>;
   if (!data.event)
     return (
@@ -72,7 +76,8 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
         <div>
           <h1>{event.name}</h1>
           <p>
-            {eventDate(event.date)} · {event.location}
+            {credential?.l ?? 'Entrance not named'} · {eventDate(event.date)} ·{' '}
+            {event.location}
           </p>
         </div>
         <span className={authorized ? 'state-tag good' : 'state-tag'}>
@@ -91,26 +96,13 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
           tickets without investigation.
         </p>
       )}
-      <div
-        className="view-tabs"
-        role="tablist"
-        aria-label="Scanner view"
-        onKeyDown={navigateTabs}
-      >
-        {['Check-in', 'Sync & conflicts'].map((tab, index) => (
-          <button
-            role="tab"
-            key={tab}
-            aria-selected={view === tab}
-            tabIndex={view === tab ? 0 : -1}
-            id={`scanner-tab-${index}`}
-            aria-controls="scanner-tab-panel"
-            onClick={() => setView(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
+      <ViewTabs
+        label="Scanner view"
+        items={['Check-in', 'Sync & conflicts']}
+        value={view}
+        onChange={setView}
+        prefix="scanner-tab"
+      />
       {view === 'Check-in' ? (
         <div
           className="gate-layout"
@@ -122,38 +114,16 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
             <div className="gate-heading">
               <div>
                 <h2 id="gate-title">Welcome them in.</h2>
-                <p>Signed ticket. Right event. One local admission.</p>
+                <p>Scan a guest’s ticket to verify and save their admission.</p>
               </div>
-              <span className="camera-brackets" aria-hidden="true">
-                [ + ]
-              </span>
             </div>
             <ScanInput onPayload={admit} busy={busy} />
-            {busy && (
-              <p role="status">Verifying signature and saving locally…</p>
-            )}
-            {last && (
-              <div className="admission-success" role="status">
-                <span>Admitted</span>
-                <strong>{last.ticketId}</strong>
-                <p>
-                  Ticket verified and admission signed by this authorized
-                  scanner. Stored on this device.
-                </p>
-                <time dateTime={last.recordedAt}>{last.recordedAt}</time>
-              </div>
-            )}
-            {error && (
-              <div className="admission-rejected" role="alert">
-                <strong>Not admitted</strong>
-                <p>{error}</p>
-              </div>
-            )}
+            <AdmissionFeedback busy={busy} last={last} error={error} />
           </section>
           <aside className="gate-summary">
             <h2>This entrance</h2>
             <div className="gate-total">
-              <span>Trusted unique tickets in this local log</span>
+              <span>Guests checked in · received here</span>
               <strong data-testid="real-attendance">{state.attendance}</strong>
             </div>
             <dl>
@@ -174,10 +144,15 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
                 <dd>{event.revision}</dd>
               </div>
             </dl>
-            <div className="scanner-id">
-              <span>Cryptographic scanner identity</span>
-              <code>{scanner.id || 'Create an enrollment request first.'}</code>
-            </div>
+            <details>
+              <summary>Device & package details</summary>
+              <div className="scanner-id">
+                <span>Cryptographic scanner identity</span>
+                <code>
+                  {scanner.id || 'Create an enrollment request first.'}
+                </code>
+              </div>
+            </details>
             <p>
               Offline totals reflect only operations received here. Exchange
               batches with other entrances to reconcile.
@@ -196,10 +171,9 @@ export function ScanPage({ db, id }: { db: EntryLoopDB; id: string }) {
           aria-labelledby="scanner-tab-1"
         >
           <SecureSyncPanel db={db} eventId={id} />
-          <OperationsLedger
+          <AttendanceReview
             records={state.operations}
-            scannerId={scanner?.id ?? ''}
-            selected={[]}
+            scannerId={scanner.id}
             conflicts={state.conflicts}
           />
           {(snapshot.legacy > 0 || snapshot.excluded > 0) && (
